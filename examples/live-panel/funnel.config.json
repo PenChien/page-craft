@@ -1,0 +1,7 @@
+{"meta":{"title":"工單變成 PACE 紀錄的比例","lang":"zh"},
+ "canvas":{"width":1080,"height":1080,"duration":36,"fps":30,"preroll":8},
+ "theme":{"preset":"light-pastel"},
+ "titlebar":{"text":"funnel  PACE 紀錄漏斗"},
+ "credit":{"text":"funnel 視圖。數字為示意，不是實際統計","c":"muted"},
+ "elements":[{"type":"view","kind":"funnel","title":"工單變成 PACE 紀錄的比例","subtitle":"每一層少掉的，就是審查不計入的（示意數字）","period":18,
+   "stages":[{"label":"DevOps 工單","sub":"全部","value":400},{"label":"寫了提出者","sub":"誰提的","value":310},{"label":"有成功指標","sub":"現值對目標","value":220},{"label":"簽收單關單","sub":"第三方確認","value":150},{"label":"有使用紀錄","sub":"其他團隊在用","value":90}]}]}

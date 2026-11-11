@@ -1,0 +1,9 @@
+{"meta":{"title":"事故處理循環","lang":"zh"},
+ "canvas":{"width":1080,"height":1080,"duration":30,"fps":30},
+ "theme":{"preset":"light-pastel"},
+ "titlebar":{"text":"ring  事故處理循環"},
+ "credit":{"text":"ring 視圖。步驟依 jira 排查紀錄格式，輪數為示意","c":"muted"},
+ "elements":[{"type":"view","kind":"ring","title":"事故處理循環","subtitle":"每次事故都寫回 Runbook，下一次更快",
+   "name":"事故循環","period":15,
+   "steps":[{"label":"告警","desc":"監控發出通知"},{"label":"排查","desc":"假設與證據"},{"label":"修復","desc":"留【異動】"},{"label":"驗證","desc":"同量法量一次"},{"label":"寫回 Runbook","desc":"排查紀錄入檔"}],
+   "innerLoop":["查 log","提假設","比對證據"],"innerLoopStep":1}]}

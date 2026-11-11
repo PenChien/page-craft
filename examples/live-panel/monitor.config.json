@@ -1,0 +1,786 @@
+{
+ "meta": {
+  "title": "Toolbridge 閘道 即時面板",
+  "lang": "zh"
+ },
+ "canvas": {
+  "preset": "4:5",
+  "duration": 30,
+  "fps": 30,
+  "preroll": 12
+ },
+ "theme": {
+  "preset": "terminal-dark",
+  "fontSize": 21,
+  "lineHeight": 30,
+  "colors": {
+   "mute": "#aab1c0",
+   "rd": "#f07178"
+  }
+ },
+ "machines": {
+  "calls": {
+   "type": "counter",
+   "start": 12840,
+   "rate": 9,
+   "format": "comma"
+  },
+  "jira工具_l": {
+   "type": "lane",
+   "period": 7.5,
+   "run": 5.1,
+   "off": 0.3,
+   "busy": "呼叫中",
+   "done": [
+    "完成"
+   ],
+   "phase": 0,
+   "log": {
+    "who": "jira 工具",
+    "c": "gr",
+    "msgs": [
+     [
+      "DEMO-3213 留言完成",
+      ""
+     ],
+     [
+      "Sub-task 建立完成",
+      ""
+     ]
+    ]
+   }
+  },
+  "dochub工具_l": {
+   "type": "lane",
+   "period": 8.5,
+   "run": 5.8,
+   "off": 1.0,
+   "busy": "呼叫中",
+   "done": [
+    "完成"
+   ],
+   "phase": 1,
+   "log": {
+    "who": "dochub 工具",
+    "c": "pu",
+    "msgs": [
+     [
+      "Runbook 更新完成",
+      ""
+     ]
+    ]
+   }
+  },
+  "gitlab工具_l": {
+   "type": "lane",
+   "period": 9.5,
+   "run": 6.5,
+   "off": 1.7,
+   "busy": "呼叫中",
+   "done": [
+    "完成"
+   ],
+   "phase": 2,
+   "log": {
+    "who": "gitlab 工具",
+    "c": "ye",
+    "msgs": [
+     [
+      "MR 標題補上票號",
+      ""
+     ]
+    ]
+   }
+  },
+  "r20_閘道延遲_g": {
+   "type": "gauge",
+   "values": [
+    0.32,
+    0.41,
+    0.38,
+    0.72,
+    0.45,
+    0.36
+   ],
+   "threshold": 0.6,
+   "period": 4.8,
+   "t0": 0.5,
+   "seed": 141,
+   "decimals": 2,
+   "high": {
+    "label": "偏慢",
+    "dest": ""
+   },
+   "low": {
+    "label": "正常",
+    "dest": ""
+   },
+   "highColor": "rd",
+   "lowColor": "gr",
+   "log": {
+    "who": "閘道延遲",
+    "c": "cy",
+    "msgs": [
+     "p95 偏高，查上游"
+    ],
+    "tail": "{value} {label}"
+   }
+  },
+  "rail": {
+   "type": "triggers",
+   "color": "pu",
+   "period": 4.5,
+   "on": 3.0,
+   "t0": -1.6,
+   "callsStart": 1,
+   "tokens": {
+    "start": 129,
+    "step": 93,
+    "unit": "k"
+   },
+   "items": [
+    {
+     "name": "token 過期",
+     "adv": [
+      "» 重新登入",
+      "» 再呼叫一次"
+     ]
+    },
+    {
+     "name": "附件超過 200 KB",
+     "adv": [
+      "» 改用 curl",
+      "» 直傳 Jira"
+     ]
+    },
+    {
+     "name": "p95 超過門檻",
+     "adv": [
+      "» 查上游服務",
+      "» 留【阻礙】"
+     ]
+    }
+   ],
+   "onText": "介入中",
+   "offText": "待命",
+   "log": {
+    "who": "值班提示",
+    "c": "pu",
+    "start": {
+     "m": "{name} 喚起"
+    },
+    "end": {
+     "m": "{name} 處理完成，回到待命"
+    }
+   }
+  }
+ },
+ "elements": [
+  {
+   "type": "box",
+   "x": 40,
+   "y": 260,
+   "w": 324,
+   "h": 835,
+   "color": "pu",
+   "pad": [
+    13,
+    7,
+    7
+   ],
+   "lines": [
+    {
+     "t": "值班提示",
+     "c": "pu",
+     "b": 1
+    },
+    {
+     "t": "出事才亮",
+     "c": "pu"
+    },
+    {
+     "trigger": [
+      "rail",
+      0
+     ]
+    },
+    "",
+    {
+     "t": "最近建議：",
+     "c": "dim",
+     "align": "left",
+     "indent": 8
+    },
+    {
+     "runs": [
+      {
+       "v": "rail.adv0",
+       "c": "pu",
+       "b": 1
+      }
+     ],
+     "align": "left",
+     "indent": 8
+    },
+    {
+     "runs": [
+      {
+       "v": "rail.adv1",
+       "c": "pu",
+       "b": 1
+      }
+     ],
+     "align": "left",
+     "indent": 8
+    },
+    {
+     "items": [
+      {
+       "w": 182,
+       "runs": [
+        {
+         "t": "喚起次數",
+         "c": "dim"
+        }
+       ]
+      },
+      {
+       "w": 91,
+       "align": "right",
+       "runs": [
+        {
+         "v": "rail.calls",
+         "c": "pu",
+         "b": 1
+        }
+       ]
+      }
+     ],
+     "indent": 8
+    },
+    "",
+    "",
+    "",
+    "",
+    {
+     "trigger": [
+      "rail",
+      1
+     ]
+    },
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    {
+     "trigger": [
+      "rail",
+      2
+     ]
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "x": 0,
+   "w": 1200,
+   "y": 84,
+   "align": "center",
+   "size": 24,
+   "c": "wh",
+   "b": 1,
+   "t": "Toolbridge 閘道 即時面板"
+  },
+  {
+   "type": "rule",
+   "x": 34,
+   "y": 112,
+   "w": 1132
+  },
+  {
+   "type": "text",
+   "x": 0,
+   "w": 1200,
+   "y": 1456,
+   "align": "center",
+   "size": 13,
+   "c": "dim",
+   "t": "數字為示意"
+  },
+  {
+   "type": "text",
+   "x": 34,
+   "w": 1132,
+   "y": 1424,
+   "runs": [
+    {
+     "t": "呼叫 ",
+     "c": "dim"
+    },
+    {
+     "t": "[",
+     "c": "gr",
+     "b": 1
+    },
+    {
+     "v": "calls",
+     "c": "gr",
+     "b": 1
+    },
+    {
+     "t": "]",
+     "c": "gr",
+     "b": 1
+    }
+   ]
+  },
+  {
+   "type": "path",
+   "points": [
+    [
+     784,
+     375
+    ],
+    [
+     784,
+     490
+    ],
+    [
+     526,
+     490
+    ],
+    [
+     526,
+     603
+    ]
+   ],
+   "color": "line",
+   "r": 0,
+   "width": 2,
+   "flow": {
+    "period": 1.8,
+    "offsets": [
+     0,
+     0.9
+    ],
+    "color": "bl"
+   }
+  },
+  {
+   "type": "path",
+   "points": [
+    [
+     784,
+     375
+    ],
+    [
+     784,
+     603
+    ]
+   ],
+   "color": "line",
+   "r": 0,
+   "width": 2,
+   "flow": {
+    "period": 2.1,
+    "offsets": [
+     0,
+     0.9
+    ],
+    "color": "bl"
+   }
+  },
+  {
+   "type": "path",
+   "points": [
+    [
+     784,
+     375
+    ],
+    [
+     784,
+     490
+    ],
+    [
+     1042,
+     490
+    ],
+    [
+     1042,
+     603
+    ]
+   ],
+   "color": "line",
+   "r": 0,
+   "width": 2,
+   "flow": {
+    "period": 2.4,
+    "offsets": [
+     0,
+     0.9
+    ],
+    "color": "bl"
+   }
+  },
+  {
+   "type": "path",
+   "points": [
+    [
+     526,
+     720
+    ],
+    [
+     526,
+     835
+    ],
+    [
+     784,
+     835
+    ],
+    [
+     784,
+     948
+    ]
+   ],
+   "color": "line",
+   "r": 0,
+   "width": 2,
+   "flow": {
+    "period": 2.7,
+    "offsets": [
+     0,
+     0.9
+    ],
+    "color": "bl"
+   }
+  },
+  {
+   "type": "path",
+   "points": [
+    [
+     784,
+     720
+    ],
+    [
+     784,
+     948
+    ]
+   ],
+   "color": "line",
+   "r": 0,
+   "width": 2,
+   "flow": {
+    "period": 1.8,
+    "offsets": [
+     0,
+     0.9
+    ],
+    "color": "bl"
+   }
+  },
+  {
+   "type": "path",
+   "points": [
+    [
+     1042,
+     720
+    ],
+    [
+     1042,
+     835
+    ],
+    [
+     784,
+     835
+    ],
+    [
+     784,
+     948
+    ]
+   ],
+   "color": "line",
+   "r": 0,
+   "width": 2,
+   "flow": {
+    "period": 2.1,
+    "offsets": [
+     0,
+     0.9
+    ],
+    "color": "bl"
+   }
+  },
+  {
+   "type": "box",
+   "x": 596,
+   "y": 260,
+   "w": 376,
+   "h": 115,
+   "color": "cy",
+   "pad": [
+    13,
+    14
+   ],
+   "lines": [
+    {
+     "t": "Claude Code 使用者",
+     "c": "cy",
+     "b": 1
+    },
+    {
+     "t": "呼叫 {calls} 次",
+     "c": "mute"
+    },
+    {
+     "t": "透過 HTTPS 連線",
+     "c": "mute"
+    }
+   ]
+  },
+  {
+   "type": "box",
+   "x": 408,
+   "y": 605,
+   "w": 236,
+   "h": 115,
+   "color": "gr",
+   "pad": [
+    13,
+    14
+   ],
+   "lines": [
+    {
+     "t": "Jira 工具",
+     "c": "fg",
+     "b": 1
+    },
+    {
+     "t": "建單、留言、指派",
+     "c": "mute"
+    },
+    {
+     "runs": [
+      {
+       "v": "jira工具_l"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "type": "box",
+   "x": 666,
+   "y": 605,
+   "w": 236,
+   "h": 115,
+   "color": "pu",
+   "pad": [
+    13,
+    14
+   ],
+   "lines": [
+    {
+     "t": "DocHub 工具",
+     "c": "fg",
+     "b": 1
+    },
+    {
+     "t": "讀寫文件",
+     "c": "mute"
+    },
+    {
+     "runs": [
+      {
+       "v": "dochub工具_l"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "type": "box",
+   "x": 924,
+   "y": 605,
+   "w": 236,
+   "h": 115,
+   "color": "ye",
+   "pad": [
+    13,
+    14
+   ],
+   "lines": [
+    {
+     "t": "GitLab 工具",
+     "c": "fg",
+     "b": 1
+    },
+    {
+     "t": "MR、issue",
+     "c": "mute"
+    },
+    {
+     "runs": [
+      {
+       "v": "gitlab工具_l"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "type": "box",
+   "x": 596,
+   "y": 950,
+   "w": 376,
+   "h": 145,
+   "color": "cy",
+   "pad": [
+    13,
+    14
+   ],
+   "lines": [
+    {
+     "t": "閘道延遲",
+     "c": "cy",
+     "b": 1
+    },
+    {
+     "t": "p95 回應時間",
+     "c": "mute"
+    },
+    {
+     "items": [
+      {
+       "w": 47,
+       "runs": [
+        {
+         "t": "p95",
+         "c": "dim"
+        }
+       ]
+      },
+      {
+       "w": 229,
+       "bar": {
+        "gauge": "r20_閘道延遲_g",
+        "w": 219,
+        "h": 16,
+        "high": "rd",
+        "low": "gr"
+       }
+      },
+      {
+       "runs": [
+        {
+         "v": "r20_閘道延遲_g",
+         "c": "fg"
+        }
+       ]
+      }
+     ],
+     "align": "left"
+    },
+    {
+     "runs": [
+      {
+       "t": "→ ",
+       "c": "dim"
+      },
+      {
+       "v": "r20_閘道延遲_g.label"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "type": "tarrow",
+   "machine": "rail",
+   "i": 0,
+   "from": [
+    368,
+    348
+   ],
+   "to": [
+    592,
+    348
+   ]
+  },
+  {
+   "type": "tarrow",
+   "machine": "rail",
+   "i": 1,
+   "from": [
+    368,
+    648
+   ],
+   "to": [
+    404,
+    648
+   ]
+  },
+  {
+   "type": "tarrow",
+   "machine": "rail",
+   "i": 2,
+   "from": [
+    368,
+    1008
+   ],
+   "to": [
+    592,
+    1008
+   ]
+  },
+  {
+   "type": "log",
+   "x": 40,
+   "y": 1243,
+   "w": 1120,
+   "rows": 4,
+   "padTop": 16,
+   "padBottom": 29,
+   "padLeft": 20,
+   "title": "閘道 log",
+   "titleX": 38,
+   "titleW": 140,
+   "cols": [
+    {
+     "key": "time",
+     "x": 0
+    },
+    {
+     "key": "who",
+     "x": 123
+    },
+    {
+     "key": "m",
+     "x": 285
+    },
+    {
+     "key": "g",
+     "x": 784
+    }
+   ]
+  }
+ ],
+ "clock": {
+  "start": "23:48:04",
+  "rate": 3
+ },
+ "titlebar": {
+  "text": "~/toolbridge  zsh"
+ },
+ "credit": {
+  "text": "scaffold 產生的終端機面板。數字為示意，不是實際監控",
+  "y": 1484,
+  "size": 12
+ }
+}

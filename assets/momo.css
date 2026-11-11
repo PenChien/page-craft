@@ -1,0 +1,119 @@
+/* skill-html 風格 C：Momo 計畫版
+   來源：Data Team 2026 Q4 計畫頁（data-team-plan-2026q4.html）。
+   用法：把本檔內容貼進報告 <style>，或 <link rel="stylesheet" href="momo.css">。
+   版面：深藍封面 → sticky 膠囊導覽 → 灰底 main → 章節 chip 標題 → 白卡 .blk → 灰卡 .card。 */
+
+:root{
+  --bg:#eef1f5;--surface:#fff;--surface2:#f5f6f8;
+  --line:#e5e7eb;--mut:#8a8985;--fg2:#52514e;--fg:#0b0b0b;
+  --acc:#2a78d6;--link:#1b4f9c;--navy:#0f2747;
+  --ok:#1f6b3a;--ok-bg:#e6f2ea;--no:#9a1f1f;--no-bg:#f7d9d9;--warn:#9a4a12;--warn-bg:#fff7e6;
+  --arrow:#9ca3af;
+  --shadow:0 1px 2px rgba(15,39,71,.06),0 6px 20px rgba(15,39,71,.05);
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#0f1115;--surface:#171a21;--surface2:#1e222b;
+  --line:#2a2f3a;--mut:#8b949e;--fg2:#b6bdc8;--fg:#e8eaf0;
+  --acc:#5b9cf0;--link:#8ab4f8;--navy:#0b1c33;
+  --ok:#6fcf8f;--ok-bg:#15301f;--no:#f08a8a;--no-bg:#3a1a1a;--warn:#f0b45a;--warn-bg:#33240e;
+  --arrow:#6b7280;
+  --shadow:none;
+}}
+
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);line-height:1.55;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang TC","Microsoft JhengHei","Noto Sans TC",sans-serif}
+a{color:var(--link);font-weight:700;text-decoration:none}
+
+/* 封面與導覽：鋪滿畫面寬；封面文字、導覽按鈕、內文左緣對齊同一條線，整塊置中。
+   嵌在網頁程式裡（例 目標管理系統）才改靠左：把下面三處的 margin 改 0、封面 padding 改 24px。 */
+.cover{background:var(--navy);color:#fff;padding:88px max(24px,calc((100% - 1072px) / 2)) 64px}
+.cover h1{font-size:36px;margin:0 0 8px;border-left:6px solid var(--acc);padding-left:20px}
+.cover p{color:#c9d6e8;font-size:18px;margin:0 0 0 26px}
+nav.mnav{position:sticky;top:0;z-index:9;background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+nav.mnav .mw{max-width:1120px;margin:0 auto;padding:8px 24px;display:flex;gap:6px;flex-wrap:wrap;font-size:13px}
+nav.mnav a{--c:var(--acc);display:inline-flex;align-items:center;gap:6px;color:var(--fg2);font-weight:400;padding:4px 10px;border-radius:999px;border:1px solid transparent}
+nav.mnav a i{width:7px;height:7px;border-radius:50%;background:var(--c)}
+nav.mnav a:hover{background:var(--surface2);color:var(--fg)}
+nav.mnav a.on{background:color-mix(in srgb,var(--c) 14%,var(--surface));border-color:color-mix(in srgb,var(--c) 35%,var(--surface));color:var(--c);font-weight:700}
+@media (prefers-color-scheme:dark){nav.mnav a.on{color:color-mix(in srgb,var(--c) 45%,#fff)}}  /* 深色底上章節色太暗，文字調亮 */
+main{max-width:1120px;margin:0 auto;padding:0 24px 64px}
+
+/* 章節：chip 標題 + 白卡 + 灰卡 */
+.divider{margin:72px 0 18px;font-size:24px;font-weight:800;color:var(--navy)}
+.divider span{display:inline-block;background:var(--acc);color:#fff;font-size:12px;padding:3px 9px;border-radius:4px;margin-right:10px;vertical-align:middle}
+@media (prefers-color-scheme:dark){.divider{color:var(--fg)}}
+.blk{background:var(--surface);border-radius:14px;padding:26px 30px;margin:22px 0;box-shadow:var(--shadow)}
+.blk>h2:first-child{margin-top:0}
+h2{font-size:20px;margin:28px 0 6px}h3{font-size:16px;margin:24px 0 6px}
+.card{background:var(--surface2);border-radius:10px;padding:14px 18px;margin:10px 0}
+.card .lab{color:var(--acc);font-weight:700;font-size:13px;margin-bottom:6px}
+.card.ok{background:var(--ok-bg)}.card.ok>b:first-child{color:var(--ok)}
+.card.warn{background:var(--warn-bg)}.card.warn>b:first-child{color:var(--warn)}
+.card.no{background:var(--no-bg)}.card.no>b:first-child{color:var(--no)}
+.sub{color:var(--fg2);margin:0 0 12px}.muted{color:var(--mut);font-size:12px}
+.new{color:var(--ok)}
+
+/* 進度、數字、提示 */
+.pct{font-size:14px;color:var(--fg2);font-weight:600;margin-left:8px}
+.bar{height:8px;background:var(--line);border-radius:4px;overflow:hidden;margin:4px 0 14px}
+.fill{height:100%;background:var(--acc)}.fill.risk{background:var(--no)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:16px 0}
+.stat .n{font-size:30px;font-weight:800;color:var(--acc)}.stat .t{font-weight:700}.stat .s{color:var(--fg2);font-size:13px}
+.hero{background:var(--navy);color:#fff;border-radius:12px;padding:22px 26px;margin:22px 0}
+.hero .hero-en{font-size:22px;font-weight:800;letter-spacing:.3px;margin-bottom:8px}
+.hero p{margin:0;color:#dbe6f5;font-size:15px;line-height:1.7}
+.callout{background:var(--ok-bg);border-radius:10px;padding:14px 18px;margin:18px 0;font-size:15px}.callout b{color:var(--ok)}
+pre{background:var(--navy);color:#dbe6f5;border-radius:10px;padding:14px 18px;font-size:12.5px;line-height:1.5;white-space:pre-wrap}
+
+/* 表格 */
+table.t{border-collapse:collapse;width:100%;font-size:13.5px;margin:8px 0}
+table.t th{background:var(--bg);text-align:left;font-weight:700;color:var(--fg2)}
+table.t th,table.t td{border:1px solid var(--line);padding:8px 10px;vertical-align:top}
+td.g{color:var(--ok);font-weight:700}
+tr.newrow td{background:var(--ok-bg);color:var(--ok);font-weight:700}
+
+/* 標籤：類別 4 組（o1 藍、o2 橙、o3 綠、o4 紫）+ 狀態 4 種 */
+.pill{display:inline-block;font-size:11px;font-weight:800;padding:1px 8px;border-radius:999px;white-space:nowrap}
+.pill.o1{background:#dbe8f9;color:#1b4f9c}.pill.o2{background:#fde4d6;color:#9a4a12}
+.pill.o3{background:#d3efd3;color:#0a6a0a}.pill.o4{background:#e8dff7;color:#5b3a9c}
+.st-done{background:#d3efd3;color:#0a6a0a}.st-prog{background:#dbe8f9;color:#1b4f9c}
+.st-wait{background:#fff7e6;color:#9a4a12}.st-todo{background:#f3f4f6;color:#52514e}
+
+/* 架構圖 A：CSS 流程框（橫向 .flow、直向 .vflow、迴圈 .uloop） */
+.flow{display:flex;align-items:stretch;gap:8px;margin:14px 0}.flow .bx{flex:1}
+.arr{align-self:center;color:var(--arrow);font-size:22px}
+.bx{background:var(--surface2);border-radius:8px;padding:12px 10px;text-align:center;display:flex;flex-direction:column;justify-content:center;min-height:70px}
+.bx b{font-size:14px}.bx span{color:var(--fg2);font-size:12.5px}
+.bx.bad{background:var(--no-bg)}.bx.bad b{color:var(--no)}
+.bx.good{background:var(--ok-bg)}.bx.good b{color:var(--ok)}
+.bx.dark{background:#1c2430}.bx.dark b{color:#fff}.bx.dark span{color:#d5e3f7}
+.bx.opt{background:transparent;border:1.5px dashed var(--arrow)}  /* 條件式步驟：符合條件才做 */
+@media (prefers-color-scheme:dark){.bx.dark{background:#24467a}}
+.vflow .bx{margin:0}.varr{text-align:center;color:var(--arrow);font-size:18px;line-height:1}
+.uloop{position:relative;height:22px;margin:0 12.5% 14px;border:1.5px dashed var(--arrow);border-top:0;border-radius:0 0 10px 10px}
+.uloop .uarr{position:absolute;left:-7px;top:-16px;color:var(--arrow);font-size:16px;line-height:1;background:var(--surface);padding:0 1px}
+.uloop .ulab{position:absolute;left:50%;top:10px;transform:translateX(-50%);background:var(--surface);padding:0 8px;font-size:11.5px;font-weight:700;color:var(--fg2);white-space:nowrap}
+.uloop.red{border-color:var(--no)}.uloop.red .uarr,.uloop.red .ulab{color:var(--no)}
+
+/* 架構圖 B：階梯卡（.lc 四格，頂線顏色 = 類別） */
+.lc{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;gap:8px;align-items:stretch;margin:14px 0 10px}
+.lc-arr{align-self:center;color:var(--arrow);font-size:22px}
+.lc-card{background:var(--surface2);border-radius:10px;padding:12px 14px;border-top:4px solid var(--line);display:flex;flex-direction:column}
+.lc-card.o1{border-top-color:#1b4f9c}.lc-card.o2{border-top-color:#c2410c}.lc-card.o3{border-top-color:#0a6a0a}.lc-card.o4{border-top-color:#5b3a9c}
+.lc-n{font-size:11px;color:var(--mut);font-weight:700}.lc-t{font-size:15px;font-weight:800;margin:2px 0 6px}
+.lc-card ul{margin:0;padding-left:16px;font-size:12.5px;color:var(--fg2);flex:1}.lc-card li{margin:3px 0}
+
+/* 架構圖 C：手繪 inline SVG 的外框（SVG 本身固定亮色，白框隔開深色底） */
+.fig{background:#fff;border:1px solid var(--line);border-radius:12px;padding:8px;overflow-x:auto;margin:8px 0}
+.fig svg{display:block;width:100%;min-width:720px;height:auto}  /* 窄螢幕改橫向捲動，不縮到看不清 */
+
+/* 手機 */
+@media(max-width:800px){
+  .cover{padding:48px 24px 36px}.cover h1{font-size:26px}
+  .stats{grid-template-columns:1fr 1fr}
+  .flow{flex-direction:column}.arr{transform:rotate(90deg)}
+  .lc{grid-template-columns:1fr}.lc-arr{transform:rotate(90deg);justify-self:center}
+  .uloop{margin:0 6% 14px}
+}
+@media print{nav{display:none}.blk,.card{break-inside:avoid}}

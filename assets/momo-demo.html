@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Momo 計畫版 示範</title>
+<link rel="stylesheet" href="momo.css">
+</head>
+<body>
+<div class="cover"><h1>Momo 計畫版｜元件與架構圖示範</h1><p>封面深藍、灰底白卡、章節 chip、進度條、狀態 pill</p></div>
+<nav class="mnav"><div class="mw"><a href="#s1" style="--c:#1b4f9c"><i></i>現況</a><a href="#s2" style="--c:#c2410c"><i></i>架構圖</a><a href="#s3" style="--c:#0a6a0a"><i></i>表格與標籤</a></div></nav>
+<main>
+
+<section id="s1">
+<div class="divider"><span>現況</span>先看我們在哪：目標與量化指標</div>
+<div class="blk">
+  <h2>OKR1 資料平台多區域擴展 <span class="pct">進度 60%</span></h2>
+  <div class="bar"><div class="fill" style="width:60%"></div></div>
+  <div class="card"><div class="lab">預計達成的目標</div>
+    <ol class="goals"><li><b>北區、中區、南區事件表上線</b></li><li class="new"><b>【新增】領域知識 Agent</b></li></ol>
+  </div>
+  <div class="card"><div class="lab">量化成功標準</div>
+    <ul><li>✅ 查詢效率相比 Parquet 提升 30% 以上</li><li>☐ 1 日內產生完整 parser</li></ul>
+  </div>
+  <h2>OKR2 新數據上線流程標準化 <span class="pct">進度 20%</span></h2>
+  <div class="bar"><div class="fill risk" style="width:20%"></div></div>
+  <div class="stats">
+    <div class="stat"><div class="n">5 人</div><div class="t">支援全部日常運作</div><div class="s">既有服務要維持</div></div>
+    <div class="stat"><div class="n">4</div><div class="t">個 OKR</div><div class="s">2 個進度落後</div></div>
+    <div class="stat"><div class="n">12</div><div class="t">張維運票</div><div class="s">本月新增</div></div>
+    <div class="stat"><div class="n">3</div><div class="t">個 Agent</div><div class="s">Q4 要做到</div></div>
+  </div>
+</div>
+</section>
+
+<section id="s2">
+<div class="divider"><span>架構圖</span>三種畫法：CSS 流程框、階梯卡、inline SVG 泳道</div>
+<div class="blk">
+  <h2>A 橫向流程框 .flow（手機自動轉直）</h2>
+  <div class="flow">
+    <div class="bx"><b>票進來</b><span>維運、新資料源</span></div><div class="arr">→</div>
+    <div class="bx"><b>負責人開做</b><span>各自實作</span></div><div class="arr">→</div>
+    <div class="bx"><b>計畫工作暫停</b><span>里程碑往後推</span></div><div class="arr">→</div>
+    <div class="bx bad"><b>沒有人看到全貌</b><span>一個人掌握不了</span></div>
+  </div>
+  <div class="uloop red"><span class="uarr">↑</span><span class="ulab">回到起點，下一輪更難插進改善</span></div>
+
+  <h2>A 直向流程框 .vflow</h2>
+  <div class="vflow" style="max-width:360px">
+    <div class="bx"><b>資訊詢問</b><span>資料範圍、系統狀態</span></div><div class="varr">↓</div>
+    <div class="bx"><b>領域 Owner</b><span>找到規則與查詢方法</span></div><div class="varr">↓</div>
+    <div class="bx good"><b>系統查詢</b><span>取得結果再回覆</span></div>
+  </div>
+
+  <h2>B 階梯卡 .lc（頂線顏色 = 類別）</h2>
+  <div class="lc">
+    <div class="lc-card o1"><div class="lc-n">STEP 1</div><div class="lc-t">資料接入</div><ul><li>ETL pipeline</li><li>共用 SDK</li></ul></div><div class="lc-arr">→</div>
+    <div class="lc-card o2"><div class="lc-n">STEP 2</div><div class="lc-t">需求評估</div><ul><li>影響範圍</li></ul></div><div class="lc-arr">→</div>
+    <div class="lc-card o3"><div class="lc-n">STEP 3</div><div class="lc-t">基礎平台</div><ul><li>CI/CD</li><li>Staging</li></ul></div><div class="lc-arr">→</div>
+    <div class="lc-card o4"><div class="lc-n">STEP 4</div><div class="lc-t">可觀測</div><ul><li>Latency 分析</li></ul></div>
+  </div>
+
+  <h2>C 手繪 inline SVG 泳道（viewBox 固定，寬度 100%）</h2>
+  <div class="fig"><svg viewBox="0 0 1090 300" role="img" aria-label="泳道架構圖示範" style="font-family:-apple-system,BlinkMacSystemFont,'Segoe UI','PingFang TC','Microsoft JhengHei','Noto Sans TC',sans-serif">
+    <defs>
+      <marker id="a-main" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#52514e"/></marker>
+      <marker id="a-loop" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#eb6834"/></marker>
+      <marker id="a-ask" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#0e8a8a"/></marker>
+    </defs>
+    <!-- 泳道：虛線框 + 彩色小標題 -->
+    <rect x="20" y="40" width="250" height="230" rx="12" fill="#f3faf5" stroke="#1baf7a" stroke-dasharray="5 4"/>
+    <text x="32" y="60" font-size="12.5" font-weight="650" fill="#1baf7a">人</text>
+    <rect x="290" y="40" width="470" height="230" rx="12" fill="#fffcf3" stroke="#c98500" stroke-dasharray="5 4"/>
+    <text x="302" y="60" font-size="12.5" font-weight="650" fill="#c98500">workflow（一個 lead、兩個子 agent）</text>
+    <rect x="780" y="40" width="290" height="230" rx="12" fill="#f0fafa" stroke="#0e8a8a" stroke-dasharray="5 4"/>
+    <text x="792" y="60" font-size="12.5" font-weight="650" fill="#0e8a8a">共用 agent</text>
+    <!-- 節點：白底彩邊 + 標題 + 一句說明；pill 在節點上方 -->
+    <rect x="50" y="120" width="190" height="70" rx="8" fill="#fff" stroke="#1baf7a" stroke-width="1.6"/>
+    <text x="145" y="152" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0b0b0b">開票與核准</text>
+    <text x="145" y="172" text-anchor="middle" font-size="11" fill="#52514e">定義需求，最後核准</text>
+    <rect x="320" y="120" width="190" height="70" rx="8" fill="#fff" stroke="#1b4f9c" stroke-width="1.6"/>
+    <text x="415" y="152" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0b0b0b">lead agent</text>
+    <text x="415" y="172" text-anchor="middle" font-size="11" fill="#52514e">分派、整合、回報</text>
+    <rect x="393" y="96" width="44" height="18" rx="9" fill="#dbe8f9"/><text x="415" y="109" text-anchor="middle" font-size="11" font-weight="800" fill="#1b4f9c">OKR1</text>
+    <rect x="550" y="90" width="190" height="56" rx="8" fill="#fff" stroke="#c2410c" stroke-width="1.6"/>
+    <text x="645" y="114" text-anchor="middle" font-size="13" font-weight="800" fill="#0b0b0b">parser agent</text>
+    <text x="645" y="132" text-anchor="middle" font-size="11" fill="#52514e">產生 validator config</text>
+    <rect x="550" y="170" width="190" height="56" rx="8" fill="#fff" stroke="#c2410c" stroke-width="1.6"/>
+    <text x="645" y="194" text-anchor="middle" font-size="13" font-weight="800" fill="#0b0b0b">test agent</text>
+    <text x="645" y="212" text-anchor="middle" font-size="11" fill="#52514e">staging 驗證</text>
+    <rect x="830" y="120" width="190" height="70" rx="8" fill="#fff" stroke="#0e8a8a" stroke-width="1.6"/>
+    <text x="925" y="152" text-anchor="middle" font-size="13.5" font-weight="800" fill="#0b0b0b">知識 agent</text>
+    <text x="925" y="172" text-anchor="middle" font-size="11" fill="#52514e">規則、欄位、來源</text>
+    <!-- 箭頭：主流程灰、迴圈橙、詢問青 -->
+    <line x1="240" y1="155" x2="316" y2="155" stroke="#52514e" stroke-width="1.6" marker-end="url(#a-main)"/>
+    <line x1="510" y1="140" x2="546" y2="118" stroke="#52514e" stroke-width="1.6" marker-end="url(#a-main)"/>
+    <line x1="510" y1="170" x2="546" y2="198" stroke="#52514e" stroke-width="1.6" marker-end="url(#a-main)"/>
+    <path d="M645 226 C645 256 145 256 145 194" fill="none" stroke="#eb6834" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#a-loop)"/>
+    <text x="395" y="250" text-anchor="middle" font-size="11" font-weight="700" fill="#eb6834">驗證結果回給人核准</text>
+    <line x1="740" y1="118" x2="826" y2="150" stroke="#0e8a8a" stroke-width="1.6" stroke-dasharray="3 3" marker-end="url(#a-ask)"/>
+    <text x="790" y="118" text-anchor="middle" font-size="10.5" fill="#0e8a8a">問資料規則</text>
+  </svg></div>
+</div>
+</section>
+
+<section id="s3">
+<div class="divider"><span>表格與標籤</span>交付項目、提示與程式碼</div>
+<div class="blk">
+  <table class="t">
+    <tr><th>項目</th><th>類別</th><th>票</th><th>狀態</th></tr>
+    <tr><td>北區事件表上線</td><td><span class="pill o1">OKR1</span></td><td><a href="#">DEMO-101</a></td><td><span class="pill st-done">Done</span></td></tr>
+    <tr><td>validator config 自動產生</td><td><span class="pill o2">OKR2</span></td><td><a href="#">DEMO-102</a></td><td><span class="pill st-prog">進行中</span></td></tr>
+    <tr><td>服務健康監控</td><td><span class="pill o3">OKR3</span></td><td><a href="#">DEMO-103</a></td><td><span class="pill st-wait">等待</span></td></tr>
+    <tr class="newrow"><td>【新增】領域知識 Agent</td><td><span class="pill o4">OKR4</span></td><td>待開</td><td><span class="pill st-todo">待辦</span></td></tr>
+  </table>
+  <div class="callout"><b>原則：</b>知識與操作方式要能被其他成員與 AI 沿用。把問人改成問 Agent。</div>
+  <div class="hero"><div class="hero-en">Human define, Agent build, Human approve</div><p>人定義需求與成功標準。Agent 做事。人核准後上線。</p></div>
+  <pre>$ publish.sh data-team report.html report-preview.html
+upload ok  cmp ok  https://data-team.static.example.com/report-preview.html</pre>
+</div>
+</section>
+
+</main>
+<script src="momo-nav.js"></script>
+</body>
+</html>

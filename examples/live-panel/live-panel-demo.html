@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>live-panel 示範</title>
+<style>
+:root{
+  --bg:#fdfdfc;--surface:#f9f9f8;--surface2:#f1f0ef;--line:#dad9d6;--mut:#63635e;--fg:#21201c;
+  --acc:#f76b15;--acc-text:#cc4e00;--code:#f1f0ef;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#111110;--surface:#191918;--surface2:#222221;--line:#3b3a37;--mut:#b5b3ad;--fg:#eeeeec;
+  --acc:#f76b15;--acc-text:#ffa057;--code:#222221;
+}}
+*{box-sizing:border-box}
+body{margin:0 auto;max-width:1000px;padding:24px 20px 56px;background:var(--bg);color:var(--fg);
+  font-family:"Noto Sans TC","PingFang TC","Microsoft JhengHei",-apple-system,sans-serif;font-size:15px;line-height:1.75}
+h1{font-size:24px;margin:8px 0 6px}
+h2{font-size:17px;margin:48px 0 6px;padding-top:20px;border-top:0.5px solid var(--line)}
+a{color:var(--acc-text);text-decoration:none}a:hover{text-decoration:underline}
+.sub{color:var(--mut);margin:0 0 16px}
+nav{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:13px;padding:8px 0;border-bottom:0.5px solid var(--line);position:sticky;top:0;background:var(--bg);z-index:2}
+nav a{color:var(--mut)}
+table{border-collapse:collapse;width:100%;font-size:13px;margin:8px 0}
+th,td{border:0.5px solid var(--line);padding:6px 9px;text-align:left;vertical-align:top}
+th{background:var(--surface);color:var(--mut);font-weight:600}
+.tblw{overflow-x:auto}
+code{font-size:13px;background:var(--surface2);padding:1px 5px;border-radius:4px}
+pre{background:var(--code);border:0.5px solid var(--line);border-radius:6px;padding:12px 14px;font-size:13px;line-height:1.6;overflow-x:auto;white-space:pre}
+.panel{border:0.5px solid var(--line);border-radius:6px;overflow:hidden;background:var(--surface);margin:10px 0 6px}
+.panel iframe{display:block;width:100%;border:0}
+.r11{aspect-ratio:1/1;max-width:640px;margin:0 auto}
+.r45{aspect-ratio:1200/1500;max-width:640px;margin:0 auto}
+.rloop{aspect-ratio:1200/1360;max-width:760px;margin:0 auto}
+.r169{aspect-ratio:16/9}
+.meta{font-size:13px;color:var(--mut);margin:4px 0 0}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:760px){.two{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<h1>live-panel 示範</h1>
+<p class="sub">一直在跑的動態架構圖。固定版面，只有狀態在動：線上的封包、亮起的步驟、翻轉的計數。每張圖都是單檔 HTML，可以單獨開，也可以用 iframe 嵌進報告。</p>
+<nav><a href="#views">視圖總覽</a><a href="#loop">loop</a><a href="#ring">ring</a><a href="#funnel">funnel</a><a href="#monitor">終端機面板</a><a href="#wall">16:9 監控牆</a><a href="#how">怎麼做</a><a href="#embed">嵌進報告</a></nav>
+
+<h2 id="views">視圖總覽：依內容的形狀選</h2>
+<div class="tblw"><table>
+<tr><th>內容的形狀</th><th>用哪個</th><th>本頁例子</th><th>主題</th></tr>
+<tr><td>有判斷、有回環的流程</td><td><code>loop</code> 視圖</td><td><a href="#loop">jira 一張 Story 的生命週期</a></td><td>light-pastel</td></tr>
+<tr><td>一直重複的循環</td><td><code>ring</code> 視圖</td><td><a href="#ring">事故處理循環</a></td><td>light-pastel</td></tr>
+<tr><td>一層一層流失的轉換</td><td><code>funnel</code> 視圖</td><td><a href="#funnel">工單變成 PACE 紀錄的比例</a></td><td>light-pastel</td></tr>
+<tr><td>任意框與線、監控面板、agent 樹</td><td>不用視圖，<code>scaffold.py</code> 排版</td><td><a href="#monitor">Toolbridge 閘道 即時面板</a></td><td>terminal-dark</td></tr>
+<tr><td>投到螢幕、電視的專案監控牆</td><td>不用視圖，座標手排</td><td><a href="#wall">jira DEMO-2937 監控牆</a></td><td>terminal-dark 16:9</td></tr>
+<tr><td>手繪風格（Excalidraw）</td><td><code>excalidraw</code> 視圖</td><td>本頁未示範，見上游 <code>examples/excalidraw-aqua</code></td><td>light-pastel</td></tr>
+</table></div>
+<p class="meta">主題：Radix、Momo 報告配 <code>light-pastel</code>。要終端機監控感才用 <code>terminal-dark</code>。本頁所有數字都是示意。</p>
+
+<h2 id="loop">loop：有判斷、有回環的流程</h2>
+<p>分組框是角色，菱形是判斷點，虛線是退回。一個示意工單照 <code>walks</code> 的路徑走，狀態卡顯示第幾輪、哪一步。</p>
+<div class="panel rloop"><iframe src="jira-loop.html" title="loop 視圖：jira 一張 Story 的生命週期" loading="lazy" style="height:100%"></iframe></div>
+<p class="meta"><a href="jira-loop.html" target="_blank">單獨開啟</a>。設定檔 <code>examples/jira/jira-loop.config.json</code>。</p>
+<pre>{"type":"view","kind":"loop","cols":4,"period":38,"motion":"ambient+walk","ambientPeriod":3.8,
+ "groups":[{"id":"lead","label":"主管","hue":"purple"}, …],
+ "nodes":[{"id":"q","group":"exec","type":"diamond","row":2,"col":0,"label":"現值待量？"}, …],
+ "edges":[{"from":"pass","to":"work","kind":"no","label":"否：回任務","lane":"right"}, …],
+ "walks":[["open","q","base","work", …,"open"],["open","q","work", …,"open"]]}</pre>
+
+<div class="two">
+<div>
+<h2 id="ring">ring：一直重複的循環</h2>
+<p>步驟平均排在圓上，彗星繞圈，中間的計數每繞一圈加一。<code>innerLoop</code> 在某一步內再跑一個小循環。</p>
+<div class="panel r11"><iframe src="lp-ring.html" title="ring 視圖：事故處理循環" loading="lazy" style="height:100%"></iframe></div>
+<p class="meta"><a href="lp-ring.html" target="_blank">單獨開啟</a>。設定檔 <code>examples/live-panel/ring.config.json</code>。</p>
+</div>
+<div>
+<h2 id="funnel">funnel：一層一層流失</h2>
+<p>每層寬度依數值，層間標轉換率。數值必須遞減，百分比由相鄰兩層算出，不會和數字對不上。</p>
+<div class="panel r11"><iframe src="lp-funnel.html" title="funnel 視圖：工單變成 PACE 紀錄的比例" loading="lazy" style="height:100%"></iframe></div>
+<p class="meta"><a href="lp-funnel.html" target="_blank">單獨開啟</a>。設定檔 <code>examples/live-panel/funnel.config.json</code>。</p>
+</div>
+</div>
+<pre>{"type":"view","kind":"ring","period":15,
+ "steps":[{"label":"告警","desc":"監控發出通知"},{"label":"排查"}, …],"innerLoop":["查 log","提假設","比對證據"],"innerLoopStep":1}
+
+{"type":"view","kind":"funnel","period":18,
+ "stages":[{"label":"DevOps 工單","value":400},{"label":"寫了提出者","value":310}, …]}</pre>
+
+<h2 id="monitor">終端機面板：scaffold 自動排版</h2>
+<p>框一列一列往下排，線上有封包。左側「值班提示」輪流亮起並給建議。<code>lane</code> 在「呼叫中」與「完成」之間切換，<code>gauge</code> 過門檻變色。log 由同一組狀態產生，所以 log 寫的和框裡顯示的一致。</p>
+<div class="panel r45"><iframe src="lp-monitor.html" title="終端機面板：Toolbridge 閘道 即時面板" loading="lazy" style="height:100%"></iframe></div>
+<p class="meta"><a href="lp-monitor.html" target="_blank">單獨開啟</a>。短規格 <code>examples/live-panel/monitor.spec.json</code>，產生的設定檔 <code>monitor.config.json</code>。</p>
+<pre>{"theme":"terminal-dark","canvas":"4:5","lang":"zh","title":"Toolbridge 閘道 即時面板",
+ "rows":[[{"name":"Claude Code 使用者","lines":["呼叫 {calls} 次"]}],
+         [{"name":"Jira 工具","lane":{"busy":"呼叫中","done":["完成"],"log":["DEMO-3213 留言完成"]}}, …],
+         [{"name":"閘道延遲","gauge":{"label":"p95","values":[0.32,0.41,0.72],"threshold":0.6,"above":"偏慢","below":"正常","bad":"above"}}]],
+ "rail":{"name":"值班提示","items":[{"name":"token 過期","adv":["» 重新登入","» 再呼叫一次"]}, …]},
+ "counters":[{"id":"calls","label":"呼叫","start":12840,"rate":9}],"note":"數字為示意"}</pre>
+<p class="meta"><code>lang:"zh"</code> 時 scaffold 會補上簡體字的固定字串（建议、调用、唤起）。產生後在 config 裡改成繁體。</p>
+
+<h2 id="wall">16:9 監控牆：座標手排的專案面板</h2>
+<p>1920x1080，給大螢幕或電視。左欄是主管值班：指派、裁示、核准輪流亮起，箭頭帶封包打到右邊。右邊由上往下是 Epic 章程、基準量測、四個 Story、簽收、送簽收、使用統計，每層之間有封包流動。Story 自測完成時框會發光。最下面是 jira log，log 和框裡的狀態來自同一組狀態機。</p>
+<div class="panel r169"><iframe src="lp-wall.html" title="16:9 監控牆：jira DEMO-2937 知識庫" loading="lazy" style="height:100%"></iframe></div>
+<p class="meta"><a href="lp-wall.html" target="_blank">單獨開啟（F11 全螢幕）</a>。設定檔 <code>examples/live-panel/wall.config.json</code>，內容與 192.0.2.10:8088/live-panel.html 相同。單號為示意，進度、次數、log 為模擬。</p>
+<div class="tblw"><table>
+<tr><th>元件</th><th>config 寫法</th><th>用途</th></tr>
+<tr><td>值班欄</td><td><code>box</code> 內放 <code>{"trigger":["lead",0]}</code>，狀態機 <code>"type":"triggers"</code></td><td>輪流亮起的觸發條件與建議</td></tr>
+<tr><td>觸發箭頭</td><td><code>{"type":"tarrow","machine":"lead","i":0,…}</code></td><td>亮起那條才變色、帶封包</td></tr>
+<tr><td>層與層的流動</td><td><code>{"type":"flow","path":[[x,y1],[x,y2]],"period":2}</code></td><td>上一層交給下一層</td></tr>
+<tr><td>狀態框</td><td>行內 <code>{"v":"s1"}</code>，狀態機 <code>lane</code>；加 <code>when/then:{"glow":"bl"}</code></td><td>進行中、自測完成，完成時發光</td></tr>
+<tr><td>計數</td><td><code>{"v":"days"}</code>、<code>{"v":"q"}</code>，狀態機 <code>counter</code></td><td>連續天數、查詢次數</td></tr>
+<tr><td>log</td><td><code>{"type":"log","rows":4,"cols":[…]}</code></td><td>由狀態機自動產生，不另外寫</td></tr>
+</table></div>
+<p class="meta">已知版面問題（與 8088 原頁相同，保留未改）：使用統計框的「依團隊分列」超出框右緣；送簽收那行的「（模擬）」超出畫面。要修就把那幾行縮短，或把 <code>fontSize</code> 從 22 降到 20，再跑 <code>check_frames.py</code>。</p>
+
+<h2 id="how">怎麼做：三步</h2>
+<div class="tblw"><table>
+<tr><th>步驟</th><th>指令</th><th>過關條件</th></tr>
+<tr><td>1. 寫 config</td><td>有視圖就寫 view；框線面板寫短規格，跑 <code>scaffold.py --spec</code></td><td>每個數字標來源，沒有就寫示意</td></tr>
+<tr><td>2. 檢查</td><td><code>check_frames.py --config … --repeat</code></td><td>0 個 PROBLEM，回放逐像素相同</td></tr>
+<tr><td>3. 輸出 HTML</td><td><code>render.py --config … --html-out x.html</code></td><td>單檔，不讀外部資源</td></tr>
+</table></div>
+<pre>cd ~/.claude/skills/skill-html/live-panel
+CH=~/.cache/ms-playwright/chromium-1234/chrome-linux64/chrome
+python3 -I scripts/check_frames.py --config cfg.json --out-dir /tmp/frames --chrome $CH --no-sandbox --png 4 --repeat
+python3 -I scripts/render.py --config cfg.json --out /tmp/x.mp4 --duration 1 --fps 5 --chrome $CH --no-sandbox --html-out x.html</pre>
+
+<h2 id="embed">嵌進報告</h2>
+<p>panel 頁面會依視窗等比縮放。iframe 給寬度與長寬比即可，HTML 要和報告一起上傳。</p>
+<pre>&lt;iframe src="x.html" title="…" loading="lazy"
+  style="display:block;width:100%;aspect-ratio:1200/1360;border:0"&gt;&lt;/iframe&gt;</pre>
+<p class="meta">實例：<a href="jira-radix.html">jira 使用說明 Radix 版</a> 的流程圖。來源：live-panel（MIT），github.com/ythx-101/live-panel-skill。</p>
+</body>
+</html>

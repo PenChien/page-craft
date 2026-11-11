@@ -1,0 +1,59 @@
+{
+  "meta": {"title": "jira：一張 Story 從開案到關單", "lang": "zh"},
+  "canvas": {"width": 1200, "height": 1360, "duration": 38, "fps": 30},
+  "theme": {"preset": "light-pastel"},
+  "titlebar": {"text": "jira  一張 Story 的生命週期"},
+  "credit": {"text": "流程依 jira v1.10.0 使用說明。輪次與路徑為示意，不是實際工單。動畫：live-panel（MIT）", "c": "muted", "x": 16, "w": 1168, "align": "left"},
+  "elements": [
+    {
+      "type": "view", "kind": "loop",
+      "title": "一張 Story 從開案到關單",
+      "subtitle": "主管開案與關單；執行者量測、實作、自測；簽收者在自己的服務台確認",
+      "period": 38, "cols": 4, "font": "sans",
+      "motion": "ambient+walk", "ambientPeriod": 3.8,
+      "entry": "trigger",
+      "status": {"node": "status", "round": "第 {n} 輪", "step": "目前步驟：{label}"},
+      "groups": [
+        {"id": "lead", "label": "主管", "sub": "開案、關單", "hue": "purple"},
+        {"id": "exec", "label": "執行者", "sub": "量測、實作、自測", "hue": "blue"},
+        {"id": "verify", "label": "簽收者", "sub": "對方部門的服務台", "hue": "amber"},
+        {"id": "close", "label": "主管", "sub": "關單", "hue": "purple"}
+      ],
+      "nodes": [
+        {"id": "trigger", "type": "trigger", "row": 0, "col": 0, "hue": "purple", "icon": "message-square", "label": "需求進來", "en": "Request", "desc": ["會議、SD 單", "或主管指派"]},
+        {"id": "legend", "type": "legend", "row": 0, "col": 1, "span": 3, "items": [{"style": "solid", "text": "前進"}, {"style": "dashed", "text": "退回重做"}, {"style": "dot", "text": "工單流過"}]},
+
+        {"id": "open", "group": "lead", "row": 1, "col": 0, "icon": "ticket", "label": "開案", "en": "Open", "desc": ["八項必填", "定 P0 到 P4"]},
+        {"id": "status", "group": "lead", "type": "note", "row": 1, "col": 1, "span": 3, "label": "", "desc": [], "icon": "refresh-cw"},
+
+        {"id": "q", "group": "exec", "type": "diamond", "row": 2, "col": 0, "label": "現值待量？", "en": "baseline?"},
+        {"id": "work", "group": "exec", "row": 2, "col": 1, "icon": "git-pull-request", "label": "任務、文件", "en": "Work", "desc": ["一件事一張", "文件交接給接手者"]},
+        {"id": "test", "group": "exec", "row": 2, "col": 2, "icon": "shield-check", "label": "留【自測】", "en": "Self-test", "desc": ["與成功指標同量法", "附件掛上"]},
+        {"id": "base", "group": "exec", "row": 3, "col": 0, "icon": "eye", "label": "基準量測", "en": "Baseline", "desc": ["第一週", "量現值寫回 Story"]},
+        {"id": "note", "group": "exec", "type": "note", "row": 3, "col": 3, "label": "", "icon": "info", "desc": ["待量 → 先量測", "沒通過 → 回任務"]},
+
+        {"id": "req", "group": "verify", "row": 4, "col": 2, "icon": "bell", "label": "請簽收單", "en": "Request", "desc": ["開在簽收者部門", "Relates 連回 Story"]},
+        {"id": "pass", "group": "verify", "type": "diamond", "row": 4, "col": 3, "label": "簽收通過？", "en": "accepted?"},
+
+        {"id": "done", "group": "close", "type": "output", "row": 5, "col": 3, "icon": "git-merge", "label": "關單", "en": "Close", "desc": ["SC 結果值對目標值"]}
+      ],
+      "edges": [
+        {"from": "trigger", "to": "open", "fromSide": "bottom", "toSide": "top"},
+        {"from": "open", "to": "q", "fromSide": "bottom", "toSide": "top"},
+        {"from": "q", "to": "base", "kind": "yes", "label": "是", "fromSide": "bottom", "toSide": "top"},
+        {"from": "q", "to": "work", "kind": "no", "label": "否", "dashed": false},
+        {"from": "base", "to": "work", "fromSide": "right", "toSide": "bottom"},
+        {"from": "work", "to": "test"},
+        {"from": "test", "to": "req", "fromSide": "bottom", "toSide": "top"},
+        {"from": "req", "to": "pass"},
+        {"from": "pass", "to": "work", "kind": "no", "label": "否：回到任務", "fromSide": "top", "toSide": "top", "lane": "right"},
+        {"from": "pass", "to": "done", "kind": "yes", "label": "是", "fromSide": "bottom", "toSide": "top"},
+        {"from": "done", "to": "open", "kind": "back", "label": "下一張 Story", "lane": "left", "fromSide": "left", "toSide": "left"}
+      ],
+      "walks": [
+        ["open", "q", "base", "work", "test", "req", "pass", "work", "test", "req", "pass", "done", "open"],
+        ["open", "q", "work", "test", "req", "pass", "done", "open"]
+      ]
+    }
+  ]
+}

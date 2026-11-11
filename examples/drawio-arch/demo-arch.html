@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>範例線路架構</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* skill-html 風格 C：Momo 計畫版
+   來源：Data Team 2026 Q4 計畫頁（data-team-plan-2026q4.html）。
+   用法：把本檔內容貼進報告 <style>，或 <link rel="stylesheet" href="momo.css">。
+   版面：深藍封面 → sticky 膠囊導覽 → 灰底 main → 章節 chip 標題 → 白卡 .blk → 灰卡 .card。 */
+
+:root{
+  --bg:#eef1f5;--surface:#fff;--surface2:#f5f6f8;
+  --line:#e5e7eb;--mut:#8a8985;--fg2:#52514e;--fg:#0b0b0b;
+  --acc:#2a78d6;--link:#1b4f9c;--navy:#0f2747;
+  --ok:#1f6b3a;--ok-bg:#e6f2ea;--no:#9a1f1f;--no-bg:#f7d9d9;--warn:#9a4a12;--warn-bg:#fff7e6;
+  --arrow:#9ca3af;
+  --shadow:0 1px 2px rgba(15,39,71,.06),0 6px 20px rgba(15,39,71,.05);
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#0f1115;--surface:#171a21;--surface2:#1e222b;
+  --line:#2a2f3a;--mut:#8b949e;--fg2:#b6bdc8;--fg:#e8eaf0;
+  --acc:#5b9cf0;--link:#8ab4f8;--navy:#0b1c33;
+  --ok:#6fcf8f;--ok-bg:#15301f;--no:#f08a8a;--no-bg:#3a1a1a;--warn:#f0b45a;--warn-bg:#33240e;
+  --arrow:#6b7280;
+  --shadow:none;
+}}
+
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);line-height:1.55;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang TC","Microsoft JhengHei","Noto Sans TC",sans-serif}
+a{color:var(--link);font-weight:700;text-decoration:none}
+
+/* 封面與導覽：鋪滿畫面寬；封面文字、導覽按鈕、內文左緣對齊同一條線，整塊置中。
+   嵌在網頁程式裡（例 目標管理系統）才改靠左：把下面三處的 margin 改 0、封面 padding 改 24px。 */
+.cover{background:var(--navy);color:#fff;padding:88px max(24px,calc((100% - 1072px) / 2)) 64px}
+.cover h1{font-size:36px;margin:0 0 8px;border-left:6px solid var(--acc);padding-left:20px}
+.cover p{color:#c9d6e8;font-size:18px;margin:0 0 0 26px}
+nav.mnav{position:sticky;top:0;z-index:9;background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+nav.mnav .mw{max-width:1120px;margin:0 auto;padding:8px 24px;display:flex;gap:6px;flex-wrap:wrap;font-size:13px}
+nav.mnav a{--c:var(--acc);display:inline-flex;align-items:center;gap:6px;color:var(--fg2);font-weight:400;padding:4px 10px;border-radius:999px;border:1px solid transparent}
+nav.mnav a i{width:7px;height:7px;border-radius:50%;background:var(--c)}
+nav.mnav a:hover{background:var(--surface2);color:var(--fg)}
+nav.mnav a.on{background:color-mix(in srgb,var(--c) 14%,var(--surface));border-color:color-mix(in srgb,var(--c) 35%,var(--surface));color:var(--c);font-weight:700}
+@media (prefers-color-scheme:dark){nav.mnav a.on{color:color-mix(in srgb,var(--c) 45%,#fff)}}  /* 深色底上章節色太暗，文字調亮 */
+main{max-width:1120px;margin:0 auto;padding:0 24px 64px}
+
+/* 章節：chip 標題 + 白卡 + 灰卡 */
+.divider{margin:72px 0 18px;font-size:24px;font-weight:800;color:var(--navy)}
+.divider span{display:inline-block;background:var(--acc);color:#fff;font-size:12px;padding:3px 9px;border-radius:4px;margin-right:10px;vertical-align:middle}
+@media (prefers-color-scheme:dark){.divider{color:var(--fg)}}
+.blk{background:var(--surface);border-radius:14px;padding:26px 30px;margin:22px 0;box-shadow:var(--shadow)}
+.blk>h2:first-child{margin-top:0}
+h2{font-size:20px;margin:28px 0 6px}h3{font-size:16px;margin:24px 0 6px}
+.card{background:var(--surface2);border-radius:10px;padding:14px 18px;margin:10px 0}
+.card .lab{color:var(--acc);font-weight:700;font-size:13px;margin-bottom:6px}
+.card.ok{background:var(--ok-bg)}.card.ok>b:first-child{color:var(--ok)}
+.card.warn{background:var(--warn-bg)}.card.warn>b:first-child{color:var(--warn)}
+.card.no{background:var(--no-bg)}.card.no>b:first-child{color:var(--no)}
+.sub{color:var(--fg2);margin:0 0 12px}.muted{color:var(--mut);font-size:12px}
+.new{color:var(--ok)}
+
+/* 進度、數字、提示 */
+.pct{font-size:14px;color:var(--fg2);font-weight:600;margin-left:8px}
+.bar{height:8px;background:var(--line);border-radius:4px;overflow:hidden;margin:4px 0 14px}
+.fill{height:100%;background:var(--acc)}.fill.risk{background:var(--no)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:16px 0}
+.stat .n{font-size:30px;font-weight:800;color:var(--acc)}.stat .t{font-weight:700}.stat .s{color:var(--fg2);font-size:13px}
+.hero{background:var(--navy);color:#fff;border-radius:12px;padding:22px 26px;margin:22px 0}
+.hero .hero-en{font-size:22px;font-weight:800;letter-spacing:.3px;margin-bottom:8px}
+.hero p{margin:0;color:#dbe6f5;font-size:15px;line-height:1.7}
+.callout{background:var(--ok-bg);border-radius:10px;padding:14px 18px;margin:18px 0;font-size:15px}.callout b{color:var(--ok)}
+pre{background:var(--navy);color:#dbe6f5;border-radius:10px;padding:14px 18px;font-size:12.5px;line-height:1.5;white-space:pre-wrap}
+
+/* 表格 */
+table.t{border-collapse:collapse;width:100%;font-size:13.5px;margin:8px 0}
+table.t th{background:var(--bg);text-align:left;font-weight:700;color:var(--fg2)}
+table.t th,table.t td{border:1px solid var(--line);padding:8px 10px;vertical-align:top}
+td.g{color:var(--ok);font-weight:700}
+tr.newrow td{background:var(--ok-bg);color:var(--ok);font-weight:700}
+
+/* 標籤：類別 4 組（o1 藍、o2 橙、o3 綠、o4 紫）+ 狀態 4 種 */
+.pill{display:inline-block;font-size:11px;font-weight:800;padding:1px 8px;border-radius:999px;white-space:nowrap}
+.pill.o1{background:#dbe8f9;color:#1b4f9c}.pill.o2{background:#fde4d6;color:#9a4a12}
+.pill.o3{background:#d3efd3;color:#0a6a0a}.pill.o4{background:#e8dff7;color:#5b3a9c}
+.st-done{background:#d3efd3;color:#0a6a0a}.st-prog{background:#dbe8f9;color:#1b4f9c}
+.st-wait{background:#fff7e6;color:#9a4a12}.st-todo{background:#f3f4f6;color:#52514e}
+
+/* 架構圖 A：CSS 流程框（橫向 .flow、直向 .vflow、迴圈 .uloop） */
+.flow{display:flex;align-items:stretch;gap:8px;margin:14px 0}.flow .bx{flex:1}
+.arr{align-self:center;color:var(--arrow);font-size:22px}
+.bx{background:var(--surface2);border-radius:8px;padding:12px 10px;text-align:center;display:flex;flex-direction:column;justify-content:center;min-height:70px}
+.bx b{font-size:14px}.bx span{color:var(--fg2);font-size:12.5px}
+.bx.bad{background:var(--no-bg)}.bx.bad b{color:var(--no)}
+.bx.good{background:var(--ok-bg)}.bx.good b{color:var(--ok)}
+.bx.dark{background:#1c2430}.bx.dark b{color:#fff}.bx.dark span{color:#d5e3f7}
+.bx.opt{background:transparent;border:1.5px dashed var(--arrow)}  /* 條件式步驟：符合條件才做 */
+@media (prefers-color-scheme:dark){.bx.dark{background:#24467a}}
+.vflow .bx{margin:0}.varr{text-align:center;color:var(--arrow);font-size:18px;line-height:1}
+.uloop{position:relative;height:22px;margin:0 12.5% 14px;border:1.5px dashed var(--arrow);border-top:0;border-radius:0 0 10px 10px}
+.uloop .uarr{position:absolute;left:-7px;top:-16px;color:var(--arrow);font-size:16px;line-height:1;background:var(--surface);padding:0 1px}
+.uloop .ulab{position:absolute;left:50%;top:10px;transform:translateX(-50%);background:var(--surface);padding:0 8px;font-size:11.5px;font-weight:700;color:var(--fg2);white-space:nowrap}
+.uloop.red{border-color:var(--no)}.uloop.red .uarr,.uloop.red .ulab{color:var(--no)}
+
+/* 架構圖 B：階梯卡（.lc 四格，頂線顏色 = 類別） */
+.lc{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;gap:8px;align-items:stretch;margin:14px 0 10px}
+.lc-arr{align-self:center;color:var(--arrow);font-size:22px}
+.lc-card{background:var(--surface2);border-radius:10px;padding:12px 14px;border-top:4px solid var(--line);display:flex;flex-direction:column}
+.lc-card.o1{border-top-color:#1b4f9c}.lc-card.o2{border-top-color:#c2410c}.lc-card.o3{border-top-color:#0a6a0a}.lc-card.o4{border-top-color:#5b3a9c}
+.lc-n{font-size:11px;color:var(--mut);font-weight:700}.lc-t{font-size:15px;font-weight:800;margin:2px 0 6px}
+.lc-card ul{margin:0;padding-left:16px;font-size:12.5px;color:var(--fg2);flex:1}.lc-card li{margin:3px 0}
+
+/* 架構圖 C：手繪 inline SVG 的外框（SVG 本身固定亮色，白框隔開深色底） */
+.fig{background:#fff;border:1px solid var(--line);border-radius:12px;padding:8px;overflow-x:auto;margin:8px 0}
+.fig svg{display:block;width:100%;min-width:720px;height:auto}  /* 窄螢幕改橫向捲動，不縮到看不清 */
+
+/* 手機 */
+@media(max-width:800px){
+  .cover{padding:48px 24px 36px}.cover h1{font-size:26px}
+  .stats{grid-template-columns:1fr 1fr}
+  .flow{flex-direction:column}.arr{transform:rotate(90deg)}
+  .lc{grid-template-columns:1fr}.lc-arr{transform:rotate(90deg);justify-self:center}
+  .uloop{margin:0 6% 14px}
+}
+@media print{nav{display:none}.blk,.card{break-inside:avoid}}
+
+</style>
+<style>
+.fig.arch{margin:10px 0 8px}
+.arch text{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang TC","Microsoft JhengHei","Noto Sans TC",sans-serif}
+.arch .t1{fill:#0b0b0b;font-size:12.5px;font-weight:800}
+.arch .t2{fill:#52514e;font-size:10.5px}
+.arch .t3{font-size:12.5px;font-weight:700}
+.arch .t4{fill:#1f2329;font-size:10.5px;font-weight:600;font-family:"JetBrains Mono",ui-monospace,monospace}
+.arch .t5{font-size:12px;font-weight:800}
+.arch .t6{font-size:9.5px;font-weight:800}
+.sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.arch-legend{font-size:12.5px;color:var(--fg2);margin:4px 0 0}
+.arch-legend .li{white-space:nowrap;margin-right:14px}
+.tbl{overflow-x:auto}
+.card.arch-note{margin-top:14px}
+</style>
+</head>
+<body>
+<div class="cover"><h1>範例線路架構</h1><p>依 demo-network.drawio 重繪｜2026-11-11</p></div>
+<nav class="mnav"><div class="mw"><a href="#s-arch" style="--c:#0e8a8a"><i></i>正式環境</a><a href="#s-uat" style="--c:#1b4f9c"><i></i>測試環境</a><a href="#s-sys" style="--c:#5b3a9c"><i></i>訂單系統</a></div></nav>
+<main>
+<section id="s-arch">
+<div class="divider"><span>線路架構</span>主站點與備援站點、辦公室<span class="pill o3">原圖第 1 頁</span></div>
+<div class="blk">
+<p class="sub">依原圖重繪，只換版面，不改連線。<b>由左到右：網際網路 → 主站點 (WAF、負載平衡器、App 叢集) → 備援站點、辦公室</b>；<b>管理交換器同時收 App 叢集與跳板機的管理線，並以 VPN 通道接辦公室</b>。</p>
+<p class="arch-legend">線色＝用途：<span class="li"><span class="sw" style="background:#1baf7a"></span>對外流量</span><span class="li"><span class="sw" style="background:#eb6834"></span>API / 回報</span><span class="li"><span class="sw" style="background:#6250d6"></span>管理</span><span class="li"><span class="sw" style="background:#1b4f9c"></span>站點互連</span><span class="li"><span class="sw" style="background:#52514e"></span>主機互連</span><span class="li">虛線＝備份</span><br>框色＝設備歸屬：<span class="li"><span class="sw" style="background:#fff6dc;outline:1.5px solid #c99a2e"></span>S 自建</span><span class="li"><span class="sw" style="background:#eaf1fb;outline:1.5px solid #5b7fb5"></span>M 代管</span></p>
+<div class="fig arch"><svg viewBox="0 0 1200 460" role="img" aria-label="主站點的對外流量、API 與管理線路，以及與備援站點、辦公室的互連"><defs><marker id="am-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#1baf7a"/></marker><marker id="am-o" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#eb6834"/></marker><marker id="am-p" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#6250d6"/></marker><marker id="am-b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#1b4f9c"/></marker><marker id="am-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#52514e"/></marker><marker id="am-u" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#8a8985"/></marker></defs><rect x="10" y="14" width="124" height="432" rx="12" fill="#fafafa" stroke="#8a8985" stroke-dasharray="5 4"/><text class="t3" x="72.0" y="34" text-anchor="middle" style="fill:#8a8985">網際網路</text><rect x="146" y="14" width="692" height="432" rx="12" fill="#fafafa" stroke="#8a8985" stroke-dasharray="5 4"/><text class="t3" x="492.0" y="34" text-anchor="middle" style="fill:#8a8985">主站點</text><rect x="860" y="14" width="330" height="200" rx="12" fill="#f4f8fd" stroke="#1b4f9c" stroke-dasharray="5 4"/><text class="t3" x="1025.0" y="34" text-anchor="middle" style="fill:#1b4f9c">備援站點</text><rect x="860" y="226" width="330" height="220" rx="12" fill="#fafafa" stroke="#8a8985" stroke-dasharray="5 4"/><text class="t3" x="1025.0" y="246" text-anchor="middle" style="fill:#8a8985">辦公室</text><rect x="22" y="56" width="100" height="300" rx="7" fill="#fff" stroke="#52514e" stroke-width="1.6"/><text class="t1" x="72.0" y="203" text-anchor="middle">使用者</text><text class="t2" x="72.0" y="219" text-anchor="middle">Web · App</text><text class="t5" x="160" y="58" text-anchor="start" style="fill:#1baf7a">對外 (綠)　使用者 → WAF → 負載平衡器 → Web</text><text class="t5" x="160" y="78" text-anchor="start" style="fill:#eb6834">API (橘)　負載平衡器 → API</text><rect x="180" y="150" width="96" height="60" rx="7" fill="#eaf1fb" stroke="#5b7fb5" stroke-width="1.6"/><text class="t1" x="228.0" y="184.0" text-anchor="middle">WAF</text><text class="t6" x="271" y="161" text-anchor="end" style="fill:#5b7fb5">M</text><rect x="306" y="150" width="96" height="60" rx="7" fill="#eaf1fb" stroke="#5b7fb5" stroke-width="1.6"/><text class="t1" x="354.0" y="184.0" text-anchor="middle">負載平衡器</text><text class="t6" x="397" y="161" text-anchor="end" style="fill:#5b7fb5">M</text><rect x="450" y="90" width="140" height="230" rx="10" fill="#fff6dc" stroke="#c99a2e" stroke-width="1.6"/><text class="t1" x="520" y="104" text-anchor="middle">App 叢集</text><text class="t6" style="fill:#c99a2e" x="586" y="100" text-anchor="end">S</text><rect x="460" y="112" width="120" height="28" rx="6" fill="#f3faf5" stroke="#1baf7a" stroke-width="1.4"/><text class="t3" x="520.0" y="130.5" text-anchor="middle" style="fill:#0f7d55">Web ①②</text><rect x="460" y="170" width="120" height="28" rx="6" fill="#fef5ef" stroke="#eb6834" stroke-width="1.4"/><text class="t3" x="520.0" y="188.5" text-anchor="middle" style="fill:#b4471a">API ③④</text><rect x="460" y="228" width="120" height="28" rx="6" fill="#f5f5f4" stroke="#52514e" stroke-width="1.4"/><text class="t3" x="520.0" y="246.5" text-anchor="middle" style="fill:#3a3936">排程 ⑤</text><text class="t2" x="520" y="300" text-anchor="middle">SSH ⑥ · Agent ⑦</text><rect x="640" y="106" width="96" height="44" rx="7" fill="#fff6dc" stroke="#c99a2e" stroke-width="1.6"/><text class="t1" x="688.0" y="125.0" text-anchor="middle">資料庫</text><text class="t2" x="688.0" y="141.0" text-anchor="middle">PostgreSQL</text><text class="t6" x="731" y="117" text-anchor="end" style="fill:#c99a2e">S</text><rect x="640" y="176" width="96" height="44" rx="7" fill="#fff6dc" stroke="#c99a2e" stroke-width="1.6"/><text class="t1" x="688.0" y="195.0" text-anchor="middle">快取</text><text class="t2" x="688.0" y="211.0" text-anchor="middle">Redis</text><text class="t6" x="731" y="187" text-anchor="end" style="fill:#c99a2e">S</text><polyline points="122,180 180,180" fill="none" stroke="#1baf7a" stroke-width="1.8" marker-end="url(#am-g)"/><text class="t4" x="151.0" y="173" text-anchor="middle">HTTPS</text><polyline points="276,180 306,180" fill="none" stroke="#1baf7a" stroke-width="1.8" marker-end="url(#am-g)"/><polyline points="402,160 426,160 426,126 460,126" fill="none" stroke="#1baf7a" stroke-width="1.8" marker-end="url(#am-g)"/><text class="t4" x="414" y="120" text-anchor="middle">1G</text><polyline points="402,184 460,184" fill="none" stroke="#eb6834" stroke-width="1.8" marker-end="url(#am-o)"/><text class="t4" x="431" y="200" text-anchor="middle">1G</text><polyline points="590,128 640,128" fill="none" stroke="#52514e" stroke-width="1.8" marker-end="url(#am-k)" marker-start="url(#am-k)"/><text class="t4" x="615" y="122" text-anchor="middle">10G</text><polyline points="590,198 640,198" fill="none" stroke="#52514e" stroke-width="1.8" marker-end="url(#am-k)" marker-start="url(#am-k)"/><text class="t4" x="615" y="192" text-anchor="middle">10G</text><text class="t5" x="160" y="372" text-anchor="start" style="fill:#6250d6">管理 (紫)</text><rect x="306" y="340" width="96" height="60" rx="7" fill="#eaf1fb" stroke="#5b7fb5" stroke-width="1.6"/><text class="t1" x="354.0" y="374.0" text-anchor="middle">管理交換器</text><text class="t6" x="397" y="351" text-anchor="end" style="fill:#5b7fb5">M</text><rect x="640" y="350" width="96" height="44" rx="7" fill="#fff6dc" stroke="#c99a2e" stroke-width="1.6"/><text class="t1" x="688.0" y="369.0" text-anchor="middle">跳板機</text><text class="t2" x="688.0" y="385.0" text-anchor="middle">Bastion</text><text class="t6" x="731" y="361" text-anchor="end" style="fill:#c99a2e">S</text><polyline points="520,320 520,358 402,358" fill="none" stroke="#6250d6" stroke-width="1.8" marker-end="url(#am-p)"/><text class="t4" x="461" y="352" text-anchor="middle">1G</text><polyline points="640,382 402,382" fill="none" stroke="#6250d6" stroke-width="1.8" marker-end="url(#am-p)"/><text class="t4" x="600" y="376" text-anchor="middle">SSH</text><polyline points="736,128 880,128" fill="none" stroke="#1b4f9c" stroke-width="1.8" marker-end="url(#am-b)"/><text class="t4" x="808" y="121" text-anchor="middle">串流複寫</text><polyline points="354,400 354,430 846,430 846,325 880,325" fill="none" stroke="#1b4f9c" stroke-width="1.8" marker-end="url(#am-b)" marker-start="url(#am-b)"/><text class="t4" x="600" y="424" text-anchor="middle">VPN 通道</text><text class="t5" x="160" y="424" text-anchor="start" style="fill:#1b4f9c">站點互連 (藍)</text><rect x="880" y="106" width="96" height="44" rx="7" fill="#fff6dc" stroke="#c99a2e" stroke-width="1.6"/><text class="t1" x="928.0" y="125.0" text-anchor="middle">資料庫 (備)</text><text class="t2" x="928.0" y="141.0" text-anchor="middle">PostgreSQL</text><text class="t6" x="971" y="117" text-anchor="end" style="fill:#c99a2e">S</text><rect x="1070" y="106" width="104" height="44" rx="7" fill="#fff6dc" stroke="#c99a2e" stroke-width="1.6"/><text class="t1" x="1122.0" y="125.0" text-anchor="middle">App 叢集 (備)</text><text class="t2" x="1122.0" y="141.0" text-anchor="middle">平時不接流量</text><text class="t6" x="1169" y="117" text-anchor="end" style="fill:#c99a2e">S</text><rect x="1070" y="162" width="104" height="40" rx="7" fill="#eaf1fb" stroke="#5b7fb5" stroke-width="1.6"/><text class="t1" x="1122.0" y="186.0" text-anchor="middle">備份儲存</text><text class="t6" x="1169" y="173" text-anchor="end" style="fill:#5b7fb5">M</text><polyline points="976,128 1070,128" fill="none" stroke="#52514e" stroke-width="1.8" marker-end="url(#am-k)" marker-start="url(#am-k)"/><text class="t4" x="1023" y="122" text-anchor="middle">10G</text><polyline points="928,150 928,182 1070,182" fill="none" stroke="#8a8985" stroke-width="1.8" stroke-dasharray="3 3" marker-end="url(#am-u)"/><text class="t4" x="1000" y="176" text-anchor="middle">每日備份</text><rect x="880" y="300" width="96" height="50" rx="7" fill="#eaf1fb" stroke="#5b7fb5" stroke-width="1.6"/><text class="t1" x="928.0" y="329.0" text-anchor="middle">防火牆</text><text class="t6" x="971" y="311" text-anchor="end" style="fill:#5b7fb5">M</text><rect x="1070" y="300" width="104" height="50" rx="7" fill="#fff" stroke="#52514e" stroke-width="1.6"/><text class="t1" x="1122.0" y="322.0" text-anchor="middle">遠端人員</text><text class="t2" x="1122.0" y="338.0" text-anchor="middle">VPN</text><rect x="1070" y="380" width="104" height="44" rx="7" fill="#fff6dc" stroke="#c99a2e" stroke-width="1.6"/><text class="t1" x="1122.0" y="399.0" text-anchor="middle">監控主機</text><text class="t2" x="1122.0" y="415.0" text-anchor="middle">Grafana</text><text class="t6" x="1169" y="391" text-anchor="end" style="fill:#c99a2e">S</text><polyline points="1070,325 976,325" fill="none" stroke="#6250d6" stroke-width="1.8" marker-end="url(#am-p)"/><text class="t4" x="1023.0" y="318" text-anchor="middle">VPN</text><polyline points="928,350 928,402 1070,402" fill="none" stroke="#6250d6" stroke-width="1.8" marker-end="url(#am-p)"/><text class="t4" x="1000" y="396" text-anchor="middle">1G</text></svg></div>
+<div class="tbl"><table class="t"><tr><th>線路</th><th>經過的設備</th><th>線速</th><th>方向</th></tr><tr><td><span class="sw" style="background:#1baf7a"></span>對外</td><td>使用者 → WAF → 負載平衡器 → App 叢集 Web ①②</td><td>1G</td><td>單向</td></tr><tr><td><span class="sw" style="background:#eb6834"></span>API</td><td>負載平衡器 → App 叢集 API ③④</td><td>1G</td><td>單向</td></tr><tr><td><span class="sw" style="background:#52514e"></span>主機互連</td><td>App 叢集 ↔ 資料庫、快取；資料庫 (備) ↔ App 叢集 (備)</td><td>10G</td><td>雙向</td></tr><tr><td><span class="sw" style="background:#6250d6"></span>管理</td><td>App 叢集 SSH ⑥、Agent ⑦ → 管理交換器；跳板機 → 管理交換器</td><td>1G</td><td>單向</td></tr><tr><td><span class="sw" style="background:#1b4f9c"></span>站點互連</td><td>資料庫 → 資料庫 (備)，串流複寫</td><td>10G</td><td>單向</td></tr><tr><td><span class="sw" style="background:#1b4f9c"></span>主站點 → 辦公室</td><td>管理交換器 ↔ 防火牆 (辦公室)，VPN 通道；遠端人員 → 防火牆；防火牆 → 監控主機</td><td>1G</td><td>雙向</td></tr><tr><td><span class="sw" style="background:#8a8985"></span>備份</td><td>資料庫 (備) → 備份儲存</td><td>每日一次</td><td>單向</td></tr></table></div>
+<div class="card warn arch-note"><b>注意</b><ul><li>原圖右下的區塊沒有標名，本圖暫稱「辦公室」。</li><li>線速照原圖線上的標註；原圖沒標的管理線 (SSH、Agent) 依同區交換器規格標 1G。</li><li>排程 ⑤ 在原圖沒有對外連線，只在叢集內部執行。</li></ul></div>
+<p class="muted">資料來源：demo-network.drawio，第 1 頁「Phase 1」。框色沿用原圖：黃＝S 自建、藍＝M 代管。</p>
+</div>
+</section>
+
+<section id="s-uat">
+<div class="divider"><span>線路架構</span>測試環境<span class="pill o1">原圖第 1 頁右側</span></div>
+<div class="blk">
+<p class="sub">測試環境與正式環境沒有連線。<b>測試流量 a、b 從 CI 進測試主機；回報 c 經防火牆回 CI</b>；<b>管理網路經防火牆、Internet 給協力廠商</b>。</p>
+<p class="arch-legend">線色＝用途：<span class="li"><span class="sw" style="background:#1baf7a"></span>對外流量</span><span class="li"><span class="sw" style="background:#eb6834"></span>API / 回報</span><span class="li"><span class="sw" style="background:#6250d6"></span>管理</span><span class="li"><span class="sw" style="background:#1b4f9c"></span>站點互連</span><span class="li"><span class="sw" style="background:#52514e"></span>主機互連</span><span class="li">虛線＝備份</span><br>框色＝設備歸屬：<span class="li"><span class="sw" style="background:#fff6dc;outline:1.5px solid #c99a2e"></span>S 自建</span><span class="li"><span class="sw" style="background:#eaf1fb;outline:1.5px solid #5b7fb5"></span>M 代管</span></p>
+<div class="fig arch"><svg viewBox="0 0 1116 392" role="img" aria-label="測試環境：測試流量與回報線路、管理網路經防火牆接 Internet"><defs><marker id="am-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#1baf7a"/></marker><marker id="am-o" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#eb6834"/></marker><marker id="am-p" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#6250d6"/></marker><marker id="am-b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#1b4f9c"/></marker><marker id="am-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#52514e"/></marker><marker id="am-u" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#8a8985"/></marker></defs><rect x="10" y="14" width="124" height="364" rx="12" fill="#fafafa" stroke="#8a8985" stroke-dasharray="5 4"/><text class="t3" x="72.0" y="34" text-anchor="middle" style="fill:#8a8985">開發端</text><rect x="146" y="14" width="720" height="364" rx="12" fill="#fafafa" stroke="#8a8985" stroke-dasharray="5 4"/><text class="t3" x="506.0" y="34" text-anchor="middle" style="fill:#8a8985">測試站點</text><rect x="878" y="14" width="228" height="364" rx="12" fill="#fafafa" stroke="#8a8985" stroke-dasharray="5 4"/><text class="t3" x="992.0" y="34" text-anchor="middle" style="fill:#8a8985">外部連線</text><rect x="22" y="56" width="100" height="220" rx="7" fill="#fff" stroke="#52514e" stroke-width="1.6"/><text class="t1" x="72.0" y="163" text-anchor="middle">CI</text><text class="t2" x="72.0" y="179" text-anchor="middle">自動 · 手動測試</text><text class="t5" x="160" y="58" text-anchor="start" style="fill:#1baf7a">測試流量 (綠)　a、b 兩條</text><text class="t5" x="160" y="188" text-anchor="start" style="fill:#eb6834">回報 (橘)　c</text><rect x="160" y="196" width="96" height="50" rx="7" fill="#eaf1fb" stroke="#5b7fb5" stroke-width="1.6"/><text class="t1" x="208.0" y="225.0" text-anchor="middle">防火牆</text><text class="t6" x="251" y="207" text-anchor="end" style="fill:#5b7fb5">M</text><rect x="306" y="64" width="96" height="200" rx="7" fill="#eaf1fb" stroke="#5b7fb5" stroke-width="1.6"/><text class="t1" x="354.0" y="147" text-anchor="middle">測試閘道</text><text class="t2" x="354.0" y="163" text-anchor="middle">流量、回報共用</text><text class="t6" x="397" y="75" text-anchor="end" style="fill:#5b7fb5">M</text><rect x="462" y="56" width="124" height="236" rx="10" fill="#fff6dc" stroke="#c99a2e" stroke-width="1.6"/><text class="t1" x="524" y="74" text-anchor="middle">測試主機</text><rect x="472" y="82" width="104" height="28" rx="6" fill="#f3faf5" stroke="#1baf7a" stroke-width="1.4"/><text class="t3" x="524.0" y="100.5" text-anchor="middle" style="fill:#0f7d55">a Web</text><rect x="472" y="128" width="104" height="28" rx="6" fill="#f3faf5" stroke="#1baf7a" stroke-width="1.4"/><text class="t3" x="524.0" y="146.5" text-anchor="middle" style="fill:#0f7d55">b API</text><rect x="472" y="207" width="104" height="28" rx="6" fill="#fef5ef" stroke="#eb6834" stroke-width="1.4"/><text class="t3" x="524.0" y="225.5" text-anchor="middle" style="fill:#b4471a">c 回報</text><text class="t2" x="524" y="270" text-anchor="middle">d mgmt · e Agent</text><rect x="632" y="140" width="96" height="50" rx="7" fill="#fff6dc" stroke="#c99a2e" stroke-width="1.6"/><text class="t1" x="680.0" y="162.0" text-anchor="middle">Mock 服務</text><text class="t2" x="680.0" y="178.0" text-anchor="middle">f mgmt · g Agent</text><text class="t6" x="723" y="151" text-anchor="end" style="fill:#c99a2e">S</text><polyline points="122,96 306,96" fill="none" stroke="#1baf7a" stroke-width="1.8" marker-end="url(#am-g)"/><polyline points="306,96 402,96" fill="none" stroke="#1baf7a" stroke-width="1.8" stroke-dasharray="3 3" opacity=".55"/><polyline points="402,96 472,96" fill="none" stroke="#1baf7a" stroke-width="1.8" marker-end="url(#am-g)"/><text class="t4" x="437" y="89" text-anchor="middle">1G 電</text><polyline points="122,142 306,142" fill="none" stroke="#1baf7a" stroke-width="1.8" marker-end="url(#am-g)"/><polyline points="306,142 402,142" fill="none" stroke="#1baf7a" stroke-width="1.8" stroke-dasharray="3 3" opacity=".55"/><polyline points="402,142 472,142" fill="none" stroke="#1baf7a" stroke-width="1.8" marker-end="url(#am-g)"/><text class="t4" x="437" y="135" text-anchor="middle">10G 光</text><polyline points="472,221 402,221" fill="none" stroke="#eb6834" stroke-width="1.8" marker-end="url(#am-o)"/><text class="t4" x="437" y="214" text-anchor="middle">10G 光</text><polyline points="306,221 256,221" fill="none" stroke="#eb6834" stroke-width="1.8" marker-end="url(#am-o)"/><text class="t4" x="281" y="214" text-anchor="middle">1G 電</text><polyline points="160,221 122,221" fill="none" stroke="#eb6834" stroke-width="1.8" marker-end="url(#am-o)"/><polyline points="586,165 632,165" fill="none" stroke="#52514e" stroke-width="1.8"/><text class="t5" x="160" y="300" text-anchor="start" style="fill:#6250d6">管理 (紫)</text><rect x="632" y="300" width="96" height="50" rx="7" fill="#eaf1fb" stroke="#5b7fb5" stroke-width="1.6"/><text class="t1" x="680.0" y="322.0" text-anchor="middle">交換器</text><text class="t2" x="680.0" y="338.0" text-anchor="middle">管理</text><text class="t6" x="723" y="311" text-anchor="end" style="fill:#5b7fb5">M</text><rect x="756" y="300" width="96" height="50" rx="7" fill="#eaf1fb" stroke="#5b7fb5" stroke-width="1.6"/><text class="t1" x="804.0" y="329.0" text-anchor="middle">防火牆</text><text class="t6" x="847" y="311" text-anchor="end" style="fill:#5b7fb5">M</text><polyline points="524,292 524,325 632,325" fill="none" stroke="#6250d6" stroke-width="1.8" marker-end="url(#am-p)" marker-start="url(#am-p)"/><polyline points="680,190 680,300" fill="none" stroke="#6250d6" stroke-width="1.8" marker-end="url(#am-p)" marker-start="url(#am-p)"/><polyline points="728,325 756,325" fill="none" stroke="#6250d6" stroke-width="1.8" marker-end="url(#am-p)" marker-start="url(#am-p)"/><rect x="896" y="300" width="96" height="50" rx="7" fill="#fff" stroke="#52514e" stroke-width="1.6"/><text class="t1" x="944.0" y="329.0" text-anchor="middle">Internet</text><polyline points="896,325 852,325" fill="none" stroke="#6250d6" stroke-width="1.8" marker-end="url(#am-p)"/><rect x="994" y="200" width="104" height="60" rx="7" fill="#fff" stroke="#52514e" stroke-width="1.6"/><text class="t1" x="1046.0" y="229" text-anchor="middle">協力廠商</text><text class="t2" x="1046.0" y="245" text-anchor="middle">固定 IP</text><polyline points="1046,260 1046,280 944,280 944,300" fill="none" stroke="#6250d6" stroke-width="1.8" marker-end="url(#am-p)"/></svg></div>
+<div class="tbl"><table class="t"><tr><th>線路</th><th>經過的設備</th><th>線速</th></tr><tr><td><span class="sw" style="background:#1baf7a"></span>測試流量 a</td><td>CI → 測試閘道 → 測試主機 a</td><td>測試閘道到測試主機：1G 電</td></tr><tr><td><span class="sw" style="background:#1baf7a"></span>測試流量 b</td><td>CI → 測試閘道 → 測試主機 b</td><td>測試閘道到測試主機：10G 光</td></tr><tr><td><span class="sw" style="background:#eb6834"></span>回報 c</td><td>測試主機 c → 測試閘道 → 防火牆 → CI</td><td>測試主機到閘道：10G 光；閘道到防火牆：1G 電</td></tr><tr><td><span class="sw" style="background:#6250d6"></span>管理</td><td>測試主機 d (mgmt)、e (Agent)；Mock 服務 f (mgmt)、g (Agent) → 交換器 (管理) ↔ 防火牆 ← Internet ← 協力廠商</td><td>原圖未標</td></tr></table></div>
+<div class="card warn arch-note"><b>注意</b><ul><li>原圖測試流量 a、b 兩條線穿過測試閘道框，沒有標示是否經過該設備；本圖照原圖畫成穿過 (框內虛線)。</li><li>測試主機與 Mock 服務之間的連線，原圖沒有標用途與線速。</li></ul></div>
+<p class="muted">資料來源：demo-network.drawio，第 1 頁「測試站點」區。</p>
+</div>
+</section>
+
+<section id="s-sys">
+<div class="divider"><span>系統架構</span>訂單系統<span class="pill o4">原圖第 2 頁</span></div>
+<div class="blk">
+<p class="sub">使用者下單經 API 閘道、訂單服務、訊息佇列、出口閘道到物流夥伴；<b>物流夥伴另有一條線回訂單服務 (狀態回報)</b>；<b>排程器與訂單服務、訊息佇列各有雙向連線</b>。</p>
+<div class="fig arch"><svg viewBox="0 0 1116 300" role="img" aria-label="訂單系統：使用者經 API 閘道、訂單服務、訊息佇列、出口閘道到物流夥伴"><defs><marker id="am-g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#1baf7a"/></marker><marker id="am-o" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#eb6834"/></marker><marker id="am-p" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#6250d6"/></marker><marker id="am-b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#1b4f9c"/></marker><marker id="am-k" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#52514e"/></marker><marker id="am-u" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#8a8985"/></marker></defs><rect x="10" y="14" width="280" height="272" rx="12" fill="#fafafa" stroke="#8a8985" stroke-dasharray="5 4"/><text class="t3" x="150.0" y="34" text-anchor="middle" style="fill:#8a8985">使用者端</text><rect x="304" y="14" width="446" height="272" rx="12" fill="#fafafa" stroke="#8a8985" stroke-dasharray="5 4"/><text class="t3" x="527.0" y="34" text-anchor="middle" style="fill:#8a8985">訂單平台</text><rect x="970" y="14" width="136" height="272" rx="12" fill="#fafafa" stroke="#8a8985" stroke-dasharray="5 4"/><text class="t3" x="1038.0" y="34" text-anchor="middle" style="fill:#8a8985">物流夥伴</text><rect x="30" y="100" width="96" height="50" rx="7" fill="#fff" stroke="#52514e" stroke-width="1.6"/><text class="t1" x="78.0" y="129.0" text-anchor="middle">使用者</text><rect x="170" y="100" width="96" height="50" rx="7" fill="#fff" stroke="#52514e" stroke-width="1.6"/><text class="t1" x="218.0" y="129.0" text-anchor="middle">API 閘道</text><rect x="340" y="100" width="96" height="50" rx="7" fill="#fff" stroke="#52514e" stroke-width="1.6"/><text class="t1" x="388.0" y="129.0" text-anchor="middle">訂單服務</text><rect x="620" y="100" width="96" height="50" rx="7" fill="#fff" stroke="#52514e" stroke-width="1.6"/><text class="t1" x="668.0" y="129.0" text-anchor="middle">訊息佇列</text><rect x="468" y="200" width="124" height="50" rx="7" fill="#fff" stroke="#52514e" stroke-width="1.6"/><text class="t1" x="530.0" y="229.0" text-anchor="middle">排程器</text><rect x="820" y="100" width="96" height="50" rx="7" fill="#fff" stroke="#52514e" stroke-width="1.6"/><text class="t1" x="868.0" y="129.0" text-anchor="middle">出口閘道</text><rect x="990" y="56" width="96" height="210" rx="7" fill="#fff" stroke="#52514e" stroke-width="1.6"/><text class="t1" x="1038.0" y="165" text-anchor="middle">物流夥伴</text><polyline points="126,125 170,125" fill="none" stroke="#52514e" stroke-width="1.8" marker-end="url(#am-k)"/><polyline points="266,125 340,125" fill="none" stroke="#52514e" stroke-width="1.8" marker-end="url(#am-k)"/><polyline points="436,125 620,125" fill="none" stroke="#52514e" stroke-width="1.8" marker-end="url(#am-k)"/><polyline points="716,125 820,125" fill="none" stroke="#52514e" stroke-width="1.8" marker-end="url(#am-k)"/><polyline points="916,125 990,125" fill="none" stroke="#52514e" stroke-width="1.8" marker-end="url(#am-k)"/><polyline points="990,76 388,76 388,100" fill="none" stroke="#52514e" stroke-width="1.8" marker-end="url(#am-k)"/><polyline points="388,150 388,225 468,225" fill="none" stroke="#52514e" stroke-width="1.8" marker-end="url(#am-k)" marker-start="url(#am-k)"/><polyline points="668,150 668,225 592,225" fill="none" stroke="#52514e" stroke-width="1.8" marker-end="url(#am-k)" marker-start="url(#am-k)"/></svg></div>
+<div class="card warn arch-note"><b>注意</b><ul><li>原圖第 2 頁沒有標線路用途與線速，本圖全部用灰線。</li><li>使用者後面與訊息佇列後面兩個設備在原圖只有圖示：依圖示分別是 API 閘道與出口閘道。</li></ul></div>
+<p class="muted">資料來源：demo-network.drawio，第 2 頁。</p>
+</div>
+</section>
+</main>
+<script>
+/* Momo 章節導覽列：捲到哪章亮哪章。捕捉階段監聽捲動，頁面放在網頁程式的內層捲動元素裡也收得到。
+   判定線用導覽列實際高度，多排換行時才不會亮錯章。 */
+(function(){
+  var nav=document.querySelector('nav.mnav'); if(!nav) return;
+  var links=[].slice.call(nav.querySelectorAll('a[href^="#"]'));
+  var secs=links.map(function(a){return document.getElementById(a.getAttribute('href').slice(1));});
+  function pad(){document.documentElement.style.scrollPaddingTop=(nav.offsetHeight+8)+'px';}
+  function upd(){
+    var y=nav.getBoundingClientRect().bottom+24, cur=0;   // 比 scroll-padding 多留 16px，錨點跳轉落在線上時不會差一點沒過
+    secs.forEach(function(s,i){ if(s && s.getBoundingClientRect().top<=y) cur=i; });
+    links.forEach(function(a,i){ a.classList.toggle('on', i===cur); });
+  }
+  document.addEventListener('scroll',upd,true);
+  window.addEventListener('resize',function(){pad();upd();});
+  pad(); upd();
+})();
+
+</script>
+</body>
+</html>

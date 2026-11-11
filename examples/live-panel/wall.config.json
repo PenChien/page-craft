@@ -1,0 +1,1527 @@
+{
+ "meta": {
+  "title": "jira · 知識庫 · DEMO-2937 live (16:9)",
+  "lang": "zh-TW"
+ },
+ "theme": {
+  "preset": "terminal-dark",
+  "fontSize": 22,
+  "lineHeight": 30,
+  "colors": {
+   "bg": "#14171c",
+   "bar": "#262a32",
+   "line": "#4a5367",
+   "line2": "#3a4154",
+   "dim": "#6f788c",
+   "mute": "#aab1c0",
+   "fg": "#e4e8f0",
+   "wh": "#ffffff",
+   "cy": "#86e1e6",
+   "bl": "#8fb4f6",
+   "gr": "#7fdba8",
+   "pu": "#b9a2f2",
+   "ye": "#e3c07a",
+   "hl": "#302d45",
+   "dots": "#566078"
+  }
+ },
+ "clock": {
+  "start": "09:30:00",
+  "rate": 4
+ },
+ "titlebar": {
+  "text": "~/jira — DEMO-2937 知識庫 — zsh"
+ },
+ "machines": {
+  "lead": {
+   "type": "triggers",
+   "color": "pu",
+   "period": 6.0,
+   "on": 3.6,
+   "t0": -2.0,
+   "callsStart": 3,
+   "items": [
+    {
+     "name": "指派",
+     "adv": [
+      "» Evan 10/7 前",
+      "» 補【自測】"
+     ]
+    },
+    {
+     "name": "裁示",
+     "adv": [
+      "» reporter 為主管",
+      "» 不改 token"
+     ]
+    },
+    {
+     "name": "核准",
+     "adv": [
+      "» GBIC 採原廠",
+      "» 價差五倍可接受"
+     ]
+    }
+   ],
+   "log": {
+    "who": "Alex",
+    "c": "pu",
+    "start": {
+     "m": "【核示】{name} · 留言中"
+    },
+    "end": {
+     "m": "【核示】{name} · 已記錄，同日合一則"
+    }
+   }
+  },
+  "s1": {
+   "type": "lane",
+   "period": 9,
+   "run": 6.3,
+   "off": 0.6,
+   "busy": "進行中",
+   "done": [
+    "自測完成"
+   ],
+   "phase": 0,
+   "log": {
+    "who": "Blake",
+    "c": "bl",
+    "msgs": [
+     [
+      "DEMO-2938 · 當日 SOP 頁 +1",
+      ""
+     ]
+    ]
+   }
+  },
+  "s2": {
+   "type": "lane",
+   "period": 10,
+   "run": 6.8,
+   "off": 2.1,
+   "busy": "進行中",
+   "done": [
+    "自測完成"
+   ],
+   "phase": 1,
+   "log": {
+    "who": "Casey",
+    "c": "bl",
+    "msgs": [
+     [
+      "DEMO-2939 · 事故頁 5/6 WAN 建立",
+      ""
+     ]
+    ]
+   }
+  },
+  "s3": {
+   "type": "lane",
+   "period": 8,
+   "run": 5.5,
+   "off": 3.4,
+   "busy": "進行中",
+   "done": [
+    "自測完成"
+   ],
+   "phase": 2,
+   "log": {
+    "who": "Hank",
+    "c": "bl",
+    "msgs": [
+     [
+      "DEMO-2940 · 專案頁 WIKI-180 更新",
+      ""
+     ]
+    ]
+   }
+  },
+  "s4": {
+   "type": "lane",
+   "period": 11,
+   "run": 7.2,
+   "off": 4.9,
+   "busy": "進行中",
+   "done": [
+    "自測完成"
+   ],
+   "phase": 3,
+   "log": {
+    "who": "Drew",
+    "c": "bl",
+    "msgs": [
+     [
+      "DEMO-2941 · 維護表 owner +1",
+      ""
+     ]
+    ]
+   }
+  },
+  "v1": {
+   "type": "lane",
+   "period": 12,
+   "run": 7.5,
+   "off": 5.0,
+   "busy": "送簽收中",
+   "done": [
+    "Gwen Done"
+   ],
+   "phase": 0,
+   "log": {
+    "who": "Gwen",
+    "c": "gr",
+    "msgs": [
+     [
+      "REQ · 請簽收 DEMO-2938 · 關單",
+      ""
+     ]
+    ]
+   }
+  },
+  "v2": {
+   "type": "lane",
+   "period": 13,
+   "run": 8.0,
+   "off": 7.0,
+   "busy": "送簽收中",
+   "done": [
+    "Gwen Done"
+   ],
+   "phase": 1,
+   "log": {
+    "who": "Gwen",
+    "c": "gr",
+    "msgs": [
+     [
+      "REQ · 請簽收 DEMO-2939 · 關單",
+      ""
+     ]
+    ]
+   }
+  },
+  "v3": {
+   "type": "lane",
+   "period": 11,
+   "run": 7.0,
+   "off": 2.5,
+   "busy": "送簽收中",
+   "done": [
+    "Gwen Done"
+   ],
+   "phase": 2,
+   "log": {
+    "who": "Gwen",
+    "c": "gr",
+    "msgs": [
+     [
+      "REQ · 請簽收 DEMO-2940 · 關單",
+      ""
+     ]
+    ]
+   }
+  },
+  "v4": {
+   "type": "lane",
+   "period": 14,
+   "run": 8.5,
+   "off": 9.5,
+   "busy": "送簽收中",
+   "done": [
+    "Gwen+Hank Done"
+   ],
+   "phase": 3,
+   "log": {
+    "who": "Gwen",
+    "c": "gr",
+    "msgs": [
+     [
+      "REQ · 請簽收 DEMO-2941 · 關單",
+      ""
+     ]
+    ]
+   }
+  },
+  "days": {
+   "type": "counter",
+   "start": 3,
+   "rate": 0.5,
+   "suffix": " 日"
+  },
+  "q": {
+   "type": "counter",
+   "start": 118,
+   "rate": 2.2,
+   "format": "comma"
+  }
+ },
+ "canvas": {
+  "width": 1920,
+  "height": 1080,
+  "duration": 30,
+  "fps": 30,
+  "preroll": 10
+ },
+ "credit": {
+  "text": "單號、進度、次數、log 皆為示意（illustrative）· jira v1.1.1 · live-panel",
+  "y": 1064
+ },
+ "elements": [
+  {
+   "type": "text",
+   "x": 0,
+   "w": 1920,
+   "y": 44,
+   "align": "center",
+   "ls": 1,
+   "runs": [
+    {
+     "t": "JIRA",
+     "c": "wh",
+     "b": 1
+    },
+    {
+     "t": "  ·  ",
+     "c": "dim"
+    },
+    {
+     "t": "DEMO-2937",
+     "c": "cy",
+     "b": 1
+    },
+    {
+     "t": " KNOWLEDGE HUB",
+     "c": "wh",
+     "b": 1
+    },
+    {
+     "t": "  ·  ",
+     "c": "dim"
+    },
+    {
+     "t": "LEAD",
+     "c": "pu",
+     "b": 1
+    },
+    {
+     "t": " ON CALL",
+     "c": "wh",
+     "b": 1
+    }
+   ]
+  },
+  {
+   "type": "rule",
+   "x": 34,
+   "y": 68,
+   "w": 1852
+  },
+  {
+   "type": "box",
+   "x": 40,
+   "y": 92,
+   "w": 340,
+   "h": 736,
+   "color": "pu",
+   "pad": [
+    12,
+    8,
+    8
+   ],
+   "lines": [
+    {
+     "t": "ALEX WU",
+     "c": "pu",
+     "b": 1
+    },
+    {
+     "t": "主管 · on call",
+     "c": "pu"
+    },
+    {
+     "trigger": [
+      "lead",
+      0
+     ]
+    },
+    {
+     "trigger": [
+      "lead",
+      1
+     ]
+    },
+    {
+     "trigger": [
+      "lead",
+      2
+     ]
+    },
+    "",
+    {
+     "align": "left",
+     "indent": 30,
+     "c": "mute",
+     "t": "留言只有四種"
+    },
+    {
+     "align": "left",
+     "indent": 30,
+     "c": "mute",
+     "t": "【決定】【異動】"
+    },
+    {
+     "align": "left",
+     "indent": 30,
+     "c": "mute",
+     "t": "【阻礙】【核示】"
+    },
+    "",
+    {
+     "align": "left",
+     "indent": 30,
+     "c": "mute",
+     "t": "同一人同一天"
+    },
+    {
+     "align": "left",
+     "indent": 30,
+     "c": "mute",
+     "t": "同一張單只留一則"
+    },
+    "",
+    {
+     "align": "left",
+     "indent": 30,
+     "c": "mute",
+     "t": "最近一則："
+    },
+    {
+     "align": "left",
+     "indent": 30,
+     "runs": [
+      {
+       "v": "lead.adv0",
+       "c": "pu"
+      }
+     ]
+    },
+    {
+     "align": "left",
+     "indent": 30,
+     "runs": [
+      {
+       "v": "lead.adv1",
+       "c": "pu"
+      }
+     ]
+    },
+    "",
+    {
+     "runs": [
+      {
+       "t": "留言 ",
+       "c": "dim"
+      },
+      {
+       "v": "lead.calls",
+       "c": "wh",
+       "b": 1
+      },
+      {
+       "t": " 則",
+       "c": "dim"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "type": "line",
+   "from": [
+    68,
+    214
+   ],
+   "to": [
+    68,
+    296
+   ],
+   "dash": true
+  },
+  {
+   "type": "tarrow",
+   "machine": "lead",
+   "i": 0,
+   "from": [
+    384,
+    194
+   ],
+   "to": [
+    416,
+    194
+   ]
+  },
+  {
+   "type": "tarrow",
+   "machine": "lead",
+   "i": 1,
+   "from": [
+    384,
+    224
+   ],
+   "to": [
+    416,
+    224
+   ]
+  },
+  {
+   "type": "tarrow",
+   "machine": "lead",
+   "i": 2,
+   "from": [
+    384,
+    254
+   ],
+   "to": [
+    416,
+    254
+   ]
+  },
+  {
+   "type": "box",
+   "x": 420,
+   "y": 92,
+   "w": 1460,
+   "h": 160,
+   "color": "cy",
+   "pad": [
+    12,
+    16
+   ],
+   "lines": [
+    {
+     "runs": [
+      {
+       "t": "DEMO-2937 · Epic",
+       "c": "cy",
+       "b": 1
+      },
+      {
+       "t": "  知識庫建置",
+       "c": "wh",
+       "b": 1
+      },
+      {
+       "t": "     DRI ",
+       "c": "dim"
+      },
+      {
+       "t": "Drew Kao",
+       "c": "fg"
+      },
+      {
+       "t": "   2026-10-06 → 12-31   ",
+       "c": "dim"
+      },
+      {
+       "t": "A3 A4 C3 · reach-wide",
+       "c": "cy"
+      }
+     ]
+    },
+    {
+     "runs": [
+      {
+       "t": "SC-1 ",
+       "c": "ye",
+       "b": 1
+      },
+      {
+       "t": "指定五題查到答案前要問人的次數  待量 → 0 次",
+       "c": "fg"
+      }
+     ]
+    },
+    {
+     "runs": [
+      {
+       "t": "SC-2 ",
+       "c": "ye",
+       "b": 1
+      },
+      {
+       "t": "每題查到答案的時間  待量 → 5 分鐘內   ",
+       "c": "fg"
+      },
+      {
+       "t": "量法：同一試查者、同五題、不事先提示",
+       "c": "dim"
+      }
+     ]
+    },
+    {
+     "runs": [
+      {
+       "t": "Epic 描述就是章程：背景與問題、目標、SC-n、能力面向、里程碑、責任",
+       "c": "mute"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "type": "flow",
+   "path": [
+    [
+     1150,
+     252
+    ],
+    [
+     1150,
+     276
+    ]
+   ],
+   "period": 1.6,
+   "offsets": [
+    0
+   ],
+   "color": "cy"
+  },
+  {
+   "type": "box",
+   "x": 420,
+   "y": 276,
+   "w": 1460,
+   "h": 66,
+   "color": "ye",
+   "pad": [
+    10,
+    16
+   ],
+   "lines": [
+    {
+     "runs": [
+      {
+       "t": "DEMO-2951 · 基準量測",
+       "c": "ye",
+       "b": 1
+      },
+      {
+       "t": "  五題試查要問人幾次、花幾分鐘   ",
+       "c": "fg"
+      },
+      {
+       "t": "Drew Kao · →10/09 · pace-baseline · 量完把現值填回 SC",
+       "c": "dim"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "type": "flow",
+   "path": [
+    [
+     595,
+     342
+    ],
+    [
+     595,
+     364
+    ]
+   ],
+   "period": 2.0,
+   "offsets": [
+    0.0
+   ],
+   "color": "ye"
+  },
+  {
+   "type": "box",
+   "x": 420,
+   "y": 364,
+   "w": 350,
+   "h": 150,
+   "color": "bl",
+   "pad": [
+    10,
+    12
+   ],
+   "lines": [
+    {
+     "runs": [
+      {
+       "t": "DEMO-2938 ",
+       "c": "bl",
+       "b": 1
+      },
+      {
+       "t": "Story",
+       "c": "dim"
+      }
+     ]
+    },
+    {
+     "t": "每日作業 SOP 與變更 Review",
+     "c": "wh"
+    },
+    {
+     "t": "Blake Lin",
+     "c": "mute"
+    },
+    {
+     "runs": [
+      {
+       "v": "s1",
+       "c": "bl"
+      }
+     ]
+    }
+   ],
+   "when": {
+    "var": "s1.state",
+    "eq": "done"
+   },
+   "then": {
+    "glow": "bl"
+   }
+  },
+  {
+   "type": "flow",
+   "path": [
+    [
+     595,
+     514
+    ],
+    [
+     595,
+     538
+    ]
+   ],
+   "period": 1.8,
+   "offsets": [
+    0,
+    0.9
+   ],
+   "color": "bl"
+  },
+  {
+   "type": "box",
+   "x": 420,
+   "y": 538,
+   "w": 350,
+   "h": 96,
+   "color": "gr",
+   "pad": [
+    10,
+    12
+   ],
+   "lines": [
+    {
+     "runs": [
+      {
+       "t": "DEMO-2943 ",
+       "c": "gr",
+       "b": 1
+      },
+      {
+       "t": "簽收 · 執行者自測",
+       "c": "fg"
+      }
+     ]
+    },
+    {
+     "runs": [
+      {
+       "v": "v1",
+       "c": "gr"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "type": "flow",
+   "path": [
+    [
+     595,
+     634
+    ],
+    [
+     595,
+     658
+    ]
+   ],
+   "period": 2.4,
+   "offsets": [
+    0.0
+   ],
+   "color": "gr",
+   "when": {
+    "var": "v1.state",
+    "eq": "run"
+   }
+  },
+  {
+   "type": "flow",
+   "path": [
+    [
+     595,
+     724
+    ],
+    [
+     595,
+     748
+    ]
+   ],
+   "period": 2.6,
+   "offsets": [
+    0.0
+   ],
+   "color": "pu"
+  },
+  {
+   "type": "box",
+   "x": 420,
+   "y": 748,
+   "w": 350,
+   "h": 80,
+   "color": "pu",
+   "pad": [
+    10,
+    12
+   ],
+   "lines": [
+    {
+     "runs": [
+      {
+       "t": "DEMO-2944 ",
+       "c": "pu",
+       "b": 1
+      },
+      {
+       "t": "使用統計 · 依團隊分列",
+       "c": "fg"
+      }
+     ]
+    },
+    {
+     "t": "上線後 30 天 · →2027-01-31",
+     "c": "dim"
+    }
+   ]
+  },
+  {
+   "type": "flow",
+   "path": [
+    [
+     965,
+     342
+    ],
+    [
+     965,
+     364
+    ]
+   ],
+   "period": 2.3,
+   "offsets": [
+    0.2
+   ],
+   "color": "ye"
+  },
+  {
+   "type": "box",
+   "x": 790,
+   "y": 364,
+   "w": 350,
+   "h": 150,
+   "color": "bl",
+   "pad": [
+    10,
+    12
+   ],
+   "lines": [
+    {
+     "runs": [
+      {
+       "t": "DEMO-2939 ",
+       "c": "bl",
+       "b": 1
+      },
+      {
+       "t": "Story",
+       "c": "dim"
+      }
+     ]
+    },
+    {
+     "t": "事故與追蹤頁",
+     "c": "wh"
+    },
+    {
+     "t": "Casey Ho",
+     "c": "mute"
+    },
+    {
+     "runs": [
+      {
+       "v": "s2",
+       "c": "bl"
+      }
+     ]
+    }
+   ],
+   "when": {
+    "var": "s2.state",
+    "eq": "done"
+   },
+   "then": {
+    "glow": "bl"
+   }
+  },
+  {
+   "type": "flow",
+   "path": [
+    [
+     965,
+     514
+    ],
+    [
+     965,
+     538
+    ]
+   ],
+   "period": 2.05,
+   "offsets": [
+    0,
+    0.9
+   ],
+   "color": "bl"
+  },
+  {
+   "type": "box",
+   "x": 790,
+   "y": 538,
+   "w": 350,
+   "h": 96,
+   "color": "gr",
+   "pad": [
+    10,
+    12
+   ],
+   "lines": [
+    {
+     "runs": [
+      {
+       "t": "DEMO-2945 ",
+       "c": "gr",
+       "b": 1
+      },
+      {
+       "t": "簽收 · 執行者自測",
+       "c": "fg"
+      }
+     ]
+    },
+    {
+     "runs": [
+      {
+       "v": "v2",
+       "c": "gr"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "type": "flow",
+   "path": [
+    [
+     965,
+     634
+    ],
+    [
+     965,
+     658
+    ]
+   ],
+   "period": 2.6,
+   "offsets": [
+    0.3
+   ],
+   "color": "gr",
+   "when": {
+    "var": "v2.state",
+    "eq": "run"
+   }
+  },
+  {
+   "type": "flow",
+   "path": [
+    [
+     965,
+     724
+    ],
+    [
+     965,
+     748
+    ]
+   ],
+   "period": 2.8000000000000003,
+   "offsets": [
+    0.5
+   ],
+   "color": "pu"
+  },
+  {
+   "type": "box",
+   "x": 790,
+   "y": 748,
+   "w": 350,
+   "h": 80,
+   "color": "pu",
+   "pad": [
+    10,
+    12
+   ],
+   "lines": [
+    {
+     "runs": [
+      {
+       "t": "DEMO-2946 ",
+       "c": "pu",
+       "b": 1
+      },
+      {
+       "t": "使用統計 · 依團隊分列",
+       "c": "fg"
+      }
+     ]
+    },
+    {
+     "t": "上線後 30 天 · →2027-01-31",
+     "c": "dim"
+    }
+   ]
+  },
+  {
+   "type": "flow",
+   "path": [
+    [
+     1335,
+     342
+    ],
+    [
+     1335,
+     364
+    ]
+   ],
+   "period": 2.6,
+   "offsets": [
+    0.4
+   ],
+   "color": "ye"
+  },
+  {
+   "type": "box",
+   "x": 1160,
+   "y": 364,
+   "w": 350,
+   "h": 150,
+   "color": "bl",
+   "pad": [
+    10,
+    12
+   ],
+   "lines": [
+    {
+     "runs": [
+      {
+       "t": "DEMO-2940 ",
+       "c": "bl",
+       "b": 1
+      },
+      {
+       "t": "Story",
+       "c": "dim"
+      }
+     ]
+    },
+    {
+     "t": "專案全貌頁",
+     "c": "wh"
+    },
+    {
+     "t": "Hank Pan",
+     "c": "mute"
+    },
+    {
+     "runs": [
+      {
+       "v": "s3",
+       "c": "bl"
+      }
+     ]
+    }
+   ],
+   "when": {
+    "var": "s3.state",
+    "eq": "done"
+   },
+   "then": {
+    "glow": "bl"
+   }
+  },
+  {
+   "type": "flow",
+   "path": [
+    [
+     1335,
+     514
+    ],
+    [
+     1335,
+     538
+    ]
+   ],
+   "period": 2.3,
+   "offsets": [
+    0,
+    0.9
+   ],
+   "color": "bl"
+  },
+  {
+   "type": "box",
+   "x": 1160,
+   "y": 538,
+   "w": 350,
+   "h": 96,
+   "color": "gr",
+   "pad": [
+    10,
+    12
+   ],
+   "lines": [
+    {
+     "runs": [
+      {
+       "t": "DEMO-2947 ",
+       "c": "gr",
+       "b": 1
+      },
+      {
+       "t": "簽收 · 執行者自測",
+       "c": "fg"
+      }
+     ]
+    },
+    {
+     "runs": [
+      {
+       "v": "v3",
+       "c": "gr"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "type": "flow",
+   "path": [
+    [
+     1335,
+     634
+    ],
+    [
+     1335,
+     658
+    ]
+   ],
+   "period": 2.8,
+   "offsets": [
+    0.6
+   ],
+   "color": "gr",
+   "when": {
+    "var": "v3.state",
+    "eq": "run"
+   }
+  },
+  {
+   "type": "flow",
+   "path": [
+    [
+     1335,
+     724
+    ],
+    [
+     1335,
+     748
+    ]
+   ],
+   "period": 3.0,
+   "offsets": [
+    1.0
+   ],
+   "color": "pu"
+  },
+  {
+   "type": "box",
+   "x": 1160,
+   "y": 748,
+   "w": 350,
+   "h": 80,
+   "color": "pu",
+   "pad": [
+    10,
+    12
+   ],
+   "lines": [
+    {
+     "runs": [
+      {
+       "t": "DEMO-2948 ",
+       "c": "pu",
+       "b": 1
+      },
+      {
+       "t": "使用統計 · 依團隊分列",
+       "c": "fg"
+      }
+     ]
+    },
+    {
+     "t": "上線後 30 天 · →2027-01-31",
+     "c": "dim"
+    }
+   ]
+  },
+  {
+   "type": "flow",
+   "path": [
+    [
+     1705,
+     342
+    ],
+    [
+     1705,
+     364
+    ]
+   ],
+   "period": 2.9,
+   "offsets": [
+    0.6000000000000001
+   ],
+   "color": "ye"
+  },
+  {
+   "type": "box",
+   "x": 1530,
+   "y": 364,
+   "w": 350,
+   "h": 150,
+   "color": "bl",
+   "pad": [
+    10,
+    12
+   ],
+   "lines": [
+    {
+     "runs": [
+      {
+       "t": "DEMO-2941 ",
+       "c": "bl",
+       "b": 1
+      },
+      {
+       "t": "Story",
+       "c": "dim"
+      }
+     ]
+    },
+    {
+     "t": "維護機制與 Agent 查詢紀錄",
+     "c": "wh"
+    },
+    {
+     "t": "Drew Kao",
+     "c": "mute"
+    },
+    {
+     "runs": [
+      {
+       "v": "s4",
+       "c": "bl"
+      }
+     ]
+    }
+   ],
+   "when": {
+    "var": "s4.state",
+    "eq": "done"
+   },
+   "then": {
+    "glow": "bl"
+   }
+  },
+  {
+   "type": "flow",
+   "path": [
+    [
+     1705,
+     514
+    ],
+    [
+     1705,
+     538
+    ]
+   ],
+   "period": 2.55,
+   "offsets": [
+    0,
+    0.9
+   ],
+   "color": "bl"
+  },
+  {
+   "type": "box",
+   "x": 1530,
+   "y": 538,
+   "w": 350,
+   "h": 96,
+   "color": "gr",
+   "pad": [
+    10,
+    12
+   ],
+   "lines": [
+    {
+     "runs": [
+      {
+       "t": "DEMO-2949 ",
+       "c": "gr",
+       "b": 1
+      },
+      {
+       "t": "簽收 · 執行者自測",
+       "c": "fg"
+      }
+     ]
+    },
+    {
+     "runs": [
+      {
+       "v": "v4",
+       "c": "gr"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "type": "flow",
+   "path": [
+    [
+     1705,
+     634
+    ],
+    [
+     1705,
+     658
+    ]
+   ],
+   "period": 3.0,
+   "offsets": [
+    0.8999999999999999
+   ],
+   "color": "gr",
+   "when": {
+    "var": "v4.state",
+    "eq": "run"
+   }
+  },
+  {
+   "type": "flow",
+   "path": [
+    [
+     1705,
+     724
+    ],
+    [
+     1705,
+     748
+    ]
+   ],
+   "period": 3.2,
+   "offsets": [
+    1.5
+   ],
+   "color": "pu"
+  },
+  {
+   "type": "box",
+   "x": 1530,
+   "y": 748,
+   "w": 350,
+   "h": 80,
+   "color": "pu",
+   "pad": [
+    10,
+    12
+   ],
+   "lines": [
+    {
+     "runs": [
+      {
+       "t": "DEMO-2950 ",
+       "c": "pu",
+       "b": 1
+      },
+      {
+       "t": "使用統計 · 依團隊分列",
+       "c": "fg"
+      }
+     ]
+    },
+    {
+     "t": "上線後 30 天 · →2027-01-31",
+     "c": "dim"
+    }
+   ]
+  },
+  {
+   "type": "box",
+   "x": 420,
+   "y": 658,
+   "w": 1460,
+   "h": 66,
+   "color": "gr",
+   "pad": [
+    10,
+    16
+   ],
+   "lines": [
+    {
+     "runs": [
+      {
+       "t": "送簽收 → REQ 100 一般業務需求 · ",
+       "c": "gr",
+       "b": 1
+      },
+      {
+       "t": "Gwen Yu",
+       "c": "wh",
+       "b": 1
+      },
+      {
+       "t": " · 做完才開 · Relates 回 DEMO   ",
+       "c": "fg"
+      },
+      {
+       "t": "SC-1 當日頁連續 ",
+       "c": "dim"
+      },
+      {
+       "v": "days",
+       "c": "wh",
+       "b": 1
+      },
+      {
+       "t": "   Agent 查詢 ",
+       "c": "dim"
+      },
+      {
+       "v": "q",
+       "c": "wh",
+       "b": 1
+      },
+      {
+       "t": " 次（模擬）",
+       "c": "dim"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "type": "text",
+   "x": 420,
+   "w": 1460,
+   "y": 850,
+   "align": "left",
+   "runs": [
+    {
+     "t": "■ ",
+     "c": "cy"
+    },
+    {
+     "t": "Epic 章程   ",
+     "c": "mute"
+    },
+    {
+     "t": "■ ",
+     "c": "ye"
+    },
+    {
+     "t": "基準量測   ",
+     "c": "mute"
+    },
+    {
+     "t": "■ ",
+     "c": "bl"
+    },
+    {
+     "t": "Story   ",
+     "c": "mute"
+    },
+    {
+     "t": "■ ",
+     "c": "gr"
+    },
+    {
+     "t": "簽收／送簽收   ",
+     "c": "mute"
+    },
+    {
+     "t": "■ ",
+     "c": "pu"
+    },
+    {
+     "t": "使用統計／主管留言",
+     "c": "mute"
+    }
+   ]
+  },
+  {
+   "type": "log",
+   "x": 40,
+   "y": 876,
+   "w": 1840,
+   "rows": 4,
+   "padTop": 14,
+   "padBottom": 26,
+   "padLeft": 20,
+   "title": "jira log",
+   "titleX": 38,
+   "titleW": 150,
+   "cols": [
+    {
+     "key": "time",
+     "x": 0
+    },
+    {
+     "key": "who",
+     "x": 130
+    },
+    {
+     "key": "m",
+     "x": 250
+    },
+    {
+     "key": "g",
+     "x": 1100
+    }
+   ]
+  }
+ ]
+}

@@ -1,0 +1,11 @@
+/* Momo 淡色立體版（2026-10-24 Alex 選定）：接在 momo.css 後面。只改亮色，深色模式維持原 Momo。 */
+@media not (prefers-color-scheme:dark){
+.cover{background:linear-gradient(135deg,#eaf2fc 0%,#f4f8fd 55%,#e6eef9 100%);color:#0f2747;border-bottom:1px solid #dbe5f1}
+.cover p{color:#4a6283}
+.divider span{background:linear-gradient(180deg,#4b92e6,#2a78d6);box-shadow:0 2px 6px rgba(42,120,214,.28)}
+.blk{background:linear-gradient(180deg,#fff,#fbfcfe);border:1px solid #edf1f6;box-shadow:0 1px 2px rgba(15,39,71,.05),0 10px 30px rgba(15,39,71,.07)}
+.card{background:linear-gradient(180deg,#fff,#f7f9fc);border:1px solid #e9eef4;box-shadow:0 1px 2px rgba(15,39,71,.05),0 4px 12px rgba(15,39,71,.05),inset 0 1px 0 #fff;transition:transform .2s ease-out,box-shadow .2s ease-out}
+.card:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(15,39,71,.06),0 10px 24px rgba(15,39,71,.09),inset 0 1px 0 #fff}
+.pill.o1{background:linear-gradient(180deg,#eaf2fc,#dbe8f9);box-shadow:inset 0 1px 0 #fff}
+pre{background:#f3f7fc;color:#24426b;border:1px solid #e3ebf5;box-shadow:inset 0 1px 3px rgba(15,39,71,.08)}
+}

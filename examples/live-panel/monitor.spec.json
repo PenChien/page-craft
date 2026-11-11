@@ -1,0 +1,17 @@
+{"theme":"terminal-dark","canvas":"4:5","lang":"zh",
+ "title":"Toolbridge 閘道 即時面板","titlebar":"~/toolbridge  zsh",
+ "rows":[
+  [{"name":"Claude Code 使用者","lines":["呼叫 {calls} 次","透過 HTTPS 連線"]}],
+  [{"name":"Jira 工具","lines":["建單、留言、指派"],"lane":{"busy":"呼叫中","done":["完成"],"log":["DEMO-3213 留言完成","Sub-task 建立完成"]}},
+   {"name":"DocHub 工具","lines":["讀寫文件"],"lane":{"busy":"呼叫中","done":["完成"],"log":["Runbook 更新完成"]}},
+   {"name":"GitLab 工具","lines":["MR、issue"],"lane":{"busy":"呼叫中","done":["完成"],"log":["MR 標題補上票號"]}}],
+  [{"name":"閘道延遲","lines":["p95 回應時間"],"gauge":{"label":"p95","values":[0.32,0.41,0.38,0.72,0.45,0.36],"threshold":0.6,"above":"偏慢","below":"正常","bad":"above","log":["p95 偏高，查上游"]}}]
+ ],
+ "rail":{"name":"值班提示","sub":"出事才亮","side":"left","items":[
+  {"name":"token 過期","adv":["» 重新登入","» 再呼叫一次"],"row":0},
+  {"name":"附件超過 200 KB","adv":["» 改用 curl","» 直傳 Jira"],"row":1},
+  {"name":"p95 超過門檻","adv":["» 查上游服務","» 留【阻礙】"],"row":2}]},
+ "counters":[{"id":"calls","label":"呼叫","start":12840,"rate":9}],
+ "log":{"title":"閘道 log","rows":4},
+ "note":"數字為示意",
+ "credit":"scaffold 產生的終端機面板。數字為示意，不是實際監控"}
