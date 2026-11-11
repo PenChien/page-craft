@@ -2,6 +2,11 @@
 
 版號寫在 `VERSION`。日期是 commit 日期。
 
+## 1.13.0（2026-11-11）
+
+- `live-panel-demo.html` 加「上游範例」：上游 live-panel-skill 的 12 個範例各一頁（`up-*.html`），含 excalidraw 手繪、sketchboard 說明板、loop、ring、funnel、框線面板。
+- 新增 `examples/live-panel/build_upstream.py`：從 `live-panel/examples/*/config.json` 重建上游範例頁，手繪字型依頁面用字裁切後內嵌。
+
 ## 1.12.0（2026-11-11）
 
 - 新增 `examples/drawio-arch/svg2drawio.py`：把報告頁的線路圖轉回可編輯的 drawio。

@@ -236,7 +236,7 @@ pre{background:#f3f7fc;color:#24426b;border:1px solid #e3ebf5;box-shadow:inset 0
 
 上游完整說明在 `live-panel/SKILL.md`，動手前先讀。這裡只記在本機跑通的做法。
 
-**展示頁**：`examples/live-panel/live-panel-demo.html`，五種畫法各一個例子：loop、ring、funnel、scaffold 終端機面板、16:9 監控牆。每個都附 config 和「何時用」。線上版 https://penchien.github.io/skill-html-demo/live-panel-demo.html 。
+**展示頁**：`examples/live-panel/live-panel-demo.html`，五種畫法各一個例子：loop、ring、funnel、scaffold 終端機面板、16:9 監控牆。每個都附 config 和「何時用」。另有「上游範例」一節，上游 12 個範例各一頁（`up-*.html`，用 `build_upstream.py` 重建），含 excalidraw 手繪與 sketchboard。線上版 https://penchien.github.io/skill-html-demo/live-panel-demo.html 。
 
 ```
 cd ~/.claude/skills/skill-html/live-panel

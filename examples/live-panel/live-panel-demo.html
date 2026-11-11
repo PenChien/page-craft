@@ -37,12 +37,18 @@ pre{background:var(--code);border:0.5px solid var(--line);border-radius:6px;padd
 .meta{font-size:13px;color:var(--mut);margin:4px 0 0}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
 @media(max-width:760px){.two{grid-template-columns:1fr}}
+.gal{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px 16px;margin:12px 0}
+.gal figure{margin:0}
+.gal .panel{margin:0 0 6px}
+.gal figcaption{font-size:13px;line-height:1.55}
+.gal figcaption b{display:block;font-size:14px}
+.gal figcaption span{color:var(--mut)}
 </style>
 </head>
 <body>
 <h1>live-panel 示範</h1>
 <p class="sub">一直在跑的動態架構圖。固定版面，只有狀態在動：線上的封包、亮起的步驟、翻轉的計數。每張圖都是單檔 HTML，可以單獨開，也可以用 iframe 嵌進報告。</p>
-<nav><a href="#views">視圖總覽</a><a href="#loop">loop</a><a href="#ring">ring</a><a href="#funnel">funnel</a><a href="#monitor">終端機面板</a><a href="#wall">16:9 監控牆</a><a href="#how">怎麼做</a><a href="#embed">嵌進報告</a></nav>
+<nav><a href="#views">視圖總覽</a><a href="#loop">loop</a><a href="#ring">ring</a><a href="#funnel">funnel</a><a href="#monitor">終端機面板</a><a href="#wall">16:9 監控牆</a><a href="#upstream">上游範例</a><a href="#how">怎麼做</a><a href="#embed">嵌進報告</a></nav>
 
 <h2 id="views">視圖總覽：依內容的形狀選</h2>
 <div class="tblw"><table>
@@ -52,7 +58,8 @@ pre{background:var(--code);border:0.5px solid var(--line);border-radius:6px;padd
 <tr><td>一層一層流失的轉換</td><td><code>funnel</code> 視圖</td><td><a href="#funnel">工單變成 PACE 紀錄的比例</a></td><td>light-pastel</td></tr>
 <tr><td>任意框與線、監控面板、agent 樹</td><td>不用視圖，<code>scaffold.py</code> 排版</td><td><a href="#monitor">Toolbridge 閘道 即時面板</a></td><td>terminal-dark</td></tr>
 <tr><td>投到螢幕、電視的專案監控牆</td><td>不用視圖，座標手排</td><td><a href="#wall">jira DEMO-2937 監控牆</a></td><td>terminal-dark 16:9</td></tr>
-<tr><td>手繪風格（Excalidraw）</td><td><code>excalidraw</code> 視圖</td><td>本頁未示範，見上游 <code>examples/excalidraw-aqua</code></td><td>light-pastel</td></tr>
+<tr><td>手繪風格（Excalidraw）</td><td><code>excalidraw</code> 視圖</td><td><a href="#upstream">AQuA 內外雙迴圈、园丁 loop</a></td><td>excalidraw</td></tr>
+<tr><td>手繪說明板（論文、概念解說）</td><td><code>sketchboard</code> 視圖</td><td><a href="#upstream">HybridAgent</a></td><td>sketch</td></tr>
 </table></div>
 <p class="meta">主題：Radix、Momo 報告配 <code>light-pastel</code>。要終端機監控感才用 <code>terminal-dark</code>。本頁所有數字都是示意。</p>
 
@@ -112,6 +119,24 @@ pre{background:var(--code);border:0.5px solid var(--line);border-radius:6px;padd
 <tr><td>log</td><td><code>{"type":"log","rows":4,"cols":[…]}</code></td><td>由狀態機自動產生，不另外寫</td></tr>
 </table></div>
 <p class="meta">已知版面問題（與 8088 原頁相同，保留未改）：使用統計框的「依團隊分列」超出框右緣；送簽收那行的「（模擬）」超出畫面。要修就把那幾行縮短，或把 <code>fontSize</code> 從 22 降到 20，再跑 <code>check_frames.py</code>。</p>
+
+<h2 id="upstream">上游範例：live-panel-skill 內建的 12 張</h2>
+<p>上游 repo 每個 <code>examples/*/config.json</code> 各產一頁，內容與原作相同。手繪風格需要的字型（Xiaolai、Mali、霞鶩文楷）已依頁面用到的字裁切後內嵌。點標題單獨開啟。</p>
+<div class="gal">
+<figure><div class="panel r45"><iframe src="up-excalidraw-aqua-4x5.html" title="excalidraw 視圖：AQuA 內外雙迴圈" loading="lazy" style="height:100%"></iframe></div><figcaption><b><a href="up-excalidraw-aqua-4x5.html" target="_blank">AQuA 內外雙迴圈</a></b><span><code>excalidraw</code> 視圖，手繪風、一直在跑</span></figcaption></figure>
+<figure><div class="panel r45"><iframe src="up-excalidraw-gardener-4x5.html" title="excalidraw 視圖：园丁 loop" loading="lazy" style="height:100%"></iframe></div><figcaption><b><a href="up-excalidraw-gardener-4x5.html" target="_blank">园丁 loop</a></b><span><code>excalidraw</code> 視圖，中文手寫字 Xiaolai</span></figcaption></figure>
+<figure><div class="panel r169"><iframe src="up-excalidraw-import.html" title="excalidraw 視圖：從 .excalidraw 匯入" loading="lazy" style="height:100%"></iframe></div><figcaption><b><a href="up-excalidraw-import.html" target="_blank">A tiny agent loop</a></b><span><code>excalidraw_import.py</code> 把 .excalidraw 檔轉成 config</span></figcaption></figure>
+<figure><div class="panel" style="aspect-ratio:1280/1176"><iframe src="up-hybrid-agent.html" title="sketchboard 視圖：HybridAgent" loading="lazy" style="height:100%"></iframe></div><figcaption><b><a href="up-hybrid-agent.html" target="_blank">HybridAgent</a></b><span><code>sketchboard</code> 視圖，論文解說板</span></figcaption></figure>
+<figure><div class="panel r45"><iframe src="up-loop-poteto.html" title="loop 視圖：每日 Loop" loading="lazy" style="height:100%"></iframe></div><figcaption><b><a href="up-loop-poteto.html" target="_blank">每日 Loop</a></b><span><code>loop</code> 視圖，terminal-dark</span></figcaption></figure>
+<figure><div class="panel r45"><iframe src="up-ring.html" title="ring 視圖：Agent Loop" loading="lazy" style="height:100%"></iframe></div><figcaption><b><a href="up-ring.html" target="_blank">Agent Loop</a></b><span><code>ring</code> 視圖，plan → act → verify → reflect</span></figcaption></figure>
+<figure><div class="panel r45"><iframe src="up-funnel.html" title="funnel 視圖：自動修 Bug 流水線" loading="lazy" style="height:100%"></iframe></div><figcaption><b><a href="up-funnel.html" target="_blank">自動修 Bug 流水線</a></b><span><code>funnel</code> 視圖，線性刻度</span></figcaption></figure>
+<figure><div class="panel r45"><iframe src="up-funnel-karpathy.html" title="funnel 視圖：AI 認知漏斗" loading="lazy" style="height:100%"></iframe></div><figcaption><b><a href="up-funnel-karpathy.html" target="_blank">AI 認知漏斗</a></b><span><code>funnel</code> 視圖，<code>scale:"log"</code>、單色 + focus</span></figcaption></figure>
+<figure><div class="panel" style="aspect-ratio:1080/1440"><iframe src="up-agent-architecture.html" title="框線面板：AI Agent 完整架構" loading="lazy" style="height:100%"></iframe></div><figcaption><b><a href="up-agent-architecture.html" target="_blank">AI Agent 完整架構</a></b><span>框線面板，light-pastel</span></figcaption></figure>
+<figure><div class="panel r45"><iframe src="up-airbnb.html" title="終端機面板：inside-out AI" loading="lazy" style="height:100%"></iframe></div><figcaption><b><a href="up-airbnb.html" target="_blank">inside-out AI</a></b><span>終端機面板，左欄值班 + 分組框</span></figcaption></figure>
+<figure><div class="panel r45"><iframe src="up-codex-agents.html" title="終端機面板：agent 樹" loading="lazy" style="height:100%"></iframe></div><figcaption><b><a href="up-codex-agents.html" target="_blank">Codex agent 樹</a></b><span>終端機面板，fork 出子 agent</span></figcaption></figure>
+<figure><div class="panel r11"><iframe src="up-minimal.html" title="最小範例" loading="lazy" style="height:100%"></iframe></div><figcaption><b><a href="up-minimal.html" target="_blank">minimal</a></b><span>最小 config，從這裡開始改</span></figcaption></figure>
+</div>
+<p class="meta">重建：<code>python3 examples/live-panel/build_upstream.py &lt;字型目錄&gt;</code>，字型目錄放 <code>Xiaolai-Regular.ttf</code>、<code>mali.ttf</code>、<code>mali-bold.ttf</code>、<code>wenkai.ttf</code>；需要 <code>fonttools</code> 才會裁切字型。</p>
 
 <h2 id="how">怎麼做：三步</h2>
 <div class="tblw"><table>
