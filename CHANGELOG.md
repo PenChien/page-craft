@@ -4,8 +4,8 @@
 
 ## 1.13.0（2026-11-11）
 
-- `live-panel-demo.html` 加「上游範例」：上游 live-panel-skill 的 12 個範例各一頁（`up-*.html`），含 excalidraw 手繪、sketchboard 說明板、loop、ring、funnel、框線面板。
-- 新增 `examples/live-panel/build_upstream.py`：從 `live-panel/examples/*/config.json` 重建上游範例頁，手繪字型依頁面用字裁切後內嵌。
+- `live-panel-demo.html` 加「上游範例」：上游 live-panel-skill 的 12 個範例各一頁（`up-*.html`），簡體轉為繁體（臺灣用語），含 excalidraw 手繪、sketchboard 說明板、loop、ring、funnel、框線面板。
+- 新增 `examples/live-panel/build_upstream.py`：從 `live-panel/examples/*/config.json` 重建上游範例頁，先用 OpenCC 轉繁體，手繪字型依頁面用字裁切後內嵌。
 
 ## 1.12.0（2026-11-11）
 
