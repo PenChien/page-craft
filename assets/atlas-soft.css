@@ -1,4 +1,4 @@
-/* Momo 淡色立體版（2026-10-24 Alex 選定）：接在 momo.css 後面。只改亮色，深色模式維持原 Momo。 */
+/* Atlas 淡色立體版（2026-10-24 Alex 選定）：接在 atlas.css 後面。只改亮色，深色模式維持原 Atlas。 */
 @media not (prefers-color-scheme:dark){
 .cover{background:linear-gradient(135deg,#eaf2fc 0%,#f4f8fd 55%,#e6eef9 100%);color:#0f2747;border-bottom:1px solid #dbe5f1}
 .cover p{color:#4a6283}

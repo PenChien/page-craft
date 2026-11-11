@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""drawio 轉檔範例：把一張網路架構 drawio 重繪成 Momo 風格的 inline SVG 線路圖。
+"""drawio 轉檔範例：把一張網路架構 drawio 重繪成 Atlas 風格的 inline SVG 線路圖。
 格式來源：參考報告 報告的「線路架構」章（虛線分區框、設備框、介面框、彩色線、線速標籤）。
 步驟見 ../../references/drawio.md。
 用法：python3 build_arch.py <輸出.html>
@@ -8,8 +8,8 @@ import sys, os
 
 OUT = sys.argv[1] if len(sys.argv) > 1 else 'demo-arch.html'
 ASSETS = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'assets')
-css = '<style>\n' + open(os.path.join(ASSETS, 'momo.css'), encoding='utf-8').read() + '\n</style>'
-navjs = '<script>\n' + open(os.path.join(ASSETS, 'momo-nav.js'), encoding='utf-8').read() + '\n</script>'
+css = '<style>\n' + open(os.path.join(ASSETS, 'atlas.css'), encoding='utf-8').read() + '\n</style>'
+navjs = '<script>\n' + open(os.path.join(ASSETS, 'atlas-nav.js'), encoding='utf-8').read() + '\n</script>'
 fonts = ('<link rel="preconnect" href="https://fonts.googleapis.com">\n'
          '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=JetBrains+Mono:wght@400;600&display=swap">')
 

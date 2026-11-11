@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """用 jira 使用說明產生三種風格的示範頁，每頁一種流程圖。
 
-  Radix 極簡  + live-panel（loop 視圖，嵌 jira-loop.html）
-  Ocean 深藍  + inline SVG 泳道
-  Momo 計畫版 + CSS 流程框
+  Paper 極簡  + live-panel（loop 視圖，嵌 jira-loop.html）
+  Harbor 深藍  + inline SVG 泳道
+  Atlas 計畫版 + CSS 流程框
 
 用法：python3 build.py <jira-使用說明.html> [輸出目錄]
 來源頁的 live-panel iframe 用相對路徑，換主機會失效，所以換成各版的流程圖。
@@ -14,9 +14,9 @@ import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-MOMO_CSS = HERE.parent.parent / "assets" / "momo.css"
-MOMO_SOFT = HERE.parent.parent / "assets" / "momo-soft.css"   # 淡色立體版（只改亮色）
-MOMO_NAV_JS = HERE.parent.parent / "assets" / "momo-nav.js"
+ATLAS_CSS = HERE.parent.parent / "assets" / "atlas.css"
+ATLAS_SOFT = HERE.parent.parent / "assets" / "atlas-soft.css"   # 淡色立體版（只改亮色）
+ATLAS_NAV_JS = HERE.parent.parent / "assets" / "atlas-nav.js"
 
 LIVE_START = "<p><b>動態版</b>"
 LIVE_END = "<p>動態圖是 v1.1 版，畫的是四種 Sub-task，還沒有文件。</p>"
@@ -48,7 +48,7 @@ def load_body(src: Path) -> str:
 
 
 def switcher(cur: str) -> str:
-    items = [("radix", "Radix 極簡＋live-panel"), ("ocean", "Ocean 深藍＋SVG 泳道"), ("momo", "Momo 計畫版＋CSS 流程框")]
+    items = [("paper", "Paper 極簡＋live-panel"), ("harbor", "Harbor 深藍＋SVG 泳道"), ("atlas", "Atlas 計畫版＋CSS 流程框")]
     out = []
     for k, label in items:
         if k == cur:
@@ -65,9 +65,9 @@ def page(title: str, css: str, body: str, tail: str = "") -> str:
         f"<title>{title}</title><style>{css}</style></head><body>{body}{tail}</body></html>\n"
     )
 
-# ---------- A. Radix 極簡 + live-panel ----------
+# ---------- A. Paper 極簡 + live-panel ----------
 
-RADIX_CSS = r"""
+PAPER_CSS = r"""
 :root{
   --bg:#fdfdfc;--surface:#f9f9f8;--surface2:#f1f0ef;--line:#dad9d6;--line-strong:#cfceca;--mut:#63635e;--fg:#21201c;
   --acc:#f76b15;--acc-text:#cc4e00;
@@ -118,22 +118,22 @@ footer{margin-top:40px;color:var(--mut);font-size:13px;border-top:0.5px solid va
 .flowfig .note{font-size:13px;color:var(--mut);margin:6px 0 0}
 """
 
-RADIX_FLOW = FLOW_INTRO + """
+PAPER_FLOW = FLOW_INTRO + """
 <div class="flowfig"><iframe class="lp" src="jira-loop.html" title="jira 一張 Story 的生命週期（live-panel 動態圖）" loading="lazy"></iframe>
 <p class="note">動態圖：live-panel 的 loop 視圖，一直在跑。路徑與輪次為示意。<a href="jira-loop.html" target="_blank">單獨開啟</a>。設定檔 jira-loop.config.json。</p></div>
 """
 
-RADIX_TAIL = ""
+PAPER_TAIL = ""
 
 
-def build_radix(body: str) -> str:
-    b = body.replace("@@FLOW@@", RADIX_FLOW)
+def build_paper(body: str) -> str:
+    b = body.replace("@@FLOW@@", PAPER_FLOW)
     b = b.replace('<table class="g">', '<div class="tblw"><table class="g">').replace("</table>", "</table></div>")
-    return page("jira 使用說明（Radix 示範）", RADIX_CSS, switcher("radix") + b, RADIX_TAIL)
+    return page("jira 使用說明（Paper 示範）", PAPER_CSS, switcher("paper") + b, PAPER_TAIL)
 
-# ---------- B. Ocean 深藍 + inline SVG 泳道 ----------
+# ---------- B. Harbor 深藍 + inline SVG 泳道 ----------
 
-OCEAN_CSS = r"""
+HARBOR_CSS = r"""
 :root{
   --bg:#fff;--surface:#f3f6fa;--surface2:#fafafa;--line:#d5dee8;--line-tbl:#ccc;--mut:#666;--fg:#1a1a1a;
   --acc:#1f4e79;--ok:#2e7d32;--no:#c62828;--warnc:#f0b400;--on-acc:#fff;
@@ -189,7 +189,7 @@ footer{margin-top:40px;color:var(--mut);font-size:13px;border-top:1px solid var(
 """
 
 # 泳道：主管 / 執行者 / 簽收者（對方部門）。座標手算，viewBox 1000x350。
-OCEAN_SVG = """
+HARBOR_SVG = """
 <div class="fig"><svg viewBox="0 0 1000 350" role="img" aria-label="一張 Story 的泳道流程：主管開案，執行者量測、實作、自測，簽收者在服務台關單，主管關單"
  style="font-family:'Noto Sans TC','Microsoft JhengHei',Arial,sans-serif">
 <defs>
@@ -246,24 +246,24 @@ OCEAN_SVG = """
 """
 
 
-OCEAN_NAV_LABEL = {"14.": "不計入情況"}   # 太長的章節名改短名，不截斷
+HARBOR_NAV_LABEL = {"14.": "不計入情況"}   # 太長的章節名改短名，不截斷
 
 
-def ocean_nav(b: str):
+def harbor_nav(b: str):
     """替每個 h2 加 id，回傳 (加好 id 的內文, 導覽列 HTML)。"""
     links = []
     def add_id(m):
         num, title = m.group(1), m.group(2)
         sid = "sec-" + num.rstrip(".")
-        label = OCEAN_NAV_LABEL.get(num) or re.sub(r"（.*?）", "", title.split("：")[0]).strip()
+        label = HARBOR_NAV_LABEL.get(num) or re.sub(r"（.*?）", "", title.split("：")[0]).strip()
         links.append(f'<a href="#{sid}"><b>{num.rstrip(".")}</b>{label}</a>')
         return f'<h2 id="{sid}">{num} {title}</h2>'
     b = re.sub(r"<h2>(\S+?) (.*?)</h2>", add_id, b)
     return b, '<nav class="mnav"><div class="mw">' + "".join(links) + "</div></nav>"
 
 
-def build_ocean(body: str) -> str:
-    b = body.replace("@@FLOW@@", FLOW_INTRO + OCEAN_SVG)
+def build_harbor(body: str) -> str:
+    b = body.replace("@@FLOW@@", FLOW_INTRO + HARBOR_SVG)
     # 只有 Markdown 原稿算程式碼，維持深色；其餘 pre 是範例與公式，改淺色
     code_anchor = "的描述（Markdown 原稿，節錄）：</p>\n<pre>"
     if b.count(code_anchor) != 1:
@@ -272,17 +272,17 @@ def build_ocean(body: str) -> str:
     # 章節之間加分隔線（第一節除外）
     b = b.replace("<h2>", '<hr class="sec"><h2>').replace('<hr class="sec"><h2>', "<h2>", 1)
     b = b.replace('<table class="g">', '<div class="tblw"><table class="g">').replace("</table>", "</table></div>")
-    b, nav = ocean_nav(b)
-    head, sep, rest = b.partition("</h1>")   # 大標題在導覽列上面，和 Momo 的封面 → 導覽列同順序
+    b, nav = harbor_nav(b)
+    head, sep, rest = b.partition("</h1>")   # 大標題在導覽列上面，和 Atlas 的封面 → 導覽列同順序
     if not sep:
         sys.exit("找不到 </h1>；來源頁改版了")
-    return page("jira 使用說明（Ocean 示範）", OCEAN_CSS,
-                '<div class="page" style="padding-bottom:0">' + switcher("ocean") + head + sep + "</div>" + nav + '<div class="page">' + rest + "</div>",
-                "<script>" + MOMO_NAV_JS.read_text(encoding="utf-8") + "</script>")
+    return page("jira 使用說明（Harbor 示範）", HARBOR_CSS,
+                '<div class="page" style="padding-bottom:0">' + switcher("harbor") + head + sep + "</div>" + nav + '<div class="page">' + rest + "</div>",
+                "<script>" + ATLAS_NAV_JS.read_text(encoding="utf-8") + "</script>")
 
-# ---------- C. Momo 計畫版 + CSS 流程框 ----------
+# ---------- C. Atlas 計畫版 + CSS 流程框 ----------
 
-MOMO_EXTRA = r"""
+ATLAS_EXTRA = r"""
 .demo-switch{max-width:1120px;margin:0 auto;padding:10px 24px 0;font-size:13px;color:var(--fg2)}
 .demo-switch a,.demo-switch b{margin-left:4px}
 .blk h2{display:flex;align-items:baseline;gap:8px}
@@ -298,7 +298,7 @@ footer{max-width:1120px;margin:0 auto;padding:0 24px 40px;color:var(--mut);font-
 @media(max-width:800px){.blk{padding:20px 18px}}
 """
 
-MOMO_FLOW = FLOW_INTRO + """
+ATLAS_FLOW = FLOW_INTRO + """
 <div class="flow seven">
   <div class="bx dark"><b>開案</b><span>八項必填</span></div><div class="arr">→</div>
   <div class="bx opt"><b>基準量測</b><span>現值待量才建</span></div><div class="arr">→</div>
@@ -312,7 +312,7 @@ MOMO_FLOW = FLOW_INTRO + """
 """
 
 # 章節分組：chip 名稱、標題、包含的 h2 編號前綴
-MOMO_GROUPS = [
+ATLAS_GROUPS = [
     ("為什麼", "讓工單本身就是 PACE 紀錄", ["1."]),
     ("結構", "一張 Story 長什麼樣、要建哪些 Sub-task", ["2.", "3.", "4."]),
     ("怎麼寫", "成功指標、優先度、開單、描述、留言", ["5.", "5a.", "6.", "7.", "8.", "13."]),
@@ -321,9 +321,9 @@ MOMO_GROUPS = [
 ]
 
 
-def build_momo(body: str) -> str:
-    css = MOMO_CSS.read_text(encoding="utf-8") + MOMO_SOFT.read_text(encoding="utf-8") + MOMO_EXTRA
-    b = body.replace("@@FLOW@@", MOMO_FLOW)
+def build_atlas(body: str) -> str:
+    css = ATLAS_CSS.read_text(encoding="utf-8") + ATLAS_SOFT.read_text(encoding="utf-8") + ATLAS_EXTRA
+    b = body.replace("@@FLOW@@", ATLAS_FLOW)
     # 元件對應
     b = b.replace('<table class="g">', '<div class="tblw"><table class="t">').replace("</table>", "</table></div>")
     b = re.sub(r'<div class="box">', '<div class="card">', b)
@@ -355,16 +355,16 @@ def build_momo(body: str) -> str:
     used = set()
     out = [f'<div class="cover"><h1>{main_t}</h1><p>{sub_t}</p></div>']
     colors = ["var(--fg2)", "#1b4f9c", "#c2410c", "#0a6a0a", "#5b3a9c", "#0e7490"]
-    items = [("g-intro", "總覽")] + [(f"g{i}", chip) for i, (chip, _, _) in enumerate(MOMO_GROUPS)]
+    items = [("g-intro", "總覽")] + [(f"g{i}", chip) for i, (chip, _, _) in enumerate(ATLAS_GROUPS)]
     nav = "".join(f'<a href="#{k}" style="--c:{colors[n % len(colors)]}"><i></i>{t}</a>' for n, (k, t) in enumerate(items))
     out.append(f'<nav class="mnav"><div class="mw">{nav}</div></nav>')
     out.append('<main>')
     out.append(f'<section id="g-intro"><div class="divider"><span>總覽</span>它做什麼、不做什麼</div><div class="blk">{intro}</div></section>')
-    for i, (chip, head, keys) in enumerate(MOMO_GROUPS):
+    for i, (chip, head, keys) in enumerate(ATLAS_GROUPS):
         out.append(f'<section id="g{i}"><div class="divider"><span>{chip}</span>{head}</div>')
         for k in keys:
             if k not in sections:
-                sys.exit(f"找不到第 {k} 節；來源頁改版了，請更新 MOMO_GROUPS")
+                sys.exit(f"找不到第 {k} 節；來源頁改版了，請更新 ATLAS_GROUPS")
             out.append(f'<div class="blk">{sections[k]}</div>')
             used.add(k)
         out.append("</section>")
@@ -374,8 +374,8 @@ def build_momo(body: str) -> str:
     out.append("</main>")
     out.append(footer)
     html = "".join(out)
-    return page("jira 使用說明（Momo 示範）", css, switcher("momo") + html,
-                "<script>" + MOMO_NAV_JS.read_text(encoding="utf-8") + "</script>")
+    return page("jira 使用說明（Atlas 示範）", css, switcher("atlas") + html,
+                "<script>" + ATLAS_NAV_JS.read_text(encoding="utf-8") + "</script>")
 
 
 def main():
@@ -384,7 +384,7 @@ def main():
     src = Path(sys.argv[1])
     out = Path(sys.argv[2]) if len(sys.argv) > 2 else HERE
     body = load_body(src)
-    for name, fn in [("radix", build_radix), ("ocean", build_ocean), ("momo", build_momo)]:
+    for name, fn in [("paper", build_paper), ("harbor", build_harbor), ("atlas", build_atlas)]:
         p = out / f"jira-{name}.html"
         p.write_text(fn(body), encoding="utf-8")
         print(f"wrote {p} ({p.stat().st_size} bytes)")

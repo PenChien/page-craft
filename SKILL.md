@@ -1,24 +1,22 @@
 ---
-name: skill-html
-source: https://git.example.com/skills/skill-html.git
-description: skill-html（舊名 skill-ui）。Alex 的內部報告 HTML 設計與發布工具。三種風格(Radix 極簡、Ocean 深藍、Momo 計畫版)套樣式，內建 live-panel 動態架構圖，發布到 static.example.com(預覽→正式、cmp 驗證)，GitLab 版控。含色票、表格與彩色卡片、架構圖四選一(Mermaid / CSS 流程框 / inline SVG 泳道 / live-panel)、發布腳本、rollback 與自檢。觸發於 改 UI / 美化報告 / 發布到 space / 界面優化 / Radix / Ocean / Momo / restyle / redesign / 架構圖 / 流程圖 / 計畫頁 / OKR 頁。
-triggers: ui, live-panel, 動態架構圖, 改ui, 美化, 介面, 界面, radix, ocean, momo, 設計規範, skill-html, skill-html-demo, html, restyle, redesign, 優化介面, 架構圖, 流程圖, 泳道, 流程框, 計畫頁, okr, 卡片, 風格, 發布, space, portal, 報告
+name: page-craft
+source: https://git.example.com/skills/page-craft.git
+description: Alex 的內部報告 HTML 設計與發布工具。三種風格(Paper 極簡、Harbor 深藍、Atlas 計畫版)套樣式，內建 live-panel 動態架構圖，發布到 static.example.com(預覽→正式、cmp 驗證)，GitLab 版控。含色票、表格與彩色卡片、架構圖四選一(Mermaid / CSS 流程框 / inline SVG 泳道 / live-panel)、發布腳本、rollback 與自檢。觸發於 改 UI / 美化報告 / 發布到 space / 界面優化 / Paper / Harbor / Atlas / restyle / redesign / 架構圖 / 流程圖 / 計畫頁 / OKR 頁。
+triggers: ui, live-panel, 動態架構圖, 改ui, 美化, 介面, 界面, paper, harbor, atlas, 設計規範, page-craft, page-craft-demo, html, restyle, redesign, 優化介面, 架構圖, 流程圖, 泳道, 流程框, 計畫頁, okr, 卡片, 風格, 發布, space, portal, 報告
 metadata:
   type: reference
 ---
 
-# skill-html：內部報告 HTML 設計與發布
-
-舊名 skill-ui，2026-10-24 正名為 skill-html。
+# page-craft：內部報告 HTML 設計與發布
 
 內部報告 HTML 的**設計 + 發布工具**。把寫好的報告內容，套成一致的視覺風格，發布到 static.example.com，並做版本控制。三件事：
-1. **設計**：三種可選風格 — Radix 極簡、Ocean 深藍、Momo 計畫版。動手前先問使用者要哪一種，或沿用既有。
+1. **設計**：三種可選風格 — Paper 極簡、Harbor 深藍、Atlas 計畫版。動手前先問使用者要哪一種，或沿用既有。
 2. **發布**：上傳到 static.example.com，預覽到正式，cmp 逐 byte 驗證。見下方「發布」段。
 3. **版控**：commit 推 GitLab，rollback 備份。
 
 ## 何時用
 
-- 使用者說：改 UI、美化、界面優化、套用設計規範、Radix、Ocean、Momo、restyle、redesign。
+- 使用者說：改 UI、美化、界面優化、套用設計規範、Paper、Harbor、Atlas、restyle、redesign。
 - 既有 HTML、報告、工具要重新設計視覺。
 
 ## 先決：一定要能 rollback
@@ -32,16 +30,16 @@ metadata:
 
 | 風格 | 個性 | 適合 |
 |---|---|---|
-| Radix 極簡 | 安靜、克制、低對比、少裝飾 | 資料密集、要中性專業的報告；守 11 條 |
-| Ocean 深藍 | 深藍主色、標題左線、表格組織、彩色卡片；層次鮮明、一眼抓重點 | 說明文件、流程、要引導閱讀的報告 |
-| Momo 計畫版 | 深藍封面、灰底白卡、章節 chip、進度條、狀態 pill、CSS 流程框；像一頁式簡報 | 季度計畫、OKR 進度、roadmap、要給主管一眼看完的頁 |
+| Paper 極簡 | 安靜、克制、低對比、少裝飾 | 資料密集、要中性專業的報告；守 11 條 |
+| Harbor 深藍 | 深藍主色、標題左線、表格組織、彩色卡片；層次鮮明、一眼抓重點 | 說明文件、流程、要引導閱讀的報告 |
+| Atlas 計畫版 | 深藍封面、灰底白卡、章節 chip、進度條、狀態 pill、CSS 流程框；像一頁式簡報 | 季度計畫、OKR 進度、roadmap、要給主管一眼看完的頁 |
 
-不確定就問使用者。三者是不同取捨，內文不要混用。例如 Radix 的 0.5px 不配 Ocean 的 6px 左線，Momo 的圓角陰影不配 Radix。
-例外：**頁首與導覽列可沿用 Momo，內文維持一種風格**。頁首指封面加黏頂章節列。2026-10-24 目標管理系統「如何開專案」用 Momo 頁首包 Ocean 內文，Alex 接受。
+不確定就問使用者。三者是不同取捨，內文不要混用。例如 Paper 的 0.5px 不配 Harbor 的 6px 左線，Atlas 的圓角陰影不配 Paper。
+例外：**頁首與導覽列可沿用 Atlas，內文維持一種風格**。頁首指封面加黏頂章節列。2026-10-24 目標管理系統「如何開專案」用 Atlas 頁首包 Harbor 內文，Alex 接受。
 
 ---
 
-## 風格 A：Radix 極簡
+## 風格 A：Paper 極簡
 
 全部顏色用 [Radix Colors](https://www.radix-ui.com/colors)。中性 sand、強調 orange、成功 green。
 分階：1-2 底、2-3 面、6-7 線、9 實色、11 文字。
@@ -62,12 +60,12 @@ metadata:
 - 次要文字 step11、主文字 step12；實色（bar、按鈕底）step9，強調文字 step11。
 - step9 配字：多數白；amber/yellow/lime/mint/sky 配深字，orange 配白。
 
-### Radix 的 11 條規則
+### Paper 的 11 條規則
 
 1. 不用中點「·」作分隔。改空格或頓號「、」。
 2. 不加冗餘的解釋性描述，別弄髒界面。
 3. review 文案：符合受眾、好懂、不口語、不冗餘、不造詞。
-4. 顏色全用 Radix，照其語意分階。
+4. 顏色全用 Radix Colors，照其語意分階。
 5. 光學對齊；巢狀處同心圓角。
 6. 線條邊框用 0.5px。
 7. 少動畫；要用就 ease-out、250ms。
@@ -76,12 +74,12 @@ metadata:
 10. 少圓角、陰影，尤其**卡片左邊緣彩色線**。
 11. 少 Eyebrow / Overline，不加與主標題語義重複的裝飾小標題。
 
-**適用範圍（2026-10-24 Alex 評價）**：清單列用 Radix 好看，例：個人頁「手上的工作」。狀態卡、檢核卡用 Radix 被評「很醜」，例：Team Status，已還原。
+**適用範圍（2026-10-24 Alex 評價）**：清單列用 Paper 好看，例：個人頁「手上的工作」。狀態卡、檢核卡用 Paper 被評「很醜」，例：Team Status，已還原。
 **第 10 條的例外**：清單列前端的狀態色條要保留，Alex 明確要求。色條 3px，顏色同燈號。拿掉後狀態一眼看不出來。
 
 ---
 
-## 風格 B：Ocean 深藍
+## 風格 B：Harbor 深藍
 
 來源：jira 使用說明的風格。深藍 `#1f4e79` 主色、標題帶左粗線、善用表格、彩色卡片、深色程式碼區。
 
@@ -103,9 +101,9 @@ th,td{border:1px solid var(--line-tbl);padding:6px 9px} th{background:var(--surf
 pre{background:#1e1e1e;color:#e6e6e6;border-radius:6px;padding:12px 14px}
 ```
 
-### Ocean 的兩個重點
+### Harbor 的兩個重點
 
-1. **善用表格。** 這是 Ocean 最好的地方。資訊不進表格就會散亂。能列成表（項目對值、現況對目標、比較）的，一律用表格。
+1. **善用表格。** 這是 Harbor 最好的地方。資訊不進表格就會散亂。能列成表（項目對值、現況對目標、比較）的，一律用表格。
 2. **彩色卡片分提示類型。** 不同語意用不同顏色的卡片：
 
 ```
@@ -116,7 +114,7 @@ pre{background:#1e1e1e;color:#e6e6e6;border-radius:6px;padding:12px 14px}
 .tag {display:inline-block;font-size:12px;padding:0 7px;border-radius:3px;font-weight:bold;color:#fff}
 .b1{background:#1f4e79}.b2{background:#2e7d32}.b3{background:#6a1b9a}.b4{background:#bf360c}.b5{background:#555}
 ```
-- 卡片左彩線在 Ocean 是刻意用的（和 Radix 第 10 條相反）。用來標示提示的語意類型，不要只為裝飾。
+- 卡片左彩線在 Harbor 是刻意用的（和 Paper 第 10 條相反）。用來標示提示的語意類型，不要只為裝飾。
 - 標籤 `.tag` 配 `.b1`-`.b5` 做彩色小標（藍、綠、紫、橙、灰）。
 
 **公式、定義區塊不要用深色 pre**（2026-10-24 Alex：黑底不好看）。深色只留給真正的程式碼。卡片裡的公式改淺色，並貼在卡片底部，左右兩張卡才會對齊：
@@ -128,11 +126,11 @@ pre{background:#1e1e1e;color:#e6e6e6;border-radius:6px;padding:12px 14px}
 
 ---
 
-## 風格 C：Momo 計畫版
+## 風格 C：Atlas 計畫版
 
 來源：Data Team 2026 Q4 計畫頁（`data-team-plan-2026q4.html`）。一頁式簡報的讀法：封面深藍 → sticky 膠囊導覽 → 灰底 → 章節 chip 標題 → 白卡 `.blk` → 卡內灰卡 `.card`。
 
-完整 CSS 在 `assets/momo.css`（亮色加深色，含三種架構圖）。示範頁 `assets/momo-demo.html`，每個元件各一個例子，複製就能用。
+完整 CSS 在 `assets/atlas.css`（亮色加深色，含三種架構圖）。示範頁 `assets/atlas-demo.html`，每個元件各一個例子，複製就能用。
 
 ```
 :root{
@@ -155,7 +153,7 @@ pre{background:#1e1e1e;color:#e6e6e6;border-radius:6px;padding:12px 14px}
 .bar{height:8px;background:var(--line);border-radius:4px;overflow:hidden}.fill{height:100%;background:var(--acc)}.fill.risk{background:var(--no)}
 ```
 
-### Momo 的四個重點
+### Atlas 的四個重點
 
 1. **三層底色分層次。** 頁底灰 `--bg` → 白卡 `.blk`（14px 圓角、柔和陰影）→ 卡內灰卡 `.card`。不要再加邊框，層次靠底色。
 2. **章節用 chip 標題。** `.divider` 是「藍 chip + 一句話標題」，chip 寫章節短名（現況、觀察、10–12 月），標題寫這章要回答的問題。
@@ -164,9 +162,9 @@ pre{background:#1e1e1e;color:#e6e6e6;border-radius:6px;padding:12px 14px}
 
 其他元件：`.stats` 四格大數字、`.hero` 深藍標語塊、`.callout` 綠色原則框、`table.t` 灰表頭、`pre` 深藍程式碼區。手機（≤800px）流程框自動轉直、四格變兩格。
 
-### Momo 淡色立體版（2026-10-24 Alex 選定）
+### Atlas 淡色立體版（2026-10-24 Alex 選定）
 
-Alex 看過預設 Momo 後要求「顏色淡一點、更有質感、立體點」。差異只在下面幾項，其餘照 Momo。完整檔 `assets/momo-soft.css`，接在 `momo.css` 後面，只改亮色、深色維持原 Momo；示範 `examples/jira/jira-momo.html`：
+Alex 看過預設 Atlas 後要求「顏色淡一點、更有質感、立體點」。差異只在下面幾項，其餘照 Atlas。完整檔 `assets/atlas-soft.css`，接在 `atlas.css` 後面，只改亮色、深色維持原 Atlas；示範 `examples/jira/jira-atlas.html`：
 ```
 .cover{background:linear-gradient(135deg,#eaf2fc 0%,#f4f8fd 55%,#e6eef9 100%);color:#0f2747;border-bottom:1px solid #dbe5f1}
 .cover p{color:#4a6283}
@@ -179,14 +177,14 @@ pre{background:#f3f7fc;color:#24426b;border:1px solid #e3ebf5;box-shadow:inset 0
 ```
 這版的卡片有細邊框，和第 1 點「不加邊框」不同。淡色底上不加邊框，卡片會糊在一起。
 
-### Momo 章節導覽列（2026-10-24 Alex 逐輪指正）
+### Atlas 章節導覽列（2026-10-24 Alex 逐輪指正）
 
 - **整條橫列鋪滿畫面寬，黏在頂端**。不要做成懸浮的圓角框（Alex：「變成懸浮的，我不要」）。
 - **封面文字、導覽按鈕、內文左緣對齊同一條線**。單檔報告整塊置中（2026-10-25 Alex）；嵌在網頁程式裡（例 目標管理系統）才靠左、右側留白。
 - **導覽按鈕與封面文字跟下面內容同寬**：外層橫列鋪滿。裡面包一層容器，max-width 同內文；單檔報告 `margin:0 auto`，嵌在網頁程式裡 `margin:0`。
 - **捲到哪章亮哪章，每章一種顏色**：按鈕前加一個彩色小圓點；目前章節的按鈕換成該章顏色的淡底、邊框、文字並加粗。
 - 監聽捲動用捕捉階段 `document.addEventListener("scroll", fn, true)`。頁面放在網頁程式裡時，捲動的是內層元素，掛在 window 上收不到。
-- 現成實作：`assets/momo.css` 的 `nav.mnav`，加上 `assets/momo-nav.js`。Ocean 也可用同一支 js，導覽列配色改單一深藍，見 `examples/jira/jira-ocean.html`。判定線是導覽列底緣再往下 24px：比 scroll-padding 多留 16px，點錨點跳過去時才不會差一點沒過線而亮成上一章。深色模式下亮起的文字要調亮，章節色在深底上太暗。
+- 現成實作：`assets/atlas.css` 的 `nav.mnav`，加上 `assets/atlas-nav.js`。Harbor 也可用同一支 js，導覽列配色改單一深藍，見 `examples/jira/jira-harbor.html`。判定線是導覽列底緣再往下 24px：比 scroll-padding 多留 16px，點錨點跳過去時才不會差一點沒過線而亮成上一章。深色模式下亮起的文字要調亮，章節色在深底上太暗。
 ```
 .mnav{position:sticky;top:0;z-index:9;background:rgba(255,255,255,.94);backdrop-filter:blur(6px);border-bottom:1px solid #e3e9f0}
 .mnav .mw{max-width:<內文寬>;margin:0;display:flex;gap:6px;flex-wrap:wrap}
@@ -214,7 +212,7 @@ pre{background:#f3f7fc;color:#24426b;border:1px solid #e3ebf5;box-shadow:inset 0
 | 選擇 | 樣子 | 適合 | 備註 |
 |---|---|---|---|
 | Mermaid | 報告內嵌的流程圖、架構圖 | 有分支、節點 5–7 個的一般報告 | 直式、與文章同寬、不要外擴；三種風格都能用 |
-| CSS 流程框 | `.flow` 橫向一排框加 → 箭頭；`.vflow` 直向；`.lc` 四格階梯卡；`.uloop` 虛線迴圈 | 3–6 步的線性流程、階段對照 | 不用繪圖庫，純 HTML；手機自動轉直；CSS 在 `assets/momo.css`，例子在 `assets/momo-demo.html` |
+| CSS 流程框 | `.flow` 橫向一排框加 → 箭頭；`.vflow` 直向；`.lc` 四格階梯卡；`.uloop` 虛線迴圈 | 3–6 步的線性流程、階段對照 | 不用繪圖庫，純 HTML；手機自動轉直；CSS 在 `assets/atlas.css`，例子在 `assets/atlas-demo.html` |
 | inline SVG 泳道 | 手繪 SVG：虛線泳道框 + 彩色小標、白底彩邊節點、pill 在節點上方、箭頭依語意分色 | 多角色（人 / agent / 系統）、要精確排版的架構圖 | `viewBox` 固定、`width:100%`、`min-width:720px` 窄螢幕橫向捲動；SVG 固定亮色，深色模式下包在 `.fig` 白框 |
 | live-panel | 一直在跑的動態架構圖：固定版面、線上流動的封包、判斷點與回環；`terminal-dark` 或 `light-pastel` 兩種主題 | 展示型、要「活的」流程或架構面板 | 已內建在 `live-panel/`（MIT，上游 ythx-101/live-panel-skill）；JSON config 產生單檔 HTML 或 mp4 |
 
@@ -224,9 +222,9 @@ pre{background:#f3f7fc;color:#24426b;border:1px solid #e3ebf5;box-shadow:inset 0
 
 | 檔案 | 風格 | 流程圖 |
 |---|---|---|
-| `jira-radix.html` | Radix 極簡 | live-panel loop 視圖（`jira-loop.html`，設定檔 `jira-loop.config.json`） |
-| `jira-ocean.html` | Ocean 深藍 | inline SVG 泳道（主管、執行者、簽收者） |
-| `jira-momo.html` | Momo 計畫版 | CSS 流程框（開案到關單七步） |
+| `jira-paper.html` | Paper 極簡 | live-panel loop 視圖（`jira-loop.html`，設定檔 `jira-loop.config.json`） |
+| `jira-harbor.html` | Harbor 深藍 | inline SVG 泳道（主管、執行者、簽收者） |
+| `jira-atlas.html` | Atlas 計畫版 | CSS 流程框（開案到關單七步） |
 
 來源頁更新後重跑：`python3 examples/jira/build.py <jira-使用說明.html>`。三頁 CSS 全內嵌，單檔就能發布。
 
@@ -236,10 +234,10 @@ pre{background:#f3f7fc;color:#24426b;border:1px solid #e3ebf5;box-shadow:inset 0
 
 上游完整說明在 `live-panel/SKILL.md`，動手前先讀。這裡只記在本機跑通的做法。
 
-**展示頁**：`examples/live-panel/live-panel-demo.html`，五種畫法各一個例子：loop、ring、funnel、scaffold 終端機面板、16:9 監控牆。每個都附 config 和「何時用」。另有「上游範例」一節，上游 12 個範例各一頁（`up-*.html`，用 `build_upstream.py` 重建），含 excalidraw 手繪與 sketchboard。線上版 https://penchien.github.io/skill-html-demo/live-panel-demo.html 。
+**展示頁**：`examples/live-panel/live-panel-demo.html`，五種畫法各一個例子：loop、ring、funnel、scaffold 終端機面板、16:9 監控牆。每個都附 config 和「何時用」。另有「上游範例」一節，上游 12 個範例各一頁（`up-*.html`，用 `build_upstream.py` 重建），含 excalidraw 手繪與 sketchboard。線上版 https://penchien.github.io/page-craft-demo/live-panel-demo.html 。
 
 ```
-cd ~/.claude/skills/skill-html/live-panel
+cd ~/.claude/skills/page-craft/live-panel
 CH=~/.cache/ms-playwright/chromium-1234/chrome-linux64/chrome
 # 1. 檢查：文字溢出、重疊、連線穿過節點；--repeat 證明回放逐像素相同。exit 0 才往下
 python3 -I scripts/check_frames.py --config <cfg>.json --out-dir /tmp/frames --chrome $CH --no-sandbox --png 4 --repeat
@@ -249,7 +247,7 @@ python3 -I scripts/render.py --config <cfg>.json --out /tmp/x.mp4 --duration 1 -
 - 視圖選法：有判斷與回環 → `loop`；循環 → `ring`；逐段流失 → `funnel`；任意框線 → 不用 view，照上游例子手排。
 - **16:9 監控牆風格**（投螢幕、電視）：terminal-dark、1920x1080、`fontSize` 22。左欄主管值班（`triggers` 狀態機 + `tarrow`），右邊由上往下一層一層的框（Epic → 基準量測 → Story ×4 → 簽收 → 送簽收 → 使用統計），層間 `flow` 封包，底部 `log`。範本 `examples/live-panel/wall.config.json`（與 192.0.2.10:8088/live-panel.html 同內容；用內建 live-panel 重產，截圖逐 byte 相同）。改內容時複製這份 config，改框內文字與 `machines`，座標照抄。
 - 報告內嵌：`<iframe src="<name>.html" style="width:100%;aspect-ratio:<W>/<H>;border:0">`。頁面會依視窗等比縮放，HTML 要和報告一起上傳。
-- 主題配風格：Radix、Momo 用 `light-pastel`；要終端機監控感才用 `terminal-dark`。
+- 主題配風格：Paper、Atlas 用 `light-pastel`；要終端機監控感才用 `terminal-dark`。
 - loop 視圖的 `period` 必須是 `ambientPeriod` 的整數倍，`canvas.duration` 必須是 `period` 的整數倍。每跳至少 1.25 秒。
 - 連線穿過說明框時，`check_frames.py` 會報 `edge … passes through node`。把 note 移到沒有連線經過的欄。
 - 數字沒有真實來源就在 `credit` 寫「示意」。上游的 credit 規則照守。
@@ -308,13 +306,13 @@ mermaid.initialize({startOnLoad:true,theme:'base',themeVariables:d?{primaryColor
 - 泳道色：人 綠 `#1baf7a/#f3faf5`、workflow 黃 `#c98500/#fffcf3`、資料 藍 `#2a78d6/#f4f8fd`、共用 青 `#0e8a8a/#f0fafa`。
 - 箭頭依語意分色：主流程灰 `#52514e`、參照紫 `#4a3aa7`、迴圈橙 `#eb6834`（虛線）、錯誤紅 `#d03b3b`、詢問青 `#0e8a8a`（虛線）。每種各一個 `<marker>`。
 - 字級以 viewBox 單位算：標題 13.5、說明 11、泳道標 12.5。小於 10.5 在 1090 寬的 viewBox 縮到手機會看不清。
-- 位置用整數座標手算，節點寬 170–190、高 56–70、間距 30–80。完整例子見 `assets/momo-demo.html` 的「C 手繪 inline SVG 泳道」。
+- 位置用整數座標手算，節點寬 170–190、高 56–70、間距 30–80。完整例子見 `assets/atlas-demo.html` 的「C 手繪 inline SVG 泳道」。
 
 ## 套進既有網頁程式（不是單檔 HTML）
 
 例：目標管理系統（React、antd、refine）的頁面。和單檔報告不同的地方：
-- **樣式包在頁面根層 class 下**，例 `.ocean`、`.momo`。不要寫在 `:root` 或裸元素上，否則會改到其他頁。
-- **封面要貼齊左右邊**，得用負 margin 抵銷外層留白。margin 值等於外層的留白，例 `.momo{margin:-24px}`。
+- **樣式包在頁面根層 class 下**，例 `.harbor`、`.atlas`。不要寫在 `:root` 或裸元素上，否則會改到其他頁。
+- **封面要貼齊左右邊**，得用負 margin 抵銷外層留白。margin 值等於外層的留白，例 `.atlas{margin:-24px}`。
 - **預覽不是發 space**，照該網頁程式自己的預覽流程。
 - 目標管理系統 的外層留白、預覽站與建置指令見 `references/web-app-embed.md`。
 - 改之前把原檔另存到 git 外，記下 commit，使用者確認後才 commit。
@@ -348,10 +346,10 @@ mermaid.initialize({startOnLoad:true,theme:'base',themeVariables:d?{primaryColor
 
 ## 套用流程
 
-1. 問使用者要 Radix、Ocean 還是 Momo（或沿用既有）。
+1. 問使用者要 Paper、Harbor 還是 Atlas（或沿用既有）。
 2. 備份加 rollback 點。
-3. 重寫 `<style>` 的 `:root` token 成該風格（亮色加深色）。Momo 直接貼 `assets/momo.css`。
-4. 元件依風格調：Radix 走極簡（0.5px、無左線、字級≤4）；Ocean 走藍色主調：左線標題、表格、彩色卡片；程式碼深色，公式淺色；Momo 走簡報式（封面、chip 標題、白卡灰卡、進度條、pill）。
+3. 重寫 `<style>` 的 `:root` token 成該風格（亮色加深色）。Atlas 直接貼 `assets/atlas.css`。
+4. 元件依風格調：Paper 走極簡（0.5px、無左線、字級≤4）；Harbor 走藍色主調：左線標題、表格、彩色卡片；程式碼深色，公式淺色；Atlas 走簡報式（封面、chip 標題、白卡灰卡、進度條、pill）。
 5. 文案三風格都做：移除中點、刪冗餘、精簡副標題。
 6. 架構圖四選一：Mermaid、CSS 流程框、inline SVG 泳道、live-panel。依場景或問使用者。
 7. 跑自檢；發預覽；使用者確認後覆蓋正式。
@@ -360,17 +358,17 @@ mermaid.initialize({startOnLoad:true,theme:'base',themeVariables:d?{primaryColor
 
 - 風格一致：沒有混用兩套（grep 殘留的舊色）。
 - 中點「·」= 0。
-- Radix：字級≤4、最小 12px、邊框 0.5px、無卡片左彩線。
-- Ocean：主色 #1f4e79 一致、資訊有進表格、卡片顏色對應語意。程式碼 pre 深色，公式區塊淺色且貼底。
-- Momo：頁底 #eef1f5、每章有 chip 標題、白卡內不加邊框（淡色立體版例外：卡片加細邊框）、進度條與狀態 pill 顏色對應語意、類別 pill 四色整份一致。
+- Paper：字級≤4、最小 12px、邊框 0.5px、無卡片左彩線。
+- Harbor：主色 #1f4e79 一致、資訊有進表格、卡片顏色對應語意。程式碼 pre 深色，公式區塊淺色且貼底。
+- Atlas：頁底 #eef1f5、每章有 chip 標題、白卡內不加邊框（淡色立體版例外：卡片加細邊框）、進度條與狀態 pill 顏色對應語意、類別 pill 四色整份一致。
 - 架構圖：CSS 流程框每框兩行以內；inline SVG 有 `viewBox`、`aria-label`、字級 ≥ 10.5；手機寬（400px）看過一次。
 - 標籤（tag）平衡；實色上文字對比足。
 
 ## gotcha（實作教訓）
 
 - **sticky 導覽 active 高亮**：判定當前章節的閾值用導覽列**實際高度**（`nav.offsetHeight`），不要用固定值；多排 wrap 時固定值會高亮錯節。並設 `document.documentElement.style.scrollPaddingTop = nav.offsetHeight + 8`，讓錨點連結對齊。
-- **字級收斂（Radix）**：用字重、顏色、間距分層，不靠增加字級。
-- **Radix step9 配字**：多數白；amber/yellow/lime/mint/sky 配深字，orange 配白。
+- **字級收斂（Paper）**：用字重、顏色、間距分層，不靠增加字級。
+- **Radix Colors step9 配字**：多數白；amber/yellow/lime/mint/sky 配深字，orange 配白。
 - **先發預覽再覆蓋正式**：正式檔可能已被連結或工單引用。大改先發預覽，保留 rollback。
 - **內聯底色在深色模式會刺眼**：來源頁常有 `style="background:#e3f1f5"` 這種表格列底色。改成 class，深色另給一組色。
 - **iframe 用相對路徑的區塊**：換主機發布就會失效（例：jira 說明頁的 live-panel）。改版時換成內嵌圖，或改絕對網址。

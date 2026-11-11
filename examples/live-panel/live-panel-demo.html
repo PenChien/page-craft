@@ -61,7 +61,7 @@ pre{background:var(--code);border:0.5px solid var(--line);border-radius:6px;padd
 <tr><td>手繪風格（Excalidraw）</td><td><code>excalidraw</code> 視圖</td><td><a href="#upstream">AQuA 內外雙迴圈、園丁 loop</a></td><td>excalidraw</td></tr>
 <tr><td>手繪說明板（論文、概念解說）</td><td><code>sketchboard</code> 視圖</td><td><a href="#upstream">HybridAgent</a></td><td>sketch</td></tr>
 </table></div>
-<p class="meta">主題：Radix、Momo 報告配 <code>light-pastel</code>。要終端機監控感才用 <code>terminal-dark</code>。本頁所有數字都是示意。</p>
+<p class="meta">主題：Paper、Atlas 報告配 <code>light-pastel</code>。要終端機監控感才用 <code>terminal-dark</code>。本頁所有數字都是示意。</p>
 
 <h2 id="loop">loop：有判斷、有回環的流程</h2>
 <p>分組框是角色，菱形是判斷點，虛線是退回。一個示意工單照 <code>walks</code> 的路徑走，狀態卡顯示第幾輪、哪一步。</p>
@@ -145,7 +145,7 @@ pre{background:var(--code);border:0.5px solid var(--line);border-radius:6px;padd
 <tr><td>2. 檢查</td><td><code>check_frames.py --config … --repeat</code></td><td>0 個 PROBLEM，回放逐像素相同</td></tr>
 <tr><td>3. 輸出 HTML</td><td><code>render.py --config … --html-out x.html</code></td><td>單檔，不讀外部資源</td></tr>
 </table></div>
-<pre>cd ~/.claude/skills/skill-html/live-panel
+<pre>cd ~/.claude/skills/page-craft/live-panel
 CH=~/.cache/ms-playwright/chromium-1234/chrome-linux64/chrome
 python3 -I scripts/check_frames.py --config cfg.json --out-dir /tmp/frames --chrome $CH --no-sandbox --png 4 --repeat
 python3 -I scripts/render.py --config cfg.json --out /tmp/x.mp4 --duration 1 --fps 5 --chrome $CH --no-sandbox --html-out x.html</pre>
@@ -154,6 +154,6 @@ python3 -I scripts/render.py --config cfg.json --out /tmp/x.mp4 --duration 1 --f
 <p>panel 頁面會依視窗等比縮放。iframe 給寬度與長寬比即可，HTML 要和報告一起上傳。</p>
 <pre>&lt;iframe src="x.html" title="…" loading="lazy"
   style="display:block;width:100%;aspect-ratio:1200/1360;border:0"&gt;&lt;/iframe&gt;</pre>
-<p class="meta">實例：<a href="jira-radix.html">jira 使用說明 Radix 版</a> 的流程圖。來源：live-panel（MIT），github.com/ythx-101/live-panel-skill。</p>
+<p class="meta">實例：<a href="jira-paper.html">jira 使用說明 Paper 版</a> 的流程圖。來源：live-panel（MIT），github.com/ythx-101/live-panel-skill。</p>
 </body>
 </html>

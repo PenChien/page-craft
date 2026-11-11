@@ -1,69 +1,160 @@
-<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>jira 使用說明（Ocean 示範）</title><style>
+<!doctype html><html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>jira 使用說明（Atlas 示範）</title><style>/* page-craft 風格 C：Atlas 計畫版
+   來源：Data Team 2026 Q4 計畫頁（data-team-plan-2026q4.html）。
+   用法：把本檔內容貼進報告 <style>，或 <link rel="stylesheet" href="atlas.css">。
+   版面：深藍封面 → sticky 膠囊導覽 → 灰底 main → 章節 chip 標題 → 白卡 .blk → 灰卡 .card。 */
+
 :root{
-  --bg:#fff;--surface:#f3f6fa;--surface2:#fafafa;--line:#d5dee8;--line-tbl:#ccc;--mut:#666;--fg:#1a1a1a;
-  --acc:#1f4e79;--ok:#2e7d32;--no:#c62828;--warnc:#f0b400;--on-acc:#fff;
-  --rule-bg:#e8f4ea;--warn-bg:#fff8e1;--no-bg:#fdecea;--th:#eef2f7;
-  --lv-epic:#e3f1f5;--lv-base:#fff8e1;--lv-story:#e8f0fb;--pre-fg:#1f3550;
+  --bg:#eef1f5;--surface:#fff;--surface2:#f5f6f8;
+  --line:#e5e7eb;--mut:#8a8985;--fg2:#52514e;--fg:#0b0b0b;
+  --acc:#2a78d6;--link:#1b4f9c;--navy:#0f2747;
+  --ok:#1f6b3a;--ok-bg:#e6f2ea;--no:#9a1f1f;--no-bg:#f7d9d9;--warn:#9a4a12;--warn-bg:#fff7e6;
+  --arrow:#9ca3af;
+  --shadow:0 1px 2px rgba(15,39,71,.06),0 6px 20px rgba(15,39,71,.05);
 }
 @media (prefers-color-scheme:dark){:root{
-  --bg:#13161a;--surface:#1a2230;--surface2:#1e1e1e;--line:#2b3a4d;--line-tbl:#3a4556;--mut:#9fb0c2;--fg:#e8edf2;
-  --acc:#7aa7d6;--ok:#6fbf73;--no:#e57373;--warnc:#e0b84a;--on-acc:#13161a;
-  --rule-bg:#16261a;--warn-bg:#2a2410;--no-bg:#2c1718;--th:#1d2633;
-  --lv-epic:#15262c;--lv-base:#2a2410;--lv-story:#17223a;--pre-fg:#cfe0f2;
+  --bg:#0f1115;--surface:#171a21;--surface2:#1e222b;
+  --line:#2a2f3a;--mut:#8b949e;--fg2:#b6bdc8;--fg:#e8eaf0;
+  --acc:#5b9cf0;--link:#8ab4f8;--navy:#0b1c33;
+  --ok:#6fcf8f;--ok-bg:#15301f;--no:#f08a8a;--no-bg:#3a1a1a;--warn:#f0b45a;--warn-bg:#33240e;
+  --arrow:#6b7280;
+  --shadow:none;
 }}
-*{box-sizing:border-box}
-body{font-family:"Noto Sans TC","Microsoft JhengHei",Arial,sans-serif;margin:0;
-  background:var(--bg);color:var(--fg);line-height:1.75;font-size:15px}
-html{scroll-behavior:smooth}
-.page{max-width:1000px;margin:0 auto;padding:16px 20px 24px}
-/* 章節導覽列：鋪滿畫面寬、黏頂；按鈕與內文同寬置中；目前章節深藍底白字 */
-nav.mnav{position:sticky;top:0;z-index:9;background:color-mix(in srgb,var(--bg) 94%,transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
-nav.mnav .mw{max-width:1000px;margin:0 auto;padding:8px 20px;display:flex;gap:4px;flex-wrap:wrap;font-size:13px}
-nav.mnav a{color:var(--mut);text-decoration:none;padding:2px 9px;border-radius:4px;border:1px solid transparent;white-space:nowrap}
-nav.mnav a b{color:var(--acc);margin-right:3px}
-nav.mnav a:hover{background:var(--surface);color:var(--fg)}
-nav.mnav a.on{background:var(--acc);color:var(--on-acc);font-weight:700}
-nav.mnav a.on b{color:var(--on-acc)}
-h1{font-size:24px;border-bottom:3px solid var(--acc);padding-bottom:6px}
-h2{font-size:19px;color:var(--acc);margin-top:44px;border-left:6px solid var(--acc);padding-left:10px}
-h3{font-size:15.5px;margin:20px 0 6px;color:var(--fg)}
-a{color:var(--acc)}
-.demo-switch{font-size:13px;color:var(--mut);background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:6px 12px}
+
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--fg);line-height:1.55;
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang TC","Microsoft JhengHei","Noto Sans TC",sans-serif}
+a{color:var(--link);font-weight:700;text-decoration:none}
+
+/* 封面與導覽：鋪滿畫面寬；封面文字、導覽按鈕、內文左緣對齊同一條線，整塊置中。
+   嵌在網頁程式裡（例 目標管理系統）才改靠左：把下面三處的 margin 改 0、封面 padding 改 24px。 */
+.cover{background:var(--navy);color:#fff;padding:88px max(24px,calc((100% - 1072px) / 2)) 64px}
+.cover h1{font-size:36px;margin:0 0 8px;border-left:6px solid var(--acc);padding-left:20px}
+.cover p{color:#c9d6e8;font-size:18px;margin:0 0 0 26px}
+nav.mnav{position:sticky;top:0;z-index:9;background:color-mix(in srgb,var(--surface) 94%,transparent);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+nav.mnav .mw{max-width:1120px;margin:0 auto;padding:8px 24px;display:flex;gap:6px;flex-wrap:wrap;font-size:13px}
+nav.mnav a{--c:var(--acc);display:inline-flex;align-items:center;gap:6px;color:var(--fg2);font-weight:400;padding:4px 10px;border-radius:999px;border:1px solid transparent}
+nav.mnav a i{width:7px;height:7px;border-radius:50%;background:var(--c)}
+nav.mnav a:hover{background:var(--surface2);color:var(--fg)}
+nav.mnav a.on{background:color-mix(in srgb,var(--c) 14%,var(--surface));border-color:color-mix(in srgb,var(--c) 35%,var(--surface));color:var(--c);font-weight:700}
+@media (prefers-color-scheme:dark){nav.mnav a.on{color:color-mix(in srgb,var(--c) 45%,#fff)}}  /* 深色底上章節色太暗，文字調亮 */
+main{max-width:1120px;margin:0 auto;padding:0 24px 64px}
+
+/* 章節：chip 標題 + 白卡 + 灰卡 */
+.divider{margin:72px 0 18px;font-size:24px;font-weight:800;color:var(--navy)}
+.divider span{display:inline-block;background:var(--acc);color:#fff;font-size:12px;padding:3px 9px;border-radius:4px;margin-right:10px;vertical-align:middle}
+@media (prefers-color-scheme:dark){.divider{color:var(--fg)}}
+.blk{background:var(--surface);border-radius:14px;padding:26px 30px;margin:22px 0;box-shadow:var(--shadow)}
+.blk>h2:first-child{margin-top:0}
+h2{font-size:20px;margin:28px 0 6px}h3{font-size:16px;margin:24px 0 6px}
+.card{background:var(--surface2);border-radius:10px;padding:14px 18px;margin:10px 0}
+.card .lab{color:var(--acc);font-weight:700;font-size:13px;margin-bottom:6px}
+.card.ok{background:var(--ok-bg)}.card.ok>b:first-child{color:var(--ok)}
+.card.warn{background:var(--warn-bg)}.card.warn>b:first-child{color:var(--warn)}
+.card.no{background:var(--no-bg)}.card.no>b:first-child{color:var(--no)}
+.sub{color:var(--fg2);margin:0 0 12px}.muted{color:var(--mut);font-size:12px}
+.new{color:var(--ok)}
+
+/* 進度、數字、提示 */
+.pct{font-size:14px;color:var(--fg2);font-weight:600;margin-left:8px}
+.bar{height:8px;background:var(--line);border-radius:4px;overflow:hidden;margin:4px 0 14px}
+.fill{height:100%;background:var(--acc)}.fill.risk{background:var(--no)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin:16px 0}
+.stat .n{font-size:30px;font-weight:800;color:var(--acc)}.stat .t{font-weight:700}.stat .s{color:var(--fg2);font-size:13px}
+.hero{background:var(--navy);color:#fff;border-radius:12px;padding:22px 26px;margin:22px 0}
+.hero .hero-en{font-size:22px;font-weight:800;letter-spacing:.3px;margin-bottom:8px}
+.hero p{margin:0;color:#dbe6f5;font-size:15px;line-height:1.7}
+.callout{background:var(--ok-bg);border-radius:10px;padding:14px 18px;margin:18px 0;font-size:15px}.callout b{color:var(--ok)}
+pre{background:var(--navy);color:#dbe6f5;border-radius:10px;padding:14px 18px;font-size:12.5px;line-height:1.5;white-space:pre-wrap}
+
+/* 表格 */
+table.t{border-collapse:collapse;width:100%;font-size:13.5px;margin:8px 0}
+table.t th{background:var(--bg);text-align:left;font-weight:700;color:var(--fg2)}
+table.t th,table.t td{border:1px solid var(--line);padding:8px 10px;vertical-align:top}
+td.g{color:var(--ok);font-weight:700}
+tr.newrow td{background:var(--ok-bg);color:var(--ok);font-weight:700}
+
+/* 標籤：類別 4 組（o1 藍、o2 橙、o3 綠、o4 紫）+ 狀態 4 種 */
+.pill{display:inline-block;font-size:11px;font-weight:800;padding:1px 8px;border-radius:999px;white-space:nowrap}
+.pill.o1{background:#dbe8f9;color:#1b4f9c}.pill.o2{background:#fde4d6;color:#9a4a12}
+.pill.o3{background:#d3efd3;color:#0a6a0a}.pill.o4{background:#e8dff7;color:#5b3a9c}
+.st-done{background:#d3efd3;color:#0a6a0a}.st-prog{background:#dbe8f9;color:#1b4f9c}
+.st-wait{background:#fff7e6;color:#9a4a12}.st-todo{background:#f3f4f6;color:#52514e}
+
+/* 架構圖 A：CSS 流程框（橫向 .flow、直向 .vflow、迴圈 .uloop） */
+.flow{display:flex;align-items:stretch;gap:8px;margin:14px 0}.flow .bx{flex:1}
+.arr{align-self:center;color:var(--arrow);font-size:22px}
+.bx{background:var(--surface2);border-radius:8px;padding:12px 10px;text-align:center;display:flex;flex-direction:column;justify-content:center;min-height:70px}
+.bx b{font-size:14px}.bx span{color:var(--fg2);font-size:12.5px}
+.bx.bad{background:var(--no-bg)}.bx.bad b{color:var(--no)}
+.bx.good{background:var(--ok-bg)}.bx.good b{color:var(--ok)}
+.bx.dark{background:#1c2430}.bx.dark b{color:#fff}.bx.dark span{color:#d5e3f7}
+.bx.opt{background:transparent;border:1.5px dashed var(--arrow)}  /* 條件式步驟：符合條件才做 */
+@media (prefers-color-scheme:dark){.bx.dark{background:#24467a}}
+.vflow .bx{margin:0}.varr{text-align:center;color:var(--arrow);font-size:18px;line-height:1}
+.uloop{position:relative;height:22px;margin:0 12.5% 14px;border:1.5px dashed var(--arrow);border-top:0;border-radius:0 0 10px 10px}
+.uloop .uarr{position:absolute;left:-7px;top:-16px;color:var(--arrow);font-size:16px;line-height:1;background:var(--surface);padding:0 1px}
+.uloop .ulab{position:absolute;left:50%;top:10px;transform:translateX(-50%);background:var(--surface);padding:0 8px;font-size:11.5px;font-weight:700;color:var(--fg2);white-space:nowrap}
+.uloop.red{border-color:var(--no)}.uloop.red .uarr,.uloop.red .ulab{color:var(--no)}
+
+/* 架構圖 B：階梯卡（.lc 四格，頂線顏色 = 類別） */
+.lc{display:grid;grid-template-columns:1fr auto 1fr auto 1fr auto 1fr;gap:8px;align-items:stretch;margin:14px 0 10px}
+.lc-arr{align-self:center;color:var(--arrow);font-size:22px}
+.lc-card{background:var(--surface2);border-radius:10px;padding:12px 14px;border-top:4px solid var(--line);display:flex;flex-direction:column}
+.lc-card.o1{border-top-color:#1b4f9c}.lc-card.o2{border-top-color:#c2410c}.lc-card.o3{border-top-color:#0a6a0a}.lc-card.o4{border-top-color:#5b3a9c}
+.lc-n{font-size:11px;color:var(--mut);font-weight:700}.lc-t{font-size:15px;font-weight:800;margin:2px 0 6px}
+.lc-card ul{margin:0;padding-left:16px;font-size:12.5px;color:var(--fg2);flex:1}.lc-card li{margin:3px 0}
+
+/* 架構圖 C：手繪 inline SVG 的外框（SVG 本身固定亮色，白框隔開深色底） */
+.fig{background:#fff;border:1px solid var(--line);border-radius:12px;padding:8px;overflow-x:auto;margin:8px 0}
+.fig svg{display:block;width:100%;min-width:720px;height:auto}  /* 窄螢幕改橫向捲動，不縮到看不清 */
+
+/* 手機 */
+@media(max-width:800px){
+  .cover{padding:48px 24px 36px}.cover h1{font-size:26px}
+  .stats{grid-template-columns:1fr 1fr}
+  .flow{flex-direction:column}.arr{transform:rotate(90deg)}
+  .lc{grid-template-columns:1fr}.lc-arr{transform:rotate(90deg);justify-self:center}
+  .uloop{margin:0 6% 14px}
+}
+@media print{nav{display:none}.blk,.card{break-inside:avoid}}
+/* Atlas 淡色立體版（2026-10-24 Alex 選定）：接在 atlas.css 後面。只改亮色，深色模式維持原 Atlas。 */
+@media not (prefers-color-scheme:dark){
+.cover{background:linear-gradient(135deg,#eaf2fc 0%,#f4f8fd 55%,#e6eef9 100%);color:#0f2747;border-bottom:1px solid #dbe5f1}
+.cover p{color:#4a6283}
+.divider span{background:linear-gradient(180deg,#4b92e6,#2a78d6);box-shadow:0 2px 6px rgba(42,120,214,.28)}
+.blk{background:linear-gradient(180deg,#fff,#fbfcfe);border:1px solid #edf1f6;box-shadow:0 1px 2px rgba(15,39,71,.05),0 10px 30px rgba(15,39,71,.07)}
+.card{background:linear-gradient(180deg,#fff,#f7f9fc);border:1px solid #e9eef4;box-shadow:0 1px 2px rgba(15,39,71,.05),0 4px 12px rgba(15,39,71,.05),inset 0 1px 0 #fff;transition:transform .2s ease-out,box-shadow .2s ease-out}
+.card:hover{transform:translateY(-2px);box-shadow:0 2px 4px rgba(15,39,71,.06),0 10px 24px rgba(15,39,71,.09),inset 0 1px 0 #fff}
+.pill.o1{background:linear-gradient(180deg,#eaf2fc,#dbe8f9);box-shadow:inset 0 1px 0 #fff}
+pre{background:#f3f7fc;color:#24426b;border:1px solid #e3ebf5;box-shadow:inset 0 1px 3px rgba(15,39,71,.08)}
+}
+
+.demo-switch{max-width:1120px;margin:0 auto;padding:10px 24px 0;font-size:13px;color:var(--fg2)}
 .demo-switch a,.demo-switch b{margin-left:4px}
-.box{background:var(--surface);border:1px solid var(--line);padding:12px 16px;border-radius:6px;margin:10px 0}
-.rule{background:var(--rule-bg);border-left:5px solid var(--ok);padding:8px 14px;margin:10px 0}
-.warn{background:var(--warn-bg);border-left:5px solid var(--warnc);padding:8px 14px;margin:10px 0}
-.no{background:var(--no-bg);border-left:5px solid var(--no);padding:8px 14px;margin:10px 0}
-table.g{border-collapse:collapse;width:100%;margin:8px 0}
-table.g th,table.g td{border:1px solid var(--line-tbl);padding:6px 9px;text-align:left;vertical-align:top}
-table.g th{background:var(--th)}
-tr.lv-epic td{background:var(--lv-epic)}tr.lv-base td{background:var(--lv-base)}tr.lv-story td{background:var(--lv-story)}
+.blk h2{display:flex;align-items:baseline;gap:8px}
+.blk .card{font-size:14.5px}
+.tree{font-family:Consolas,Menlo,monospace;font-size:13px;background:var(--surface2);border-radius:10px;padding:14px 18px;white-space:pre;overflow-x:auto;line-height:1.6}
 .tblw{overflow-x:auto}
-pre{background:var(--surface);color:var(--pre-fg);border:1px solid var(--line);border-left:4px solid var(--acc);border-radius:4px;padding:8px 12px;font-size:13px;line-height:1.55;overflow-x:auto;white-space:pre-wrap}
-pre.code{background:#1e1e1e;color:#e6e6e6;border:0;border-radius:6px;padding:12px 14px}
-hr.sec{border:0;border-top:1px solid var(--line);margin:44px 0 0}
-hr.sec+h2{margin-top:24px}
-.tree{font-family:Consolas,Menlo,monospace;font-size:13.5px;background:var(--surface2);border:1px solid var(--line);padding:12px 16px;border-radius:6px;white-space:pre;overflow-x:auto;line-height:1.6}
-.tag{display:inline-block;font-size:12px;padding:0 7px;border-radius:3px;margin-right:4px;font-weight:bold;color:#fff}
-.b1{background:#1f4e79}.b2{background:#2e7d32}.b3{background:#6a1b9a}.b4{background:#bf360c}.b5{background:#555}
-ol li,ul li{margin:4px 0}.steps li{margin:8px 0}
-footer{margin-top:40px;color:var(--mut);font-size:13px;border-top:1px solid var(--line-tbl);padding-top:10px}
-.fig{background:#fff;border:1px solid var(--line);border-radius:6px;padding:8px;overflow-x:auto;margin:10px 0}
-.fig svg{display:block;width:100%;min-width:720px;height:auto}
-.fig-note{font-size:13px;color:var(--mut);margin:4px 0 0}
-</style></head><body><div class="page" style="padding-bottom:0"><div class="demo-switch">示範版本：<a href="jira-radix.html">Radix 極簡＋live-panel</a>　<b>Ocean 深藍＋SVG 泳道</b>　<a href="jira-momo.html">Momo 計畫版＋CSS 流程框</a></div>
-<h1>jira 使用說明｜DevOps 專案開案、留紀錄、簽收、關單</h1></div><nav class="mnav"><div class="mw"><a href="#sec-1"><b>1</b>為什麼要這樣開單</a><a href="#sec-2"><b>2</b>一張 Story 長什麼樣</a><a href="#sec-3"><b>3</b>五種結構 Sub-task</a><a href="#sec-4"><b>4</b>文件</a><a href="#sec-5"><b>5</b>成功指標怎麼寫</a><a href="#sec-5a"><b>5a</b>優先度 P0 到 P4</a><a href="#sec-6"><b>6</b>開單流程</a><a href="#sec-7"><b>7</b>描述怎麼寫</a><a href="#sec-8"><b>8</b>留言只有四種</a><a href="#sec-9"><b>9</b>送簽收</a><a href="#sec-10"><b>10</b>使用統計怎麼撈</a><a href="#sec-11"><b>11</b>關單</a><a href="#sec-12"><b>12</b>另外兩張單</a><a href="#sec-13"><b>13</b>寫法</a><a href="#sec-14"><b>14</b>不計入情況</a><a href="#sec-15"><b>15</b>常見問題</a></div></nav><div class="page">
-<div class="box">
+tr.lv-epic td{background:var(--surface2);font-weight:700}tr.lv-base td{background:var(--warn-bg)}tr.lv-story td{background:var(--bg)}
+code{font-size:13px;background:var(--surface2);padding:1px 5px;border-radius:4px}
+.steps li{margin:8px 0}
+footer{max-width:1120px;margin:0 auto;padding:0 24px 40px;color:var(--mut);font-size:12.5px}
+.flow-note{font-size:13px;color:var(--fg2);margin:4px 0 0}
+.flow.seven .bx{min-height:84px}
+@media(max-width:800px){.blk{padding:20px 18px}}
+</style></head><body><div class="demo-switch">示範版本：<a href="jira-paper.html">Paper 極簡＋live-panel</a>　<a href="jira-harbor.html">Harbor 深藍＋SVG 泳道</a>　<b>Atlas 計畫版＋CSS 流程框</b></div><div class="cover"><h1>jira 使用說明</h1><p>DevOps 專案開案、留紀錄、簽收、關單</p></div><nav class="mnav"><div class="mw"><a href="#g-intro" style="--c:var(--fg2)"><i></i>總覽</a><a href="#g0" style="--c:#1b4f9c"><i></i>為什麼</a><a href="#g1" style="--c:#c2410c"><i></i>結構</a><a href="#g2" style="--c:#0a6a0a"><i></i>怎麼寫</a><a href="#g3" style="--c:#5b3a9c"><i></i>收尾</a><a href="#g4" style="--c:#0e7490"><i></i>參考</a></div></nav><main><section id="g-intro"><div class="divider"><span>總覽</span>它做什麼、不做什麼</div><div class="blk">
+
+<div class="card">
 <b>版本</b> v1.10.0（2026-10-23）。<b>安裝</b> <code>/plugin install jira@example-skills</code>。<b>Repo</b> <a href="https://git.example.com/" target="_blank">example/skills/jira</a>。<br>
 <b>它做什麼</b>：讓 DevOps 開的每一張 Jira 單都符合 PACE 評鑑的紀錄標準。PACE 審查看工單時要找五樣東西：誰提的、影響誰、為什麼選這個方案、數字從多少到多少、做完誰在用。這個 skill 在開單時就把這五樣問清楚，用五種固定的 Sub-task 在做的過程留下紀錄，交一份讓別人能接手的文件，簽收由對方部門的人在他們的服務台確認。年底補資料直接撈 label，不用翻週報、不用事後補寫。<br>
 <b>它不做什麼</b>：報修、申請、服務台一句話開單。那是 <code>jira-ticket</code> skill。
 </div>
-<h2 id="sec-1">1. 為什麼要這樣開單：讓工單本身就是 PACE 紀錄</h2>
+</div></section><section id="g0"><div class="divider"><span>為什麼</span>讓工單本身就是 PACE 紀錄</div><div class="blk"><h2>1. 為什麼要這樣開單：讓工單本身就是 PACE 紀錄</h2>
 <p>年度評鑑補資料時，團隊做了很多事。工單裡卻查不到五件事：</p>
 <ul><li>這件事是誰提的。</li><li>做完影響到誰。</li><li>為什麼選這個方案，不選那個。</li><li>做完數字從多少變多少。</li><li>做完誰在用。</li></ul>
 <p>這些事當時都知道。只是沒寫在工單裡。事後補寫，審查不計入。主管口述沒具名也不計入。<b>所以開單時就要問清楚，過程中就要留下來，而且留在 Jira 裡。</b></p>
 <p>PACE 的級距和工單結構直接對應：</p>
-<div class="tblw"><table class="g"><tr><th>PACE 要看的</th><th>工單裡在哪</th></tr>
+<div class="tblw"><table class="t"><tr><th>PACE 要看的</th><th>工單裡在哪</th></tr>
 <tr><td>誰提的（提出來源）</td><td>Story 描述【責任】的提出者與提出紀錄</td></tr>
 <tr><td>影響誰（團隊或跨團隊）</td><td>影響範圍與 scope label</td></tr>
 <tr><td>為什麼選這個（decision record）</td><td>方案評估 Sub-task 加 Story 的【決定】留言，寫決定者全名</td></tr>
@@ -72,8 +163,8 @@ footer{margin-top:40px;color:var(--mut);font-size:13px;border-top:1px solid var(
 <tr><td>其他團隊在用（跨團隊級 S）</td><td>使用統計 Sub-task，依團隊分列</td></tr>
 <tr><td>第三方確認</td><td>簽收者在自己部門的服務台單關單</td></tr>
 <tr><td>主管的指派、核准、裁示</td><td>【核示】留言，主管本人帳號、全名、日期</td></tr></table></div>
-<div class="rule"><b>一句話原則</b>：寫得出來就寫。寫不出來就填「無」或「無量測」。不要編。所有人名寫全名。所有時間帶日期。</div>
-<hr class="sec"><h2 id="sec-2">2. 一張 Story 長什麼樣</h2>
+<div class="card ok"><b>一句話原則</b>：寫得出來就寫。寫不出來就填「無」或「無量測」。不要編。所有人名寫全名。所有時間帶日期。</div>
+</div></section><section id="g1"><div class="divider"><span>結構</span>一張 Story 長什麼樣、要建哪些 Sub-task</div><div class="blk"><h2>2. 一張 Story 長什麼樣</h2>
 <div class="tree">Epic（可選）：背景與問題、目標、成功指標、能力面向、里程碑、責任
  └ Story：目標、成功指標、能力面向（PACE）、責任
     ├ 基準量測：成功指標的現值是「待量」時才建
@@ -83,10 +174,10 @@ footer{margin-top:40px;color:var(--mut);font-size:13px;border-top:1px solid var(
     ├ 簽收：每個 Story 都建，指派給執行者
     └ 使用統計：reach-wide 才建，上線後 30 天</div>
 <h3>例一：<a href="https://jira.example.com/browse/DEMO-2642" target="_blank">DEMO-2642</a> 用量儀表板系統建置（單一 Story，補既有專案）</h3>
-<div class="tblw"><table class="g"><tr><th style="width:11%">Sub-task</th><th style="width:18%">單號</th><th>內容</th><th style="width:14%">負責人</th></tr><tr><td>方案評估</td><td><a href="https://jira.example.com/browse/DEMO-2957" target="_blank">DEMO-2957</a></td><td>收集端自建 Agent，不只用代理服務 log</td><td>Finn Lu</td></tr><tr><td>方案評估</td><td><a href="https://jira.example.com/browse/DEMO-2958" target="_blank">DEMO-2958</a></td><td>儀表板資料庫選型</td><td>Finn Lu</td></tr><tr><td>任務</td><td><a href="https://jira.example.com/browse/DEMO-2964" target="_blank">DEMO-2964</a> 等 10 張</td><td>週進度逐件拆開，已 Done</td><td>Finn Lu</td></tr><tr><td>任務</td><td><a href="https://jira.example.com/browse/DEMO-2977" target="_blank">DEMO-2977</a>–2980</td><td>部署收集端 Agent：DA、TA、TB、CTO</td><td>Evan Su</td></tr><tr><td>任務</td><td><a href="https://jira.example.com/browse/DEMO-2961" target="_blank">DEMO-2961</a></td><td>其餘部門部署至全部完成</td><td>Finn Lu</td></tr><tr><td>文件</td><td><a href="https://jira.example.com/browse/DEMO-2986" target="_blank">DEMO-2986</a></td><td>用量儀表板維護手冊，交接給 Evan Su</td><td>Finn Lu</td></tr><tr><td>簽收</td><td><a href="https://jira.example.com/browse/DEMO-2959" target="_blank">DEMO-2959</a></td><td>簽收者 Jamie Chen（CTO）</td><td>Finn Lu</td></tr><tr><td>使用統計</td><td><a href="https://jira.example.com/browse/DEMO-2960" target="_blank">DEMO-2960</a></td><td>依部門分列使用人數與次數</td><td>Finn Lu</td></tr></table></div>
+<div class="tblw"><table class="t"><tr><th style="width:11%">Sub-task</th><th style="width:18%">單號</th><th>內容</th><th style="width:14%">負責人</th></tr><tr><td>方案評估</td><td><a href="https://jira.example.com/browse/DEMO-2957" target="_blank">DEMO-2957</a></td><td>收集端自建 Agent，不只用代理服務 log</td><td>Finn Lu</td></tr><tr><td>方案評估</td><td><a href="https://jira.example.com/browse/DEMO-2958" target="_blank">DEMO-2958</a></td><td>儀表板資料庫選型</td><td>Finn Lu</td></tr><tr><td>任務</td><td><a href="https://jira.example.com/browse/DEMO-2964" target="_blank">DEMO-2964</a> 等 10 張</td><td>週進度逐件拆開，已 Done</td><td>Finn Lu</td></tr><tr><td>任務</td><td><a href="https://jira.example.com/browse/DEMO-2977" target="_blank">DEMO-2977</a>–2980</td><td>部署收集端 Agent：DA、TA、TB、CTO</td><td>Evan Su</td></tr><tr><td>任務</td><td><a href="https://jira.example.com/browse/DEMO-2961" target="_blank">DEMO-2961</a></td><td>其餘部門部署至全部完成</td><td>Finn Lu</td></tr><tr><td>文件</td><td><a href="https://jira.example.com/browse/DEMO-2986" target="_blank">DEMO-2986</a></td><td>用量儀表板維護手冊，交接給 Evan Su</td><td>Finn Lu</td></tr><tr><td>簽收</td><td><a href="https://jira.example.com/browse/DEMO-2959" target="_blank">DEMO-2959</a></td><td>簽收者 Jamie Chen（CTO）</td><td>Finn Lu</td></tr><tr><td>使用統計</td><td><a href="https://jira.example.com/browse/DEMO-2960" target="_blank">DEMO-2960</a></td><td>依部門分列使用人數與次數</td><td>Finn Lu</td></tr></table></div>
 <h3>例二：<a href="https://jira.example.com/browse/DEMO-2937" target="_blank">DEMO-2937</a> 知識庫建置（Epic＋四個 Story）</h3>
 <p>一個 Epic，四個 Story，每個 Story 下面有簽收與使用統計。這批單在 v1.5.0 之前建立，還沒有文件 Sub-task。</p>
-<div class="tblw"><table class="g">
+<div class="tblw"><table class="t">
 <tr><th style="width:14%">層級</th><th style="width:12%">單號</th><th>標題</th><th style="width:14%">負責人</th><th style="width:12%">到期</th></tr>
 <tr class="lv-epic"><td><b>Epic</b></td><td><a href="https://jira.example.com/browse/DEMO-2937" target="_blank">DEMO-2937</a></td><td>[DEMO] 知識庫建置</td><td>Drew Kao</td><td>12/31</td></tr>
 <tr class="lv-base"><td>　基準量測</td><td><a href="https://jira.example.com/browse/DEMO-2951" target="_blank">DEMO-2951</a></td><td>五題試查要問人幾次、花幾分鐘</td><td>Drew Kao</td><td>10/09</td></tr>
@@ -104,63 +195,20 @@ footer{margin-top:40px;color:var(--mut);font-size:13px;border-top:1px solid var(
 <tr><td>　　使用統計</td><td><a href="https://jira.example.com/browse/DEMO-2950" target="_blank">DEMO-2950</a></td><td>使用統計：維護機制與 Agent 查詢紀錄</td><td>Drew Kao</td><td>2027-01-31</td></tr>
 </table></div>
 <h3>流程圖：一張 Story 從開案到關單</h3>
-<div class="fig"><svg viewBox="0 0 1000 350" role="img" aria-label="一張 Story 的泳道流程：主管開案，執行者量測、實作、自測，簽收者在服務台關單，主管關單"
- style="font-family:'Noto Sans TC','Microsoft JhengHei',Arial,sans-serif">
-<defs>
- <marker id="oc-main" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#1f4e79"/></marker>
- <marker id="oc-back" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10 z" fill="#c62828"/></marker>
-</defs>
-<rect width="1000" height="350" fill="#fff"/>
-<!-- 泳道 -->
-<rect x="10" y="20" width="980" height="96" rx="6" fill="#f3f6fa" stroke="#d5dee8"/>
-<rect x="10" y="126" width="980" height="96" rx="6" fill="#e8f4ea" stroke="#c5e1c8"/>
-<rect x="10" y="232" width="980" height="96" rx="6" fill="#fff8e1" stroke="#f3dfa0"/>
-<rect x="10" y="20" width="84" height="96" rx="6" fill="#1f4e79"/>
-<rect x="10" y="126" width="84" height="96" rx="6" fill="#2e7d32"/>
-<rect x="10" y="232" width="84" height="96" rx="6" fill="#b07800"/>
-<text x="52" y="73" text-anchor="middle" font-size="15" font-weight="700" fill="#fff">主管</text>
-<text x="52" y="179" text-anchor="middle" font-size="15" font-weight="700" fill="#fff">執行者</text>
-<text x="52" y="276" text-anchor="middle" font-size="15" font-weight="700" fill="#fff">簽收者</text>
-<text x="52" y="296" text-anchor="middle" font-size="11" fill="#fff">對方部門</text>
-<!-- 節點：寬 150、高 56 -->
-<rect x="110" y="40" width="150" height="56" rx="6" fill="#fff" stroke="#1f4e79" stroke-width="1.6"/>
-<text x="185" y="64" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">開案</text>
-<text x="185" y="83" text-anchor="middle" font-size="11.5" fill="#555">八項必填、定 P0–P4</text>
-
-<rect x="290" y="146" width="150" height="56" rx="6" fill="#fff" stroke="#2e7d32" stroke-width="1.6" stroke-dasharray="5 4"/>
-<text x="365" y="170" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">基準量測</text>
-<text x="365" y="189" text-anchor="middle" font-size="11.5" fill="#555">現值待量才建</text>
-
-<rect x="470" y="146" width="150" height="56" rx="6" fill="#fff" stroke="#2e7d32" stroke-width="1.6"/>
-<text x="545" y="170" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">任務、文件</text>
-<text x="545" y="189" text-anchor="middle" font-size="11.5" fill="#555">一件事一張、文件交接</text>
-
-<rect x="650" y="146" width="150" height="56" rx="6" fill="#fff" stroke="#2e7d32" stroke-width="1.6"/>
-<text x="725" y="170" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">留【自測】</text>
-<text x="725" y="189" text-anchor="middle" font-size="11.5" fill="#555">同量法、附件掛上</text>
-
-<rect x="650" y="252" width="150" height="56" rx="6" fill="#fff" stroke="#b07800" stroke-width="1.6"/>
-<text x="725" y="276" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">請簽收單</text>
-<text x="725" y="295" text-anchor="middle" font-size="11.5" fill="#555">在自己的服務台關單</text>
-
-<rect x="830" y="40" width="150" height="56" rx="6" fill="#fff" stroke="#1f4e79" stroke-width="1.6"/>
-<text x="905" y="64" text-anchor="middle" font-size="14" font-weight="700" fill="#1a1a1a">關單</text>
-<text x="905" y="83" text-anchor="middle" font-size="11.5" fill="#555">SC 結果值對目標值</text>
-<!-- 箭頭 -->
-<path d="M185 96 V174 H286" fill="none" stroke="#1f4e79" stroke-width="1.6" marker-end="url(#oc-main)"/>
-<line x1="440" y1="174" x2="466" y2="174" stroke="#1f4e79" stroke-width="1.6" marker-end="url(#oc-main)"/>
-<line x1="620" y1="174" x2="646" y2="174" stroke="#1f4e79" stroke-width="1.6" marker-end="url(#oc-main)"/>
-<line x1="725" y1="202" x2="725" y2="248" stroke="#1f4e79" stroke-width="1.6" marker-end="url(#oc-main)"/>
-<path d="M800 280 H905 V100" fill="none" stroke="#1f4e79" stroke-width="1.6" marker-end="url(#oc-main)"/>
-<path d="M650 280 H545 V206" fill="none" stroke="#c62828" stroke-width="1.6" stroke-dasharray="5 4" marker-end="url(#oc-back)"/>
-<text x="597" y="272" text-anchor="middle" font-size="11.5" font-weight="700" fill="#c62828">沒通過</text>
-<text x="193" y="150" font-size="11" fill="#1f4e79">指派執行者</text>
-</svg></div>
-<p class="fig-note">虛線框是條件式 Sub-task。方案評估、使用統計也是條件式，條件見第 3 節。</p>
+<div class="flow seven">
+  <div class="bx dark"><b>開案</b><span>八項必填</span></div><div class="arr">→</div>
+  <div class="bx opt"><b>基準量測</b><span>現值待量才建</span></div><div class="arr">→</div>
+  <div class="bx opt"><b>方案評估</b><span>多個做法才建</span></div><div class="arr">→</div>
+  <div class="bx"><b>任務</b><span>一件事一張</span></div><div class="arr">→</div>
+  <div class="bx"><b>文件</b><span>交接給接手者</span></div><div class="arr">→</div>
+  <div class="bx"><b>簽收</b><span>對方服務台關單</span></div><div class="arr">→</div>
+  <div class="bx good"><b>關單</b><span>SC 結果對目標</span></div>
+</div>
+<p class="flow-note">虛線框是條件式 Sub-task。reach-wide 的 Story 另建使用統計，上線後 30 天撈。</p>
 
 <p>Epic 的描述就是專案章程。不另外開 Confluence 頁。Story 的描述只有四段：目標、成功指標、能力面向、責任。過程不靠留言，靠 Sub-task。</p>
-<hr class="sec"><h2 id="sec-3">3. 五種結構 Sub-task</h2>
-<div class="tblw"><table class="g"><tr><th>Sub-task</th><th>何時建</th><th>誰做</th><th>做什麼</th><th>label</th></tr>
+</div><div class="blk"><h2>3. 五種結構 Sub-task</h2>
+<div class="tblw"><table class="t"><tr><th>Sub-task</th><th>何時建</th><th>誰做</th><th>做什麼</th><th>label</th></tr>
 <tr><td><b>基準量測</b></td><td>成功指標的現值寫「待量」時</td><td>負責人，第一週</td><td>去量一次「現在是多少」，量完寫回 Story</td><td>pace-baseline</td></tr>
 <tr><td><b>方案評估</b></td><td>有兩個以上做法要挑的時候</td><td>決定者</td><td>比較表、PoC 結果、被否決的方案都放這裡。Story 只留一則【決定】</td><td>pace-decision</td></tr>
 <tr><td><b>文件</b></td><td>交付物要給別人用或維護</td><td>執行者寫，交接給接手者</td><td>依類型交手冊、Runbook、測試報告等，見第 4 節</td><td>pace-doc</td></tr>
@@ -170,7 +218,7 @@ footer{margin-top:40px;color:var(--mut);font-size:13px;border-top:1px solid var(
 <p>對到 PACE 的級距：基準量測加簽收是「同條件前後數字」，團隊級 A。文件是 A 級以上的前提。使用統計是「其他團隊的使用紀錄」，跨團隊級 S。</p>
 <h3>「方案評估」是什麼</h3>
 <p>一件事有兩個以上做法、要挑一個的時候，把「比了什麼、為什麼選它、為什麼不選別的、誰拍板」寫下來的地方。PACE 的 C6 架構治理和 A2 成本取捨看的就是這一份。沒有它，選得再對也只算「做了」。</p>
-<div class="tblw"><table class="g"><tr><th>要建</th><th>不用建</th></tr>
+<div class="tblw"><table class="t"><tr><th>要建</th><th>不用建</th></tr>
 <tr><td>選資料庫、原廠或副廠、自建或買、兩條線路走哪條、要不要換架構</td><td>只有一種做法；或選擇不重要（兩個牌子的線材）</td></tr></table></div>
 <p><b>怎麼用</b>：開單時建好，先填「要解決什麼、限制、選項名稱」。比較過程中把比較表、PoC 數字、報價掛在這張。拍板後填「決定、代價」，轉 Done。同一天在 Story 留一則【決定】，四行：決定者、提案人、原因、被否決方案。</p>
 <p>填好的例子（監控平台資料庫）：</p>
@@ -184,11 +232,11 @@ footer{margin-top:40px;color:var(--mut);font-size:13px;border-top:1px solid var(
 【決定】選 1。決定者 Alex Wu 於 2026-03-12。提案人 Evan Su。
 【代價】停機搬資料 4 小時。之後追蹤壓縮率是否維持 85% 以上。</pre>
 <p>知識庫五張單都是單一方案，所以沒建方案評估。DEMO-2642 有兩個決定，所以建了兩張，都由決定者 Finn Lu 填。</p>
-<div class="warn">Jira 不讓 Epic 直接掛 Sub-task。Epic 層級的基準量測建成 Story 掛在 Epic 下，像 <a href="https://jira.example.com/browse/DEMO-2951" target="_blank">DEMO-2951</a>。</div>
-<hr class="sec"><h2 id="sec-4">4. 文件：讓別人能接手</h2>
+<div class="card warn">Jira 不讓 Epic 直接掛 Sub-task。Epic 層級的基準量測建成 Story 掛在 Epic 下，像 <a href="https://jira.example.com/browse/DEMO-2951" target="_blank">DEMO-2951</a>。</div>
+</div><div class="blk"><h2>4. 文件：讓別人能接手</h2>
 <p>PACE 有一條可接手性前提：A 級以上的依據要有文件、Runbook 或版本紀錄，別人能接手。只存在個人經驗的，最高 B 級。PACE 也寫明三種文件不給分：沒人用過、與現況不符、只增加數量。</p>
 <p>所以每個 Story 依類型交一份文件，建成「文件」Sub-task。一種文件一張。下表九種是整理 DocHub 既有文件，取最常見的類型與實際章節：</p>
-<div class="tblw"><table class="g"><tr><th>Story 類型</th><th>要交的文件</th><th>必要章節</th><th>DocHub 範本</th></tr>
+<div class="tblw"><table class="t"><tr><th>Story 類型</th><th>要交的文件</th><th>必要章節</th><th>DocHub 範本</th></tr>
 <tr><td>給使用者用的服務或工具</td><td>使用者手冊</td><td>說明、架構圖、使用 SOP、FAQ</td><td></td></tr>
 <tr><td>Infra、維運系統、新建或遷移</td><td>Runbook</td><td>說明、架構圖、日常 SOP、告警、排查、回復、升級</td><td><a href="https://wiki.example.com/doc/demo" target="_blank">Deploy Runbook 範本</a></td></tr>
 <tr><td>給別人用的平台與自動化</td><td>維護手冊</td><td>說明、架構圖、安裝部署設定、排查、交接</td><td></td></tr>
@@ -199,7 +247,7 @@ footer{margin-top:40px;color:var(--mut);font-size:13px;border-top:1px solid var(
 <tr><td>開發一個系統或工具</td><td>規格書</td><td>說明、功能、介面流程、架構、成功標準、測試環境</td><td><a href="https://wiki.example.com/doc/demo" target="_blank">產品規格書 Template</a></td></tr>
 <tr><td>新架構或新環境</td><td>設計說明</td><td>說明、架構圖、設計重點、環境配置、限制</td><td><a href="https://wiki.example.com/doc/demo" target="_blank">ADR 索引</a></td></tr></table></div>
 <p>純選型不建文件 Sub-task，方案評估 Sub-task 就是 ADR。一次性清查也不建，結果寫在基準量測或簽收。</p>
-<div class="rule"><b>每份文件的表頭</b>：Owner、Backup owner、適用範圍、不適用的情況、事實來源位置。<br>
+<div class="card ok"><b>每份文件的表頭</b>：Owner、Backup owner、適用範圍、不適用的情況、事實來源位置。<br>
 <b>正本放 DocHub 或 GitLab，兩者同等計分</b>，預設 DocHub。GitLab 上有紀錄的都算：repo 檔案、Wiki、issue、MR；repo 檔案要合併進預設分支，連結附 commit 短碼。Sub-task 只掛連結，版本紀錄用 DocHub 或 GitLab 的歷史紀錄，不另寫更新紀錄，不匯出 PDF。label 加 <code>doc-dochub</code> 或 <code>doc-gitlab</code>。<br>
 <b>完成條件</b>：章節齊全；交接給接手者，接手者確認。確認在 Sub-task 留言，或在 GitLab 留紀錄（MR 核准、issue／MR 留言）都算。</div>
 <p>實例：<a href="https://jira.example.com/browse/DEMO-2986" target="_blank">DEMO-2986</a> 文件：用量儀表板維護手冊。撰寫 Finn Lu，交接給 Evan Su，2026-10-06 → 10-23。完成條件就是維護手冊的章節：</p>
@@ -210,17 +258,17 @@ footer{margin-top:40px;color:var(--mut);font-size:13px;border-top:1px solid var(
 - [ ] 故障排查：回報中斷、稽核通知異常、備份失敗與還原步驟
 - [ ] 交接給 Evan Su：權限與帳號清單移交，Evan Su 在本 Sub-task 留言確認
 - [ ] DocHub 連結貼在本 Sub-task</pre>
-<div class="warn">交接留言證明文件已交出去。PACE C3 要到團隊級 B，還要一件「他人不靠原作者，照文件獨立處理」的具名事例。接手者真的用文件處理過一次後，另外留紀錄。</div>
-<hr class="sec"><h2 id="sec-5">5. 成功指標怎麼寫</h2>
+<div class="card warn">交接留言證明文件已交出去。PACE C3 要到團隊級 B，還要一件「他人不靠原作者，照文件獨立處理」的具名事例。接手者真的用文件處理過一次後，另外留紀錄。</div>
+</div></section><section id="g2"><div class="divider"><span>怎麼寫</span>成功指標、優先度、開單、描述、留言</div><div class="blk"><h2>5. 成功指標怎麼寫</h2>
 <p>每條寫五件事：指標、現值、目標值、期限、量法。用表格，編號 SC-1、SC-2 供簽收 Sub-task 對照。實例取自 <a href="https://jira.example.com/browse/DEMO-2642" target="_blank">DEMO-2642</a>：</p>
-<div class="tblw"><table class="g"><tr><th>編號</th><th>指標</th><th>現值</th><th>目標值</th><th>期限</th><th>量法</th></tr>
+<div class="tblw"><table class="t"><tr><th>編號</th><th>指標</th><th>現值</th><th>目標值</th><th>期限</th><th>量法</th></tr>
 <tr><td>SC-1</td><td>已部署電腦數</td><td>31 台（2026-10-06）</td><td>全部門 AI 電腦全部部署</td><td>2026-10-23</td><td>主機清單比對各部門名冊，只算每小時回報的電腦</td></tr>
 <tr><td>SC-2</td><td>未修正的收集問題</td><td>0 項（4 項於 2026-10-01 修正）</td><td>0 項</td><td>2026-10-23</td><td>每小時稽核通知的異常數</td></tr></table></div>
 <p>現值還不知道就寫「待量」，並建基準量測。實例 <a href="https://jira.example.com/browse/DEMO-2937" target="_blank">DEMO-2937</a>：「指定五題查到答案前要問人的次數」現值待量，由 <a href="https://jira.example.com/browse/DEMO-2951" target="_blank">DEMO-2951</a> 量完填回。</p>
 <p>一個 Story 一到三條。超過三條表示 Story 太大，拆開。Sub-task 的完成條件只對應成功指標；做過但不在指標裡的事，寫在實作紀錄或另開一張 Sub-task。</p>
-<hr class="sec"><h2 id="sec-5a">5a. 優先度 P0 到 P4：主管開票時定</h2>
+</div><div class="blk"><h2>5a. 優先度 P0 到 P4：主管開票時定</h2>
 <p>Jira 的 Priority 欄位不改定義。五級對應成 P0 到 P4，同時掛同名 label。由主管開票時決定；沒選就是 Medium，也就是 P2。只套用新單，舊單不回填。</p>
-<div class="tblw"><table class="g"><tr><th>等級</th><th>Jira Priority</th><th>專案：對公司目標多關鍵</th><th>維運：對營運影響多大</th><th>處置</th></tr>
+<div class="tblw"><table class="t"><tr><th>等級</th><th>Jira Priority</th><th>專案：對公司目標多關鍵</th><th>維運：對營運影響多大</th><th>處置</th></tr>
 <tr><td>P0</td><td>Highest</td><td>公司年度最高優先，直接決定年度 KPI，例：Ops Team</td><td>正在影響營運或關鍵服務，已造成或即將造成金額損失</td><td>立刻動手，當下通知主管</td></tr>
 <tr><td>P1</td><td>High</td><td>公司戰略專案，或有對外承諾、期限的專案</td><td>會影響次日營運，或備援已失效</td><td>當天動手，下個營業時段前恢復</td></tr>
 <tr><td>P2</td><td>Medium</td><td>部門年度重點或一般部門專案</td><td>影響內部工作或單一部門，有替代做法</td><td>照到期日排</td></tr>
@@ -229,7 +277,7 @@ footer{margin-top:40px;color:var(--mut);font-size:13px;border-top:1px solid var(
 <p><b>SLA 只量 P0、P1</b>：P0 立刻動手，P1 下個營業時段開始前恢復。由主管接單時判定，開單的人不用選。<br>
 <b>backlog</b>：先登記、未承諾的工作掛 label <code>backlog</code>，不填到期日，目標管理系統 不算逾期。要承諾時拿掉 label、填起訖日。<br>
 <b>工作紀錄</b>（Alex Wu 2026-10 決議）：每筆實作紀錄寫程式（MR／commit）、測試方式、結果、必要參數；只寫「測好了」不算。紀錄以日為單位；連續 1 週以上在 Jira、DocHub、GitLab 都沒動態，不符合年底檢視標準。commit 訊息、MR 標題、DocHub 文件寫票號，目標管理系統 才能把動態歸到專案。</p>
-<hr class="sec"><h2 id="sec-6">6. 開單流程（問答式）</h2>
+</div><div class="blk"><h2>6. 開單流程（問答式）</h2>
 <p>在 Claude Code 說「開一個專案」或 <code>/jira 開專案</code>。<b>它一次只問一題</b>，選項只寫名稱。後一題的選項依前一題的答案出。</p>
 <ol class="steps">
 <li><b>選單</b>：專案（DEMO／OPS／WIKI…）、結構（單一 Story／Epic＋Story／Epic＋Story＋任務）、整體起訖日、負責人與跨組窗口、誰決定。</li>
@@ -239,21 +287,21 @@ footer{margin-top:40px;color:var(--mut);font-size:13px;border-top:1px solid var(
 <li>每個 Story 要不要拆任務。</li>
 <li>一次建好 Epic、Story、結構 Sub-task、任務。回報每張單的 key 與連結。</li>
 </ol>
-<div class="box"><b>這次實際的對話</b>：Alex 答「知識庫建置、DEMO、Epic＋Story＋任務、我指派的」→ 目標一句、影響範圍 DevOps＋營運＋PM／稽核、負責人 Drew、10/6→12/31 → 基準「查一件事要問人幾次」沒數字先量 → 四個 Story 名稱確認（拿掉「從 Jira 同步」）→ 負責人 Blake／Casey／Hank／Drew → 建單。</div>
-<div class="box"><b>文件怎麼問</b>（DEMO-2642 實際問法）：它不會列出九種。先從 Story 內容推出一到兩種，一題一題問：<br>
+<div class="card"><b>這次實際的對話</b>：Alex 答「知識庫建置、DEMO、Epic＋Story＋任務、我指派的」→ 目標一句、影響範圍 DevOps＋營運＋PM／稽核、負責人 Drew、10/6→12/31 → 基準「查一件事要問人幾次」沒數字先量 → 四個 Story 名稱確認（拿掉「從 Jira 同步」）→ 負責人 Blake／Casey／Hank／Drew → 建單。</div>
+<div class="card"><b>文件怎麼問</b>（DEMO-2642 實際問法）：它不會列出九種。先從 Story 內容推出一到兩種，一題一題問：<br>
 1. 要交哪種文件？　使用者手冊／維護手冊／都要 → 主管選「維護手冊」<br>
 2. 維護手冊寫完交接給誰？　Evan Su／Casey Ho／Drew Kao → 選「Evan Su」<br>
 3. 正本放哪？　DocHub（預設）／GitLab／兩邊都放（v1.7.0 新增）<br>
 4. 期限？　2026-10-23／2026-10-16 → 選「2026-10-23」<br>
 撰寫者預設是執行者 Finn Lu，回報時寫明，主管沒改就照預設。</div>
-<div class="rule"><b>開單必填八項</b>，缺一項它會先問、不開單：提出者與提出紀錄、決定者、負責人與執行者與工具作者、影響範圍、成功指標、簽收者、能力面向一到三項、依據放哪。</div>
-<hr class="sec"><h2 id="sec-7">7. 描述怎麼寫</h2>
+<div class="card ok"><b>開單必填八項</b>，缺一項它會先問、不開單：提出者與提出紀錄、決定者、負責人與執行者與工具作者、影響範圍、成功指標、簽收者、能力面向一到三項、依據放哪。</div>
+</div><div class="blk"><h2>7. 描述怎麼寫</h2>
 <p>描述先用 Markdown 寫，再用 skill 內的 <code>scripts/md2adf.py</code> 轉成 Jira 的格式（ADF）。轉換前會自動跑 ASD-STE100 寫法檢查，沒通過就停下並列出要改的句子。只有段落標題加 emoji，內文不加。</p>
-<div class="tblw"><table class="g"><tr><th>類型</th><th>段落順序</th></tr>
+<div class="tblw"><table class="t"><tr><th>類型</th><th>段落順序</th></tr>
 <tr><td>Story</td><td>資訊框、🎯 目標、📏 成功指標、🏷️ 能力面向（PACE）、👥 責任</td></tr>
 <tr><td>Sub-task</td><td>資訊框、🎯 目標、✅ 完成條件、📊 現況與結果、📝 實作紀錄、👥 責任</td></tr></table></div>
 <p><a href="https://jira.example.com/browse/DEMO-2642" target="_blank">DEMO-2642</a> 的描述（Markdown 原稿，節錄）：</p>
-<pre class="code">&gt; 屬 Epic DEMO-1155。本描述於 2026-10-06 依 jira 改寫。
+<pre>&gt; 屬 Epic DEMO-1155。本描述於 2026-10-06 依 jira 改寫。
 &gt; 原描述：蒐集全公司使用者的 AI 用量。
 
 ## 🎯 目標
@@ -277,22 +325,31 @@ footer{margin-top:40px;color:var(--mut);font-size:13px;border-top:1px solid var(
 | 負責人 | Finn Lu |
 | 簽收者 | Jamie Chen（CTO），DEMO-2959 |</pre>
 <p>「範圍外」是選填。容易被追加需求時才寫。沒有就整段省略。</p>
-<hr class="sec"><h2 id="sec-8">8. 留言只有四種</h2>
+</div><div class="blk"><h2>8. 留言只有四種</h2>
 <p>驗證結果和使用數字不留在 Story，寫在 Sub-task。Story 的留言只剩四種，加一種補附件用的。第一行固定標籤，第一句「誰於哪天做了什麼」。</p>
-<div class="tblw"><table class="g"><tr><th>標籤</th><th>何時</th><th>要寫</th></tr>
-<tr><td><span class="tag b1">【決定】</span></td><td>做了選擇</td><td>決定者、提案人、原因、被否決方案。延後或取消用【延後】【取消】</td></tr>
-<tr><td><span class="tag b2">【異動】</span></td><td>改了正式環境</td><td>改前改後值、驗證方法、回復方式、備份位置</td></tr>
-<tr><td><span class="tag b4">【阻礙】</span></td><td>做不到或先不做</td><td>處置、知悉的主管全名與日期</td></tr>
-<tr><td><span class="tag b3">【核示】</span></td><td>主管指派／核准／裁示／確認</td><td>主管本人帳號留才算。別人代記錄要寫「代記錄，待 Alex Wu 回覆確認」</td></tr>
-<tr><td><span class="tag b5">【補充】</span></td><td>事後補附件</td><td>補充日與事件日兩個日期。沒附件的補充不計入</td></tr>
+<div class="tblw"><table class="t"><tr><th>標籤</th><th>何時</th><th>要寫</th></tr>
+<tr><td><span class="pill o1">【決定】</span></td><td>做了選擇</td><td>決定者、提案人、原因、被否決方案。延後或取消用【延後】【取消】</td></tr>
+<tr><td><span class="pill o3">【異動】</span></td><td>改了正式環境</td><td>改前改後值、驗證方法、回復方式、備份位置</td></tr>
+<tr><td><span class="pill o2">【阻礙】</span></td><td>做不到或先不做</td><td>處置、知悉的主管全名與日期</td></tr>
+<tr><td><span class="pill o4">【核示】</span></td><td>主管指派／核准／裁示／確認</td><td>主管本人帳號留才算。別人代記錄要寫「代記錄，待 Alex Wu 回覆確認」</td></tr>
+<tr><td><span class="pill st-todo">【補充】</span></td><td>事後補附件</td><td>補充日與事件日兩個日期。沒附件的補充不計入</td></tr>
 </table></div>
-<div class="rule"><b>同一人、同一天、同一張單只留一則</b>，分段標子類型。</div>
+<div class="card ok"><b>同一人、同一天、同一張單只留一則</b>，分段標子類型。</div>
 <p>實例，<a href="https://jira.example.com/browse/DEMO-2910" target="_blank">DEMO-2910</a> 的【核示】留言（Alex Wu，2026-10-05，三件事合一則）：</p>
 <pre>【核示】Alex Wu，2026-10-05。
 裁示：工單 reporter 為部門主管或組長。開單人不需為執行者本人。
 確認：第 1、2、3、5、6、7、8 項已上線。依據 Evan Su 10/1 留言與 commit a1b2c3d。
 指派：Evan Su 於 10/7 前逐項補驗證紀錄，然後轉 Done。</pre>
-<hr class="sec"><h2 id="sec-9">9. 送簽收</h2>
+</div><div class="blk"><h2>13. 寫法：一句一事</h2>
+<p>工單文字照 ASD-STE100 的原則寫。審查讀工單的方式和它一樣：找動作者、日期、對象、數字。</p>
+<div class="tblw"><table class="t"><tr><th>不要這樣寫</th><th>要這樣寫</th></tr>
+<tr><td>已完成防火牆相關設定調整並通知使用者測試正常</td><td>Casey Ho 於 2026-06-01 新增 policy 123。Ian Shaw 於同日回覆連線正常。</td></tr>
+<tr><td>已完成、已確認、已處理</td><td>Finn Lu 於 2026-05-28 上線報告。</td></tr>
+<tr><td>效能大幅提升</td><td>開機時間從 2 分 05 秒降到 6 秒。量法 journalctl。量測日 2026-03-10。</td></tr>
+<tr><td>優化、處理、調整、改善、相關</td><td>建置、設定、升級、刪除、新增、量測、驗證、排查、修復、決定、使用</td></tr>
+<tr><td>6/1 下午</td><td>2026-06-01 14:33 +08:00</td></tr></table></div>
+<p>自動檢查三條：一句不超過 25 字；不用「優化、處理、調整、改善、相關、已完成、已確認」；縮寫第一次出現寫全名。描述經 <code>md2adf.py</code> 轉換時自動檢查，留言可用 <code>scripts/ste_check.py</code> 檢查。完整規則在 <code>references/ste-writing-rules.md</code>。</p>
+</div></section><section id="g3"><div class="divider"><span>收尾</span>送簽收、使用統計、關單</div><div class="blk"><h2>9. 送簽收</h2>
 <p>簽收者通常不是 DevOps 的人。他們不進 DEMO 專案。所以簽收單開在他們自己部門的服務台。</p>
 <ol class="steps">
 <li>執行者做完，在簽收 Sub-task 留【自測】寫自測結果值。與成功指標同量法。附件掛上。</li>
@@ -300,13 +357,13 @@ footer{margin-top:40px;color:var(--mut);font-size:13px;border-top:1px solid var(
 <li>簽收者在自己的單留言結果並關單。</li>
 <li>DEMO 簽收 Sub-task 轉 Done，留一行「REQ-xxx，Gwen Yu 於 2026-xx-xx 關單」。</li>
 </ol>
-<div class="tblw"><table class="g"><tr><th>簽收者部門</th><th>服務台</th></tr>
+<div class="tblw"><table class="t"><tr><th>簽收者部門</th><th>服務台</th></tr>
 <tr><td>PM</td><td>REQ，request type 100 一般業務需求</td></tr>
 <tr><td>DA</td><td>DAS</td></tr><tr><td>HW</td><td>HWS</td></tr><tr><td>TB</td><td>TBS</td></tr>
 <tr><td>營運團隊（無服務台）</td><td>DOPS，或請對方在簽收 Sub-task 留言</td></tr></table></div>
-<div class="no"><b>三條硬規則</b>：簽收者不能是執行者。簽收單做完才開。DevOps 內部的簽收者直接在 Sub-task 留言轉 Done，不開服務台單。</div>
+<div class="card no"><b>三條硬規則</b>：簽收者不能是執行者。簽收單做完才開。DevOps 內部的簽收者直接在 Sub-task 留言轉 Done，不開服務台單。</div>
 <p>實例：<a href="https://jira.example.com/browse/DEMO-2943" target="_blank">DEMO-2943</a> 指派給執行者 Blake Lin。描述最後一段寫了流程：「執行者做完在本任務留【自測】寫自測結果值。然後送簽收：在 REQ 開『請簽收』單給 Gwen Yu，Relates 連回本任務。」</p>
-<hr class="sec"><h2 id="sec-10">10. 使用統計怎麼撈</h2>
+</div><div class="blk"><h2>10. 使用統計怎麼撈</h2>
 <p>只在 DevOps 內用，審查讀成團隊級，最多 A 級。要上 S 級，要有其他團隊的使用紀錄。所以數字要<b>按團隊分開列</b>，不是給一個總數。</p>
 <pre>期間 2026-12-01 到 12-31，Agent 查詢紀錄
 TA     6 人   95 次
@@ -314,12 +371,12 @@ TB   4 人   61 次
 HW   2 人   20 次
 PM     1 人   14 次
 DevOps 5 人  122 次</pre>
-<div class="tblw"><table class="g"><tr><th>Story 類型</th><th>使用怎麼證明</th></tr>
+<div class="tblw"><table class="t"><tr><th>Story 類型</th><th>使用怎麼證明</th></tr>
 <tr><td>面向使用者（Wiki、AI、VDI、報表）</td><td>使用紀錄依團隊分</td></tr>
 <tr><td>基礎設施（k8s、網路、防火牆、儲存）</td><td>跑在上面的服務屬於哪些團隊；申請或變更工單的申請人部門；流量或容量的使用方</td></tr>
 <tr><td>純 DevOps 內部（備份、監控自用）</td><td>寫「無」，不建使用統計。走基準量測加簽收的前後數字就好</td></tr></table></div>
 <p>系統紀錄優先。第三方留言是加分，不是必要。兩者都撈不到就寫「無」，接受停在團隊級。實例見 <a href="https://jira.example.com/browse/DEMO-2944" target="_blank">DEMO-2944</a>。</p>
-<hr class="sec"><h2 id="sec-11">11. 關單</h2>
+</div><div class="blk"><h2>11. 關單</h2>
 <p><b>條件</b>：基準量測與簽收 Sub-task 都 Done。有文件 Sub-task 時，它是 Done，而且有接手者留言。使用統計已建且有到期日。依據掛在工單。</p>
 <p><b>關單留言兩行</b>：每條成功指標的結果值對目標值；各結構 Sub-task 的 key。</p>
 <pre>【關單】Blake Lin 於 2026-12-20 上線每日作業 SOP 與變更 Review 頁。
@@ -327,23 +384,14 @@ SC-1：連續 22 個工作日每日 1 頁，達成。
 簽收 DEMO-2943 Done（REQ-xxx，Gwen Yu 2026-12-22）。使用統計 DEMO-2944 到期 2027-01-20。
 產出：Wiki 頁面清單已掛 DEMO-2943。
 未做：無。</pre>
-<hr class="sec"><h2 id="sec-12">12. 另外兩張單：單一 Story 的例子</h2>
-<div class="tblw"><table class="g"><tr><th>單</th><th>說明</th></tr>
+</div></section><section id="g4"><div class="divider"><span>參考</span>其他例子、扣分情況、常見問題</div><div class="blk"><h2>12. 另外兩張單：單一 Story 的例子</h2>
+<div class="tblw"><table class="t"><tr><th>單</th><th>說明</th></tr>
 <tr><td><a href="https://jira.example.com/browse/DEMO-2942" target="_blank">DEMO-2942</a> Jira 服務台 skill 正名為 jira-ticket</td><td>單一 Story，不掛 Epic。有決定者（Alex Wu 決定新名稱）。基準寫「無量測」，改名案沒有數字可量。Relates 前身 DEMO-2581。Sub-task <a href="https://jira.example.com/browse/DEMO-2952" target="_blank">DEMO-2952</a> 加 HW Team 服務台 HWS 的開單功能。</td></tr>
 <tr><td><a href="https://jira.example.com/browse/DEMO-2936" target="_blank">DEMO-2936</a> 匯出 2026-06-01 防火牆 log</td><td>單一 Story。SC 是「檔內時間與事件日的差距從 114 天到 0 天」。這是補資料時被審查判「日期矛盾」的那一條，開單去修。</td></tr>
 </table></div>
-<hr class="sec"><h2 id="sec-13">13. 寫法：一句一事</h2>
-<p>工單文字照 ASD-STE100 的原則寫。審查讀工單的方式和它一樣：找動作者、日期、對象、數字。</p>
-<div class="tblw"><table class="g"><tr><th>不要這樣寫</th><th>要這樣寫</th></tr>
-<tr><td>已完成防火牆相關設定調整並通知使用者測試正常</td><td>Casey Ho 於 2026-06-01 新增 policy 123。Ian Shaw 於同日回覆連線正常。</td></tr>
-<tr><td>已完成、已確認、已處理</td><td>Finn Lu 於 2026-05-28 上線報告。</td></tr>
-<tr><td>效能大幅提升</td><td>開機時間從 2 分 05 秒降到 6 秒。量法 journalctl。量測日 2026-03-10。</td></tr>
-<tr><td>優化、處理、調整、改善、相關</td><td>建置、設定、升級、刪除、新增、量測、驗證、排查、修復、決定、使用</td></tr>
-<tr><td>6/1 下午</td><td>2026-06-01 14:33 +08:00</td></tr></table></div>
-<p>自動檢查三條：一句不超過 25 字；不用「優化、處理、調整、改善、相關、已完成、已確認」；縮寫第一次出現寫全名。描述經 <code>md2adf.py</code> 轉換時自動檢查，留言可用 <code>scripts/ste_check.py</code> 檢查。完整規則在 <code>references/ste-writing-rules.md</code>。</p>
-<hr class="sec"><h2 id="sec-14">14. 審查常見不計入的七種情況</h2>
+</div><div class="blk"><h2>14. 審查常見不計入的七種情況</h2>
 <p>這些是審查時最常見的不計入原因。每一種都對應到上面某個欄位。</p>
-<div class="tblw"><table class="g"><tr><th>情況</th><th>審查怎麼處理</th><th>開單時怎麼避免</th></tr>
+<div class="tblw"><table class="t"><tr><th>情況</th><th>審查怎麼處理</th><th>開單時怎麼避免</th></tr>
 <tr><td>主管陳述沒有具名</td><td>七則全部不計入</td><td>【決定】【核示】寫決定者全名與日期</td></tr>
 <tr><td>週報裡寫的事</td><td>0 分</td><td>當週把紀錄留在工單，附件掛工單</td></tr>
 <tr><td>事後寫的排查紀錄</td><td>0 分，只做對照</td><td>排查當天留【異動】或【補充】並附 log</td></tr>
@@ -351,8 +399,8 @@ SC-1：連續 22 個工作日每日 1 頁，達成。
 <tr><td>工具是別人建的，本人只執行</td><td>不算本人</td><td>工具作者與執行者分開寫</td></tr>
 <tr><td>同一份紀錄放兩個面向</td><td>只算一項</td><td>每份附件一個主面向，能力面向一到三項</td></tr>
 <tr><td>大量工單只有數量</td><td>工作量不計分</td><td>關單留 SC 結果值與母體；跨部門申請人全名</td></tr></table></div>
-<hr class="sec"><h2 id="sec-15">15. 常見問題</h2>
-<div class="tblw"><table class="g"><tr><th>問</th><th>答</th></tr>
+</div><div class="blk"><h2>15. 常見問題</h2>
+<div class="tblw"><table class="t"><tr><th>問</th><th>答</th></tr>
 <tr><td>什麼是 Toolbridge 閘道</td><td>DevOps 自建的 MCP 服務（toolbridge.example.com），Claude Code 透過它操作 Jira 與 DocHub。jira 與 jira-ticket 兩個 skill 都走它。和模型代理服務是不同的東西。</td></tr>
 <tr><td>開單人都是 Alex，不是我</td><td>Toolbridge 閘道 用 Alex 的 token。Alex 10/5 裁示：reporter 是部門主管或組長就好，「誰提的」看描述的提出者欄。</td></tr>
 <tr><td>Sub-task 建不出來</td><td>Toolbridge 閘道 10/1 更新後可以直接建。要重啟 Claude Code 才看得到新工具。</td></tr>
@@ -362,7 +410,7 @@ SC-1：連續 22 個工作日每日 1 頁，達成。
 <tr><td>文件類型不在九種裡</td><td>選最接近的一種，必要章節照該類型。真的對不上，在 Sub-task 寫明用了哪些章節、為什麼。</td></tr>
 <tr><td>範圍外要寫嗎</td><td>選填。容易被追加需求、或要證明邊界是誰框定的才寫。沒有就省略，不寫「無」。</td></tr>
 <tr><td>和 jira-ticket skill 怎麼分</td><td>報修、申請、查我的單、服務台一句話開單用 jira-ticket。DevOps 專案的 Epic、Story、留決策、簽收、關單用 jira。</td></tr></table></div>
-<footer>jira v1.10.0。範例單號為示意（知識庫 2026-10-05，DEMO-2642 補單 2026-10-06）。skill 原始碼與 references：example/skills/jira。產出日期 2026-10-06。</footer></div><script>/* Momo 章節導覽列：捲到哪章亮哪章。捕捉階段監聽捲動，頁面放在網頁程式的內層捲動元素裡也收得到。
+</div></section></main><footer>jira v1.10.0。範例單號為示意（知識庫 2026-10-05，DEMO-2642 補單 2026-10-06）。skill 原始碼與 references：example/skills/jira。產出日期 2026-10-06。</footer><script>/* Atlas 章節導覽列：捲到哪章亮哪章。捕捉階段監聽捲動，頁面放在網頁程式的內層捲動元素裡也收得到。
    判定線用導覽列實際高度，多排換行時才不會亮錯章。 */
 (function(){
   var nav=document.querySelector('nav.mnav'); if(!nav) return;

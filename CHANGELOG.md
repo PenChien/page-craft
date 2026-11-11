@@ -22,7 +22,7 @@
 ## 1.10.0（2026-10-25）
 
 - MR !1 review 修正：STE 檢查路徑、自檢例外、目標管理系統 細節移到 `references/web-app-embed.md`。
-- 示範頁：Momo 導覽列、淡色立體版、Ocean 淺色範例區塊、Ocean 章節導覽列。
+- 示範頁：Atlas 導覽列、淡色立體版、Harbor 淺色範例區塊、Harbor 章節導覽列。
 
 ## 1.9.1（2026-10-24）
 
@@ -30,15 +30,11 @@
 
 ## 1.9.0（2026-10-24）
 
-- 內建 SeeCode，Ocean 範例加送簽收序列圖（已在 1.9.1 撤回）。
+- 內建 SeeCode，Harbor 範例加送簽收序列圖（已在 1.9.1 撤回）。
 
 ## 1.8.0（2026-10-24）
 
 - live-panel 加 16:9 監控牆風格。
-
-## 1.7.0（2026-10-24）
-
-- skill-ui 改名為 skill-html。
 
 ## 1.6.0（2026-10-24）
 
@@ -46,15 +42,15 @@
 
 ## 1.5.0（2026-10-24）
 
-- 內建 live-panel。Radix 示範改用 loop 動態圖。
+- 內建 live-panel。Paper 示範改用 loop 動態圖。
 
 ## 1.4.0（2026-10-24）
 
-- jira 使用說明三版示範：Radix、Ocean、Momo。
+- jira 使用說明三版示範：Paper、Harbor、Atlas。
 
 ## 1.3.0（2026-10-24）
 
-- 新增風格 C：Momo 計畫版。架構圖改為四選一。
+- 新增風格 C：Atlas 計畫版。架構圖改為四選一。
 
 ## 1.2.0 – 1.2.2（2026-10-24）
 
@@ -64,8 +60,8 @@
 
 ## 1.1.0（2026-10-24）
 
-- 兩種風格：Radix 極簡、Ocean 深藍。架構圖可選 Mermaid 或 live-panel。
+- 兩種風格：Paper 極簡、Harbor 深藍。架構圖可選 Mermaid 或 live-panel。
 
 ## 1.0.0（2026-10-24）
 
-- 第一版（skill-ui）：Radix Colors 色系、11 條 UI 設計規範、套用流程、自檢清單。
+- 第一版：Radix Colors 色系、11 條 UI 設計規範、套用流程、自檢清單。

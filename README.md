@@ -1,42 +1,40 @@
-# skill-html
-
-舊名 skill-ui，2026-10-24 正名為 skill-html。
+# page-craft
 
 內部報告 HTML 的**設計 + 發布工具**。把寫好的報告內容，套成一致的視覺風格，發布到 static.example.com，並做版本控制。
 
 ## 示範（線上）
 
-首頁：https://penchien.github.io/skill-html-demo/
+首頁：https://penchien.github.io/page-craft-demo/
 
 | 頁面 | 風格 | 架構圖 | 網址 |
 |---|---|---|---|
-| jira 使用說明 | Radix 極簡 | live-panel 動態圖 | https://penchien.github.io/skill-html-demo/jira-radix.html |
-| jira 使用說明 | Ocean 深藍 | inline SVG 泳道 | https://penchien.github.io/skill-html-demo/jira-ocean.html |
-| jira 使用說明 | Momo 計畫版 | CSS 流程框 | https://penchien.github.io/skill-html-demo/jira-momo.html |
-| Momo 元件示範 | Momo 計畫版 | 三種並列 | https://penchien.github.io/skill-html-demo/momo-demo.html |
-| live-panel 示範 | live-panel | loop、ring、funnel、終端機面板、16:9 監控牆 | https://penchien.github.io/skill-html-demo/live-panel-demo.html |
+| jira 使用說明 | Paper 極簡 | live-panel 動態圖 | https://penchien.github.io/page-craft-demo/jira-paper.html |
+| jira 使用說明 | Harbor 深藍 | inline SVG 泳道 | https://penchien.github.io/page-craft-demo/jira-harbor.html |
+| jira 使用說明 | Atlas 計畫版 | CSS 流程框 | https://penchien.github.io/page-craft-demo/jira-atlas.html |
+| Atlas 元件示範 | Atlas 計畫版 | 三種並列 | https://penchien.github.io/page-craft-demo/atlas-demo.html |
+| live-panel 示範 | live-panel | loop、ring、funnel、終端機面板、16:9 監控牆 | https://penchien.github.io/page-craft-demo/live-panel-demo.html |
 
-原始檔在 `examples/` 與 `assets/`。站名 `skill-html-demo` 是正名前開的，網址不變。
+原始檔在 `examples/` 與 `assets/`。
 
 ## 能做什麼
 
-1. **設計**：三種可選風格 — Radix 極簡、Ocean 深藍、Momo 計畫版。色票、表格、彩色卡片、架構圖四選一。
+1. **設計**：三種可選風格 — Paper 極簡、Harbor 深藍、Atlas 計畫版。色票、表格、彩色卡片、架構圖四選一。
 2. **發布**：上傳到 static.example.com portal，預覽到正式，cmp 逐 byte 驗證，刪預覽。
 3. **版控**：commit 推 GitLab，rollback 備份。
 
 ## 用法
 
-Claude Code 載入後，說「改 UI」「美化報告」「發布到 space」「Radix」「Ocean」「Momo」「架構圖」即觸發。規範與流程全文見 `SKILL.md`。
+Claude Code 載入後，說「改 UI」「美化報告」「發布到 space」「Paper」「Harbor」「Atlas」「架構圖」即觸發。規範與流程全文見 `SKILL.md`。
 
 ## 三種風格
 
 | 風格 | 個性 | 適合 |
 |---|---|---|
-| Radix 極簡 | sand 中性、0.5px、低對比、守 11 條 | 資料密集、要中性專業 |
-| Ocean 深藍 | #1f4e79、標題左線、善用表格、彩色卡片 | 說明文件、要引導閱讀 |
-| Momo 計畫版 | 深藍封面、灰底白卡、章節 chip、進度條、狀態 pill | 季度計畫、OKR 進度、roadmap |
+| Paper 極簡 | sand 中性、0.5px、低對比、守 11 條 | 資料密集、要中性專業 |
+| Harbor 深藍 | #1f4e79、標題左線、善用表格、彩色卡片 | 說明文件、要引導閱讀 |
+| Atlas 計畫版 | 深藍封面、灰底白卡、章節 chip、進度條、狀態 pill | 季度計畫、OKR 進度、roadmap |
 
-三者不同取捨，內文不要混用；頁首與導覽列可沿用 Momo。動手前問使用者要哪種。Momo 的 CSS 與示範頁在 `assets/`（`momo.css`、`momo-demo.html`）。
+三者不同取捨，內文不要混用；頁首與導覽列可沿用 Atlas。動手前問使用者要哪種。Atlas 的 CSS 與示範頁在 `assets/`（`atlas.css`、`atlas-demo.html`）。
 
 ## 文案：ASD-STE100 寫法
 
@@ -63,7 +61,7 @@ python3 "$(find ~/.claude/skills -name ste_check.py | head -1)" <檔>
 #   整個 repo clone ~/.claude/skills/jira/skills/jira/scripts/ste_check.py
 ```
 
-同一個概念全文用同一個詞。Radix 風格另外不用中點「·」當分隔。
+同一個概念全文用同一個詞。Paper 風格另外不用中點「·」當分隔。
 
 ## 發布（static.example.com）
 
@@ -83,7 +81,7 @@ python3 "$(find ~/.claude/skills -name ste_check.py | head -1)" <檔>
 
 選法：線性 → CSS 流程框；分支 → Mermaid；泳道 → inline SVG；展示面板 → live-panel。
 
-示範：`examples/jira/` 用 jira 使用說明做三版（Radix＋live-panel、Ocean＋SVG 泳道、Momo＋CSS 流程框），`build.py` 可重建。
+示範：`examples/jira/` 用 jira 使用說明做三版（Paper＋live-panel、Harbor＋SVG 泳道、Atlas＋CSS 流程框），`build.py` 可重建。
 
 drawio 轉檔：把 drawio 架構圖重繪成 inline SVG 線路圖，也能用 `svg2drawio.py` 把線路圖轉回可編輯的 drawio。步驟見 `references/drawio.md`，範例在 `examples/drawio-arch/`。
 
@@ -99,4 +97,4 @@ drawio 轉檔：把 drawio 架構圖重繪成 inline SVG 線路圖，也能用 `
 
 ## 正本
 
-GitLab：https://git.example.com/skills/skill-html
+GitLab：https://git.example.com/skills/page-craft
